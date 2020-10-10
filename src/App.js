@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import React, {Component} from 'react'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
-import logo from './logo.svg';
-import './App.css';
+import logo from './logo.svg'
+import './App.css'
 
-import Register from './components/Register/Register';
+import SignUp from './components/SignUp/SignUp'
+import SignIn from './components/SignIn/SignIn'
 
 class App extends Component {
     // constructor(props) {
@@ -18,17 +19,17 @@ class App extends Component {
     //
     // }
 
-    render() {
-        return (
-            <BrowserRouter>
-                <Switch>
-                    <Route exact path="/register" component={ Register } />
-                    {/* <Route exact path="/login" component={ Login } /> */}
-                    {/* <Route path="/" component={ RedirectToLogin } /> */}
-                </Switch>
-            </BrowserRouter>
-        );
-    }
+  render () {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/users/signup' component={SignUp} />
+          <Route exact path='/users/signin' component={SignIn} />
+          {/* <Route path='/' component={RedirectToLogin} /> */}
+        </Switch>
+      </BrowserRouter>
+    )
+  }
 }
 
-export default App;
+export default App
