@@ -1,6 +1,5 @@
 """Dependency and package import."""
 import os
-import requests
 from flask import Flask
 from hydra.config import Config
 
@@ -19,7 +18,7 @@ def create_app(config_class=Config):
     """Function to create app."""
 
     app = Flask(__name__)
-    app.config_from_object(config_class)
+    app.config.from_object(config_class)
     # login_manager.init_app(app)
 
     from hydra.main.routes import main
@@ -29,6 +28,6 @@ def create_app(config_class=Config):
     # TODO: continue route imports
 
     app.register_blueprint(main)
-    app.register_blueprint(user)
+    app.register_blueprint(users)
 
     return app

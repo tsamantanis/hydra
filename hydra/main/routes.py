@@ -10,4 +10,4 @@ main = Blueprint("main", __name__)
 @main.route("/")
 def home():
     """Return homepage."""
-    return render_template("index.html")
+    return "You are home."
