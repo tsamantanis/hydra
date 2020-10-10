@@ -94,3 +94,40 @@
 .Main .Users .UserItem .User .UserStatus {
     color: var(--lightAccent);
 }
+
+.Main .Feed .Posts {
+    height: 100%;
+}
+
+.Main .CreatePost {
+    align-items: center;
+    background-color: var(--light);
+    width: 90%;
+    margin-bottom: 10px;
+}
+
+.Main .CreatePost .NewPostMessage {
+    width: 100%;
+    background: transparent;
+    outline: none;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid var(--accent);
+    color: var(--darkAccent);
+}
+
+textarea::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--accent);
+  opacity: 0.8; /* Firefox */
+  font-weight: 1000;
+}
+
+textarea:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: var(--accent);
+  font-weight: 1000;
+}
+
+textarea::-ms-input-placeholder { /* Microsoft Edge */
+  color: var(--accent);
+  font-weight: 1000;
+}

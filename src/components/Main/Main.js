@@ -33,11 +33,11 @@ class Main extends Component {
                     <SearchBar
                         placeHolder='Search class_name'
                     />
-                    <Post />
+                    <div className='Posts'>
+                        <Post />
+                    </div>
                     <div className='CreatePost'>
-                        <form>
-                            <textarea placeholder='Message class_name' />
-                        </form>
+                        <textarea className="NewPostMessage" placeholder='Message class_name' rows="3" />
                     </div>
                 </div>
                 <div className='Users'>

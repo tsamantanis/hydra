@@ -10,7 +10,7 @@
 
 /* Heading and Text */
 
-h1, h2, h3, h4, h5, h6, p, button {
+h1, h2, h3, h4, h5, h6, p, button, input, textarea {
   font-family: 'Jaldi', sans-serif;
   font-weight: bold;
   margin: 0;
