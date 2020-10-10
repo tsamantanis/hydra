@@ -1,8 +1,41 @@
 import React, {Component} from 'react'
+import axios from 'axios'
 import '../../App.css'
 import happiness from '../../assets/happiness.svg'
 
 class SignIn extends Component {
+  signUp () {
+    const firstName = document.querySelector('input[name=firstName]').value
+    const lastName = document.querySelector('input[name=lastName]').value
+    const email = document.querySelector('input[name=email]').value
+    const password = document.querySelector('input[name=password]').value
+    const confirmPassword = document.querySelector('input[name=confirmPassword]').value
+    if (firstName && lastName && email && password && password === confirmPassword) {
+      axios.post('/users/signup/', {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password
+      })
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+    } else if (!firstName) {
+      console.log('Please enter a first name.')
+    } else if (!lastName) {
+      console.log('Please enter a last name.')
+    } else if (!email) {
+      console.log('Please enter an email.')
+    } else if (!password) {
+      console.log('Please enter a password.')
+    } else if (password !== confirmPassword) {
+      console.log('Please ensure passwords match.')
+    }
+  }
+
   render () {
     return (
       <div className='SignUp splitView'>
@@ -24,7 +57,7 @@ class SignIn extends Component {
               <label htmlFor='password'>Confirm Password</label>
               <input type='password' name='confirmPassword' placeholder='Confirm the password' />
             </fieldset>
-            <button type='submit'>Sign Up</button>
+            <button type='button' onClick={this.signUp}>Sign Up</button>
           </form>
           <small>Already have an account? <a href='/users/signin'>Sign In</a></small>
         </div>
