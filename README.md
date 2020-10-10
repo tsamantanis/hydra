@@ -12,10 +12,14 @@ Activate new environment:
 source env/bin/activate
 ```
 
-Install dependencies within environment:
+### Install dependencies within environment
 
 ```zsh
 pip3 install -r requirements.txt
+```
+
+```zsh
+npm install
 ```
 
 ### Run the app
