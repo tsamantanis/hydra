@@ -10,7 +10,6 @@ class SignIn extends Component {
     const email = document.querySelector('input[name=email]').value
     const password = document.querySelector('input[name=password]').value
     const confirmPassword = document.querySelector('input[name=confirmPassword]').value
-    console.log(firstName, lastName, email, password, confirmPassword)
     if (firstName && lastName && email && password && password === confirmPassword) {
       axios.post('/users/signup/', {
         firstName: firstName,
