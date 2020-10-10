@@ -1,4 +1,7 @@
 import React, {Component} from 'react'
+
+import api from '../../api'
+
 import '../../App.css'
 import coworking from '../../assets/coworking.svg'
 

@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+
+import api from '../../api'
+
 import '../../App.css'
 import happiness from '../../assets/happiness.svg'
 
@@ -11,7 +14,7 @@ class SignUp extends Component {
     const password = document.querySelector('input[name=password]').value
     const confirmPassword = document.querySelector('input[name=confirmPassword]').value
     if (firstName && lastName && email && password && password === confirmPassword) {
-      axios.post('/users/signUp/', {
+      api.post('/users/signUp/', {
         firstName: firstName,
         lastName: lastName,
         email: email,

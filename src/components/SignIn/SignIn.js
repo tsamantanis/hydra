@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+
+import api from '../../api'
+
 import '../../App.css'
 import happiness from '../../assets/happiness.svg'
 
@@ -8,7 +11,7 @@ class SignIn extends Component {
     const email = document.querySelector('input[name=email]').value
     const password = document.querySelector('input[name=password]').value
     if (email && password) {
-      axios.post('/users/signIn/', {
+      api.post('/users/signIn/', {
         email: email,
         password: password
       })
