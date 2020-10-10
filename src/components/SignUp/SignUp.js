@@ -13,15 +13,15 @@ class SignIn extends Component {
               <h6>Get access to course material and real instructors</h6>
             </legend>
             <fieldset>
-              <label for='firstName'>First Name</label>
+              <label htmlFor='firstName'>First Name</label>
               <input type='text' name='firstName' placeholder='First' />
-              <label for='lastName'>Last Name</label>
+              <label htmlFor='lastName'>Last Name</label>
               <input type='text' name='lastName' placeholder='Last' />
-              <label for='email'>Email Address</label>
+              <label htmlFor='email'>Email Address</label>
               <input type='email' name='email' placeholder='name@address.com' />
-              <label for='password'>Password</label>
+              <label htmlFor='password'>Password</label>
               <input type='password' name='password' placeholder='Enter a password' />
-              <label for='password'>Confirm Password</label>
+              <label htmlFor='password'>Confirm Password</label>
               <input type='password' name='confirmPassword' placeholder='Confirm the password' />
             </fieldset>
             <button type='submit'>Sign Up</button>
