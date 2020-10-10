@@ -35,7 +35,7 @@ def groupsAll():
 
 @groupBlueprint.route("/create", methods=["POST"])
 def groupCreate():
-    postData = request.form
+    postData = request.json
 
     priceStripeObject = stripe.Price.create(
         unit_amount=postData.price,
@@ -113,7 +113,7 @@ def groupIdJoin(groupId):
         or groupId in currentUser.ownedGroups
     ):
         return "Already Enrolled", 200
-    postData = request.form
+    postData = request.json
     group = db.Group.find({"_id": id(groupId)})
     if group is None:
         return "Group Not Found", 404
