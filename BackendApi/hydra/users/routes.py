@@ -41,10 +41,10 @@ def signUp():
     """Sign up new user, add to DB, return new user object as JSON."""
     if request.method == "GET":
         return
-    firstName = request.json.firstName
-    lastName = request.json.lastName
-    email = request.json.email
-    password = request.json.password
+    firstName = request.json.get("firstName")
+    lastName = request.json.get("lastName")
+    email = request.json.get("email")
+    password = request.json.get("password")
     newUser = User(firstName, lastName, email, password)
     insertUser = {
         "firstName": firstName,
