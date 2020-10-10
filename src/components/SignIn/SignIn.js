@@ -5,17 +5,24 @@ import happiness from '../../assets/happiness.svg'
 
 class SignIn extends Component {
   signIn () {
-    const email = document.querySelector('input[type=email]')
-    console.log(email.value)
-    // axios.post('/users/signin/')
-    // .then(function (response) {
-    //   console.log(response)
-    //   window.location.href = '/admin/employees'
-    // })
-    // .catch(function (error) {
-    //   console.log(error)
-    //   window.location.href = '/admin/employees'
-    // })
+    const email = document.querySelector('input[type=email]').value
+    const password = document.querySelector('input[type=password]').value
+    if (email && password) {
+      axios.post('/users/signin/', {
+        email: email,
+        password: password
+      })
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+    } else if (!email) {
+      console.log('Please enter an email.')
+    } else if (!password) {
+      console.log('Please enter a password.')
+    }
   }
 
   render () {
@@ -33,7 +40,7 @@ class SignIn extends Component {
               <label htmlFor='password'>Password</label>
               <input type='password' name='password' placeholder='Enter your password' />
             </fieldset>
-            <button type='submit' onClick='signIn'>Sign In</button>
+            <button type='button' onClick={this.signIn} >Sign In</button>
           </form>
           <small>Need an account? <a href='/users/signup'>Sign Up</a></small>
         </div>
