@@ -1,4 +1,4 @@
-import flask
+from hydra import flask
 
 groupBlueprint = Blueprint('Groups', __name__)
 
