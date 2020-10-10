@@ -3,16 +3,16 @@
     width: 100%;
 }
 
-form, input[type=text] {
+.SearchBar form, .SearchBar  form input[type=text] {
     width: 97%;
 }
 
-input[type=text] {
+.SearchBar form input[type=text] {
     background-color: var(--darkAccent);
     border: 2px solid var(--light);
     color: var(--light);
 }
 
-input[type=text]::placeholder {
+.SearchBar form input[type=text]::placeholder {
     color: var(--light);
 }

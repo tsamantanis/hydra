@@ -32,6 +32,7 @@ jwt.init_app(app)
 from hydra.main.routes import main
 from hydra.users.routes import users
 from hydra.group.routes import groupBlueprint
+from hydra.channels.routes import channels
 
 # from hydra.groups.routes import groups
 # TODO: continue route imports
@@ -39,4 +40,3 @@ from hydra.group.routes import groupBlueprint
 app.register_blueprint(main, url_prefix="/")
 app.register_blueprint(users, url_prefix="/users")
 app.register_blueprint(groupBlueprint, url_prefix="/groups")
-
