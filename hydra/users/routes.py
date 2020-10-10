@@ -14,6 +14,7 @@ from flask_jwt_extended import (
     get_raw_jwt,
 )
 from hydra.users import utils
+from hydra.users.user import User
 from passlib.hash import sha256_crypt
 from hydra import db, jwt
 
@@ -39,12 +40,7 @@ def signUp():
     lastName = request.form.get("lastName")
     email = request.form.get("email")
     password = sha256_crypt.hash(request.form.get("password"))
-    newUser = {
-        "firstName": firstName,
-        "lastName": lastName,
-        "email": email,
-        "password": password,
-    }
+    newUser = User(firstName, lastName, email, password)
     signUpUser = db.users.insert_one(newUser)
     return jsonify(signUpUser), 200
 

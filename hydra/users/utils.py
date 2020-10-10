@@ -2,8 +2,6 @@
 from flask import request, g, abort
 from jwt import decode, exceptions
 from functools import wraps
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from hydra import app
 import json
 
 # Using JSON Web Tokens as opposed to Flask-Login for ease of use on the
@@ -37,15 +35,3 @@ def login_required(f):
         return f(*args, **kwargs)
 
     return wrap
-
-
-# Define function to create verification token for pass reset
-
-
-def get_reset_token(userId, expires_sec=900):
-    """Enable 'forgot password' functionality."""
-    s = Serializer(app.config["SECRET_KEY"], expires_sec)
-    return s.dumps({"user_id": userId}).decode("utf-8")
-
-
-# Define function to validate verification token
