@@ -7,6 +7,7 @@ import SearchBar from './SearchBar'
 import Post from './Post'
 class Main extends Component {
     render () {
+        let posts = ["Post"]
         return (
             <div className='Main'>
                 <div className='Nav'>
@@ -34,7 +35,13 @@ class Main extends Component {
                         placeHolder='Search class_name'
                     />
                     <div className='Posts'>
-                        <Post />
+                        {posts.map((post) => {
+                            return(
+                                <Post
+
+                                />
+                            )
+                        })}
                     </div>
                     <div className='CreatePost'>
                         <textarea className="NewPostMessage" placeholder='Message class_name' rows="3" />

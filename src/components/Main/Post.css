@@ -1,0 +1,46 @@
+.Post {
+    width: 90%;
+    background: white;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+}
+
+.Post .UserItem {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+}
+
+.Post .UserItem .UserIcon {
+    background-color: var(--accent);
+    border-radius: 10px;
+    height: 48px;
+    width: 48px;
+}
+
+.Post .UserItem .User {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: -15px;
+}
+
+.Post .UserItem .User .UserStatus {
+    color: var(--lightAccent);
+}
+
+.Post .PostContent {
+    margin: 5px 0 0 5px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.Post .PostContent .PostMessage {
+    height: 120px;
+}

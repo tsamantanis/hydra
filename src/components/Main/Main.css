@@ -60,6 +60,13 @@
     flex-basis: 47%;
 }
 
+/* Main Posts */
+.Main .Feed .Posts {
+    height: 100%;
+    width: 100%;
+    margin-top: 10px;
+}
+
 /* Main Users */
 
 .Main .Users {
@@ -93,10 +100,6 @@
 
 .Main .Users .UserItem .User .UserStatus {
     color: var(--lightAccent);
-}
-
-.Main .Feed .Posts {
-    height: 100%;
 }
 
 .Main .CreatePost {
