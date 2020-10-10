@@ -7,16 +7,24 @@
 
 ### Create new virtual environment:
 
-> python3 -m venv env
+```zsh
+python3 -m venv env
+```
 
 Activate new environment:
 
-> source env/bin/activate
+```zsh
+source env/bin/activate
+```
 
 Install dependencies within environment:
 
-> pip3 install -r requirements.txt
+```zsh
+pip3 install -r requirements.txt
+```
 
-Run the app by running (in terminal):
+Run the app by running:
 
-> python3 app.py
+```zsh
+python3 app.py
+```
