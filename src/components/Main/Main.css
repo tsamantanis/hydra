@@ -48,7 +48,7 @@
     align-items: flex-start;
     background-color: var(--darkAccent);
     color: var(--light);
-    flex-basis: 21%;
+    flex-basis: 17%;
 }
 
 .Main .Channels h1 {
@@ -66,7 +66,7 @@
 .Main .Feed {
     align-items: center;
     background-color: var(--light);
-    flex-basis: 47%;
+    flex-basis: 55%;
 }
 
 /* Main Posts */
@@ -82,7 +82,7 @@
     align-items: flex-start;
     background-color: var(--darkAccent);
     color: var(--light);
-    flex-basis: 24%;
+    flex-basis: 20%;
 }
 
 .Main .Users h1 {
