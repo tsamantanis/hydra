@@ -1,125 +1,96 @@
 /* Main */
 
 .Main {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .Main, .Main>div {
-  height: 100%
+    height: 100%
 }
 
 .Main>div {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 /* Main Nav */
 
 .Main .Nav {
-  align-items: center;
-  background-color: var(--dark);
-  flex-basis: 8%;
-  padding: 18px 0;
+    align-items: center;
+    background-color: var(--dark);
+    flex-basis: 8%;
+    padding: 18px 0;
 }
 
 .Main .Nav .NavItem {
-  background-color: var(--accent);
-  border-radius: 10px;
-  height: 60px;
-  width: 60px;
-  margin: 18px;
+    background-color: var(--accent);
+    border-radius: 10px;
+    height: 60px;
+    width: 60px;
 }
 
 /* Main Channels */
 
 .Main .Channels {
-  align-items: flex-start;
-  background-color: var(--darkAccent);
-  color: var(--light);
-  flex-basis: 21%;
+    align-items: flex-start;
+    background-color: var(--darkAccent);
+    color: var(--light);
+    flex-basis: 21%;
 }
 
 .Main .Channels h1 {
-  padding: 18px;
+    padding: 18px;
 }
 
 .Main .Channels hr {
-  border: 1px solid var(--accent);
-  height: 0;
-  margin-top: 40px;
-  width: 100%;
-}
-
-.Main .Channels .ChannelGroup {
-  margin: 16px 0 16px 24px;
-}
-
-.Main .Channels .ChannelGroup>h5 {
-  margin-bottom: 24px;
-}
-
-.Main .Channels .ChannelGroup .ChannelItem {
-  margin: 16px 0;
+    border: 1px solid var(--accent);
+    height: 0;
+    width: 100%;
 }
 
 /* Main Feed */
 
 .Main .Feed {
-  align-items: center;
-  background-color: var(--light);
-  flex-basis: 47%;
+    align-items: center;
+    background-color: var(--light);
+    flex-basis: 47%;
 }
 
 /* Main Users */
 
 .Main .Users {
-  align-items: flex-start;
-  background-color: var(--darkAccent);
-  color: var(--light);
-  flex-basis: 24%;
-}
-
-.Main .Users .UserGroup {
-  margin: 16px 0 16px 16px;
-}
-
-.Main .Users .UserGroup>h4 {
-  margin-bottom: 32px;
+    align-items: flex-start;
+    background-color: var(--darkAccent);
+    color: var(--light);
+    flex-basis: 24%;
 }
 
 .Main .Users .UserItem {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 24px 0;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .Main .Users .UserItem .UserIcon {
-  background-color: var(--accent);
-  border-radius: 10px;
-  height: 48px;
-  width: 48px;
+    background-color: var(--accent);
+    border-radius: 10px;
+    height: 48px;
+    width: 48px;
 }
 
 .Main .Users .UserItem .User {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-left: 9px;
-  margin-top: -14px;
-}
-
-.Main .Users .UserItem .User .UserName {
-  margin: 3px 0;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: -15px;
 }
 
 .Main .Users .UserItem .User .UserStatus {
-  color: var(--lightAccent);
-  margin: 3px 0;
+    color: var(--lightAccent);
 }

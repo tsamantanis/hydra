@@ -3,17 +3,19 @@ import '../../App.css'
 import './Main.css'
 import ChannelGroup from './ChannelGroup'
 import UserGroup from './UserGroup'
+import SearchBar from './SearchBar'
+import Post from './Post'
 class Main extends Component {
     render () {
         return (
             <div className='Main'>
                 <div className='Nav'>
-                    <div className='NavItem' />
-                    <div className='NavItem' />
+                    <div className='NavItem m-b-20' />
+                    <div className='NavItem m-b-20' />
                 </div>
                 <div className='Channels'>
                     <h1>Class Name</h1>
-                    <hr />
+                    <hr className='m-t-40' />
                     <ChannelGroup
                         channelLabel='Lectures'
                         channelNames={['Channel Name', 'Channel Name']}
@@ -28,7 +30,15 @@ class Main extends Component {
                     />
                 </div>
                 <div className='Feed'>
-                    <h1>Posts</h1>
+                    <SearchBar
+                        placeHolder='Search class_name'
+                    />
+                    <Post />
+                    <div className='CreatePost'>
+                        <form>
+                            <textarea placeholder='Message class_name' />
+                        </form>
+                    </div>
                 </div>
                 <div className='Users'>
                     <UserGroup
