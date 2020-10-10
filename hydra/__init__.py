@@ -14,10 +14,11 @@ db = client.test
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
 
-#TODO whereever we want to do the flask_login stuff we need to set the loginManagers load_user meathod
+# TODO whereever we want to do the flask_login stuff we need to set the loginManagers load_user meathod
 # @loginManager.user_loader
 # def load_user(userId):
 #     return db.User.find({'_id' : id(userId)})
+
 
 def create_app(config_class=Config):
     """Return app."""
@@ -28,7 +29,7 @@ def create_app(config_class=Config):
     jwt = JWTManager(app)
 
     from hydra.main.routes import main
-    from hydra.user.routes import user
+    from hydra.users.routes import users
 
     # from hydra.groups.routes import groups
     # TODO: continue route imports
