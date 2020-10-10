@@ -8,11 +8,8 @@ import smtplib
 
 def send_mail(subject, message, receiver):
     """Connect to mail server and send message."""
-
     username = os.getenv("MAIL_USERNAME")
     password = os.getenv("MAIL_PASSWORD")
-    print(username)
-    print(password)
 
     try:
         s = smtplib.SMTP("smtp.gmail.com", 587)
