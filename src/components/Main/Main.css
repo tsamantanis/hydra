@@ -1,0 +1,46 @@
+.Main {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.Main, .Main>div {
+  height: 100%
+}
+
+.Main>div {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.Main .Nav {
+ background-color: var(--dark);
+ flex-basis: 8%;
+ padding: 18px 0;
+}
+
+.Main .Nav .NavItem {
+  background-color: var(--accent);
+  border-radius: 10px;
+  height: 60px;
+  width: 60px;
+  margin: 18px;
+}
+
+.Main .Channels {
+  background-color: var(--darkAccent);
+  flex-basis: 21%;
+}
+
+.Main .Feed {
+  background-color: var(--light);
+  flex-basis: 47%;
+}
+
+.Main .Users {
+  background-color: var(--darkAcent);
+  flex-basis: 24%;
+}
