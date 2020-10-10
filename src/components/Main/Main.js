@@ -11,7 +11,14 @@ class SignIn extends Component {
           <div className='NavItem' />
         </div>
         <div className='Channels'>
-          <h1>Channels</h1>
+          <h1>Class Name</h1>
+          <hr />
+          <div className='ChannelGroup'>
+            <h5>Lectures</h5>
+            <div className='ChannelItem'>
+              <h6># Channel Name</h6>
+            </div>
+          </div>
         </div>
         <div className='Feed'>
           <h1>Posts</h1>

@@ -10,16 +10,16 @@
 }
 
 .Main>div {
-  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
 .Main .Nav {
- background-color: var(--dark);
- flex-basis: 8%;
- padding: 18px 0;
+  align-items: center;
+  background-color: var(--dark);
+  flex-basis: 8%;
+  padding: 18px 0;
 }
 
 .Main .Nav .NavItem {
@@ -31,16 +31,39 @@
 }
 
 .Main .Channels {
+  align-items: flex-start;
   background-color: var(--darkAccent);
+  color: var(--light);
   flex-basis: 21%;
 }
 
+.Main .Channels h1 {
+  padding: 18px;
+  padding-bottom: 0;
+}
+
+.Main .Channels hr {
+  border: 1px solid var(--accent);
+  height: 0;
+  width: 100%;
+}
+
+.Main .Channels .ChannelGroup {
+  padding: 0 24px;
+}
+
+.Main .Channels .ChannelGroup .ChannelItem {
+
+}
+
 .Main .Feed {
+  align-items: center;
   background-color: var(--light);
   flex-basis: 47%;
 }
 
 .Main .Users {
+  align-items: flex-start;
   background-color: var(--darkAcent);
   flex-basis: 24%;
 }
