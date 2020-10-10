@@ -8,14 +8,14 @@ def groupsAll():
     groups = db.Group.find({})
     data = [{
         "name": group.id,
-        "group_id": group.id,
-        "owner_id": group.owner_id,
-        "enrolled_ids": [{
-            str(index) : enrolled_id
-        } for index, enrolled_id in enumerate(group.enrolled_ids)],
-        "content_ids": [{
-            str(index) : content_id
-        } for index, content_id in enumerate(group.content_ids)],
+        "groupId": group.id,
+        "ownerId": group.ownerId,
+        "enrolledIds": [{
+            str(index) : enrolledId
+        } for index, enrolledId in enumerate(group.enrolledIds)],
+        "contentIds": [{
+            str(index) : contentId
+        } for index, contentId in enumerate(group.contentIds)],
         "dis": group.dis,
         "keywords" : [{
             str(index) : keyword
@@ -26,16 +26,23 @@ def groupsAll():
 @hostBlueprint.route('/create', methods=['POST'])
 def groupCreate():
     postData = request.form
+    
+    priceStripeObject = stripe.Price.create(
+        unit_amount=postData.price,
+        currency="usd",
+        recurring={"interval": "month"},
+        product="prod_IAvvfq4TnCuNDG",
+    )
     db.Group.insert_one({
-        owner_id : postData.owner_id,
-        enrolled_ids : {},
-        content_ids : {},
+        ownerId : postData.ownerId,
+        enrolledIds : {},
+        contentIds : {},
         dis : postData.dis,
-        channels_ids : {},
+        channelsIds : {},
         keywords : postData.keywords,
         name : postData.name,
-        price : postData.price,
-        user_loc : {}
+        stripePriceId : priceStripeObject.get('id'),
+        userIoc : {}
     })
     return '', 200
 
@@ -48,37 +55,52 @@ def groupSearch():
     groups
     data = [{
         "name": group.id,
-        "group_id": group.id,
+        "groupId": group.id,
     } for group in groups]
     return flask.jsonify(data), 200
 
-@hostBlueprint.route('/<group_id>', methods=['GET'])
-def groupSearch(group_id):
-    group = db.Group.find({'_id' : id(group_id)})
+@hostBlueprint.route('/<groupId>', methods=['GET'])
+def groupId(groupId):
+    group = db.Group.find({'_id' : id(groupId)})
+    if group is None:
+        return 'Group Not Found', 404
+    priceStripeObject = stripe.Price.retrieve(
+        group.stripePriceId,
+    )
     data = {
         "name": group.id,
-        "group_id": group.id,
-        "owner_id": group.owner_id,
-        "enrolled_ids": [{
-            str(index) : enrolled_id
-        } for index, enrolled_id in enumerate(group.enrolled_ids)],
-        "content_ids": [{
-            str(index) : content_id
-        } for index, content_id in enumerate(group.content_ids)],
+        "groupId": group.id,
+        "ownerId": group.ownerId,
+        "enrolledIds": [{
+            str(index) : enrolledId
+        } for index, enrolledId in enumerate(group.enrolledIds)],
+        "contentIds": [{
+            str(index) : contentId
+        } for index, contentId in enumerate(group.contentIds)],
         "dis": group.dis,
         "keywords" : [{
             str(index) : keyword
-        } for index, keyword in enumerate(group.keywords)]
+        } for index, keyword in enumerate(group.keywords)],
+        "price" : priceStripeObject.get('id')
     }
     return flask.jsonify(data), ''
 
-@hostBlueprint.route('/<group_id>/join', methods=['POST'])
-def groupSearch(group_id):
+@hostBlueprint.route('/<groupId>/join', methods=['POST'])
+def groupIdJoin(groupId):
+    if groupId in currentUser.enrolledGroups or groupId in currentUser.ownedGroups:
+        return 'Already Enrolled', 200
     postData = request.form
-    group = db.Group.find({'_id' : id(group_id)})
-    group.enrolled_id.append()
-    
-        #TODO how to we wanna get _id
-    
-    
-    return '', 200
+    group = db.Group.find({'_id' : id(groupId)})
+    if group is None:
+        return 'Group Not Found', 404
+    priceSubscriptionObject = stripe.Subscription.create(
+        customer=currentUser.stripeId,
+        items=[
+            {"price": group.stripePriceId},
+        ],
+        defaultPaymentMethod=postData.paymentMethodId
+    )
+    if priceSubscriptionObject.get('status'):
+        group.enrolledId.append(currentUser._id)
+        return 'Invalid Payment', 200
+    return 'Group Joined', 200
