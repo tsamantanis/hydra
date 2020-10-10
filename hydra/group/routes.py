@@ -2,10 +2,10 @@ from hydra import flask
 from flask import Blueprint
 from flask_jwt_extended import jwt_required
 
-hostBlueprint = Blueprint("Groups", __name__)
+groupBlueprint = Blueprint("Groups", __name__)
 
 
-@hostBlueprint.route("/", methods=["GET"])
+@groupBlueprint.route("/", methods=["GET"])
 @jwt_required
 def groupsAll():
     groups = db.Group.find({})
@@ -33,7 +33,7 @@ def groupsAll():
     return flask.jsonify(data), ""
 
 
-@hostBlueprint.route("/create", methods=["POST"])
+@groupBlueprint.route("/create", methods=["POST"])
 def groupCreate():
     postData = request.form
 
@@ -59,7 +59,7 @@ def groupCreate():
     return "", 200
 
 
-@hostBlueprint.route("/search", methods=["GET"])
+@groupBlueprint.route("/search", methods=["GET"])
 def groupSearch():
     getData = request.args
     groups = list()
@@ -76,7 +76,7 @@ def groupSearch():
     return flask.jsonify(data), 200
 
 
-@hostBlueprint.route("/<groupId>", methods=["GET"])
+@groupBlueprint.route("/<groupId>", methods=["GET"])
 def groupId(groupId):
     group = db.Group.find({"_id": id(groupId)})
     if group is None:
@@ -106,7 +106,7 @@ def groupId(groupId):
     return flask.jsonify(data), ""
 
 
-@hostBlueprint.route("/<groupId>/join", methods=["POST"])
+@groupBlueprint.route("/<groupId>/join", methods=["POST"])
 def groupIdJoin(groupId):
     if (
         groupId in currentUser.enrolledGroups
@@ -131,7 +131,7 @@ def groupIdJoin(groupId):
     return "Error", 200
 
 
-@hostBlueprint.route("/<groupId>/leave", methods=["POST"])
+@groupBlueprint.route("/<groupId>/leave", methods=["POST"])
 def groupIdLeave(groupId):
     if (
         groupId not in currentUser.enrolledGroups

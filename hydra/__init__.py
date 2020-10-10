@@ -11,6 +11,7 @@ client = pymongo.MongoClient(os.getenv("DATABASE_URL"))
 db = client.test
 
 # use sk_test_51AQPwCHlrGbOVNVCu63XWCFDErvBRpBjUzQP825hGTcPvye0Eg0Lf4kOJW4mvEaHw7lSVxIpCOQRh887RGB74RRB00y5XZrF75
+# their is a hard coded product that will store all pricing for diffrent courses
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
 
@@ -29,11 +30,12 @@ def create_app(config_class=Config):
 
     from hydra.main.routes import main
     from hydra.user.routes import user
-
+    from hydra.group.routes import groupBlueprint
     # from hydra.groups.routes import groups
     # TODO: continue route imports
 
-    app.register_blueprint(main)
-    app.register_blueprint(user)
+    app.register_blueprint(main, url_prefix='/')
+    app.register_blueprint(user,url_prefix='/users')
+    app.register_blueprint(groupBlueprint,url_prefix='/groups')
 
     return app
