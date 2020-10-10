@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import '../../App.css'
 import './Main.css'
 
-class SignIn extends Component {
+class Main extends Component {
   render () {
     return (
       <div className='Main'>
@@ -64,4 +64,4 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn
+export default Main
