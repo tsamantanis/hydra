@@ -4,8 +4,8 @@ from jwt import decode, exceptions
 from functools import wraps
 import json
 
-# Overwrite the flask-login login_required decorator to return
-# better data types, handle redirects on front end for better UI/UX
+# Using JSON Web Tokens as opposed to Flask-Login for ease of use on the
+# front-end
 
 
 def login_required(f):
@@ -14,7 +14,7 @@ def login_required(f):
         authorization = request.headers.get("authorization", None)
         if not authorization:
             return (
-                json.dumps({"error": "no authorization token provied"}),
+                json.dumps({"error": "no authorization token provided"}),
                 403,
                 {"Content-type": "application/json"},
             )
