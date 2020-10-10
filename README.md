@@ -1,35 +1,45 @@
 # Educational Messaging Web Application
 
-### Create new virtual environment
+**You will need yarn to run this app**
+```zsh
+npm install -g yarn
+```
+
+### Virtual Environment
+
+Create a new virtual environment
 
 ```zsh
 python3 -m venv env
 ```
 
-Activate new environment:
+Activate new environment
 
 ```zsh
 source env/bin/activate
 ```
 
-### Install dependencies within environment
+### Install Dependencies
 
+Install python requirements
 ```zsh
 pip3 install -r requirements.txt
 ```
 
+Install node requirements
 ```zsh
 npm install
 ```
 
 ### Run the app
 
+Start the frontend
 ```zsh
-npm start
+yarn start
 ```
 
-In a separate terminal
+In a separate terminal, start the api
 
 ```zsh
-npm start-api
+yarn start-api
 ```
