@@ -40,7 +40,7 @@ class SignIn extends Component {
               <label htmlFor='password'>Password</label>
               <input type='password' name='password' placeholder='Enter your password' />
             </fieldset>
-            <button type='button' onClick={this.signIn} >Sign In</button>
+            <button type='button' onClick={this.signIn}>Sign In</button>
           </form>
           <small>Need an account? <a href='/users/signup'>Sign Up</a></small>
         </div>
