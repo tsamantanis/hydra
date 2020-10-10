@@ -8,7 +8,7 @@ class SignIn extends Component {
     const email = document.querySelector('input[name=email]').value
     const password = document.querySelector('input[name=password]').value
     if (email && password) {
-      axios.post('/users/signin/', {
+      axios.post('/users/signIn/', {
         email: email,
         password: password
       })
@@ -42,7 +42,7 @@ class SignIn extends Component {
             </fieldset>
             <button type='button' onClick={this.signIn}>Sign In</button>
           </form>
-          <small>Need an account? <a href='/users/signup'>Sign Up</a></small>
+          <small>Need an account? <a href='/users/signUp'>Sign Up</a></small>
         </div>
         <div className='right'>
           <img src={happiness} alt='happiness' />
