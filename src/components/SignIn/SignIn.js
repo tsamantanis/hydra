@@ -5,8 +5,8 @@ import happiness from '../../assets/happiness.svg'
 
 class SignIn extends Component {
   signIn () {
-    const email = document.querySelector('input[type=email]').value
-    const password = document.querySelector('input[type=password]').value
+    const email = document.querySelector('input[name=email]').value
+    const password = document.querySelector('input[name=password]').value
     if (email && password) {
       axios.post('/users/signin/', {
         email: email,
