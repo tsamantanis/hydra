@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .App {
     text-align: center;
 }
@@ -35,4 +39,79 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+h1, h2, h3, h4, h5, h6, p, button {
+  font-family: 'Jaldi', sans-serif;
+  font-weight: bold;
+  margin: 0;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 29px;
+}
+
+h4 {
+  font-size: 26px;
+}
+
+h5 {
+  font-size: 23px;
+}
+
+h6 {
+  font-size: 20px;
+}
+
+p {
+  font-size: 16px;
+}
+
+small {
+  font-family: 'Jaldi', sans-serif;
+  font-size: 14px;
+}
+
+button, input {
+  border-radius: 10px;
+  height: 40px;
+  margin: 16px;
+  width: 350px;
+}
+
+input[type=text], input[type=email], input[type=password] {
+  border: 1px solid #C7D8E3;
+  font-family: 'Roboto', sans-serif;
+  outline: none;
+  padding: 0 10px;
+}
+
+input[type=text]::placeholder, input[type=email]::placeholder, input[type=password]::placeholder {
+  color: #C7D8E3;
+  font-size: 12px;
+}
+
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
+  box-shadow: 0 0 0 2px #4E47FF;
+}
+
+button, input[type=submit] {
+  background-color: #4E47FF;
+  border: none;
+  color: #F7F7FF;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+a {
+  color: #4E47FF;
+  text-decoration: none;
 }
