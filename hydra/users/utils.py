@@ -1,6 +1,6 @@
 """Dependency and package import."""
 from hydra import db, jwt
-from flask_jwt_extended import user_loader_callback_loader
+from flask_jwt_extended import create_access_token, current_user
 
 
 # Define user loader function: to be called every time a protected route is

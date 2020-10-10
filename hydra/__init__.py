@@ -9,6 +9,7 @@ import stripe
 
 client = pymongo.MongoClient(os.getenv("DATABASE_URL"))
 db = client.test
+jwt = JWTManager()
 
 # use sk_test_51AQPwCHlrGbOVNVCu63XWCFDErvBRpBjUzQP825hGTcPvye0Eg0Lf4kOJW4mvEaHw7lSVxIpCOQRh887RGB74RRB00y5XZrF75
 # their is a hard coded product that will store all pricing for diffrent courses
@@ -27,7 +28,7 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     CORS(app)
 
-    jwt = JWTManager(app)
+    jwt.init_app(app)
 
     from hydra.main.routes import main
     from hydra.users.routes import users
@@ -37,7 +38,7 @@ def create_app(config_class=Config):
     # TODO: continue route imports
 
     app.register_blueprint(main, url_prefix="/")
-    app.register_blueprint(user, url_prefix="/users")
+    app.register_blueprint(users, url_prefix="/users")
     app.register_blueprint(groupBlueprint, url_prefix="/groups")
 
     return app
