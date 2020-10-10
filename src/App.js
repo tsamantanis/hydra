@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import logo from './logo.svg'
 import './App.css'
 
+import Main from './components/Main/Main'
 import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import PasswordReset from './components/PasswordReset/PasswordReset'
@@ -27,6 +28,7 @@ class App extends Component {
           <Route exact path='/users/signup' component={SignUp} />
           <Route exact path='/users/signin' component={SignIn} />
           <Route exact path='/users/reset' component={PasswordReset} />
+          <Route exact path='/' component={Main} />
           {/* <Route path='/' component={RedirectToLogin} /> */}
         </Switch>
       </BrowserRouter>
