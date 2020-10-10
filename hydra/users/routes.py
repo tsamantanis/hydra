@@ -1,10 +1,8 @@
 """Dependency and package import."""
 from flask import (
     Blueprint,
-    render_template,
     request,
     url_for,
-    redirect,
     jsonify,
 )
 from flask_jwt_extended import (
