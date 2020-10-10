@@ -68,6 +68,30 @@
 
 .Main .Users {
   align-items: flex-start;
-  background-color: var(--darkAcent);
+  background-color: var(--darkAccent);
+  color: var(--light);
   flex-basis: 24%;
+}
+
+.Main .Users .UserGroup {
+
+}
+
+.Main .Users .UserItem {
+
+}
+
+.Main .Users .UserItem .UserIcon {
+  background-color: var(--accent);
+  border-radius: 10px;
+  height: 48px;
+  width: 48px;
+}
+
+.Main .Users .UserItem .UserName {
+
+}
+
+.Main .Users .UserItem .UserStatus {
+
 }

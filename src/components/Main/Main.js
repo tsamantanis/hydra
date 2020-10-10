@@ -34,6 +34,18 @@ class SignIn extends Component {
         </div>
         <div className='Users'>
           <h1>Users</h1>
+          <div className='UserGroup'>
+            <h4>Instructor</h4>
+            <div className='UserItem'>
+              <div className='UserIcon' />
+              <div className='UserName'>
+                <h4>Starlight Romero</h4>
+              </div>
+              <div className='UserStatus'>
+                <p>4hr ago</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )
