@@ -3,12 +3,8 @@ import os
 import pymongo
 from flask import Flask
 from flask_cors import CORS
-from flask_login import LoginManager
+from flask_jwt_extended import JWTManager
 from hydra.config import Config
-
-login_manager = LoginManager()
-login_manager.session_protection = "strong"
-login_manager.login_view = "login"
 
 
 def create_app(config_class=Config):
@@ -17,10 +13,10 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     CORS(app)
 
-    login_manager.init_app(app)
-
     client = pymongo.MongoClient(os.getenv("DATABASE_URL"))
     db = client.test
+
+    jwt = JWTManager(app)
 
     from hydra.main.routes import main
     from hydra.user.routes import user
