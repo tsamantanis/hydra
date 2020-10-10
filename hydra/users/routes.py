@@ -1,5 +1,6 @@
 """Dependency and package import."""
 from flask import Blueprint, render_template, request, url_for, redirect
+from hydra import db
 
 users = Blueprint("users", __name__)
 
