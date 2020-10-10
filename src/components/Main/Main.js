@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import '../../App.css'
 import './Main.css'
 import ChannelGroup from './ChannelGroup'
-
+import UserGroup from './UserGroup'
 class Main extends Component {
     render () {
         return (
@@ -31,31 +31,19 @@ class Main extends Component {
                     <h1>Posts</h1>
                 </div>
                 <div className='Users'>
-                    <div className='UserGroup'>
-                        <h4>Instructor</h4>
-                        <div className='UserItem'>
-                            <div className='UserIcon' />
-                            <div className='User'>
-                                <div className='UserName'>
-                                    <h4>Starlight Romero</h4>
-                                </div>
-                                <div className='UserStatus'>
-                                    <p>4hr ago</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='UserItem'>
-                            <div className='UserIcon' />
-                            <div className='User'>
-                                <div className='UserName'>
-                                    <h4>Starlight Romero</h4>
-                                </div>
-                                <div className='UserStatus'>
-                                    <p>4hr ago</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <UserGroup
+                        groupTitle="Instructors"
+                        userItems={[
+                            {
+                                "name": "Starlight Romero",
+                                "status": "4hr ago"
+                            },
+                            {
+                                "name": "Starlight Romero",
+                                "status": "4hr ago"
+                            }
+                        ]}
+                    />
                 </div>
             </div>
         )
