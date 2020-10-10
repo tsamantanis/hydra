@@ -1,6 +1,7 @@
 .SearchBar {
     background-color: var(--darkAccent);
     width: 100%;
+    border-bottom: 2px solid var(--accent);
 }
 
 .SearchBar form, .SearchBar  form input[type=text] {

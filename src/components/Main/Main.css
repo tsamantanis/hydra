@@ -85,6 +85,16 @@
     flex-basis: 24%;
 }
 
+.Main .Users h1 {
+    padding: 18px;
+}
+
+.Main .Users hr {
+    border: 1px solid var(--accent);
+    height: 0;
+    width: 100%;
+}
+
 .Main .Users .UserItem {
     align-items: center;
     display: flex;
