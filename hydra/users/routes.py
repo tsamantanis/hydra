@@ -33,9 +33,11 @@ def checkIfTokenInBlacklist(decryptedToken):
     return jti in db.blacklist.find_all({"decrypt": jti})
 
 
-@users.route("/signUp", methods=["POST"])
+@users.route("/signup", methods=["GET", "POST"])
 def signUp():
     """Sign up new user, add to DB, return new user object as JSON."""
+    if request.method == "GET":
+        return
     firstName = request.form.get("firstName")
     lastName = request.form.get("lastName")
     email = request.form.get("email")
@@ -45,7 +47,7 @@ def signUp():
     return jsonify(signUpUser), 200
 
 
-@users.route("/signIn", methods=["POST"])
+@users.route("/signin", methods=["POST"])
 def signIn():
     """Sign in user."""
     email = request.form.get("email")
@@ -63,7 +65,7 @@ def signIn():
 
 
 # Revoke current user token, logging them out.
-@users.route("/signOut")
+@users.route("/signout")
 @jwt_required
 def signOut():
     """Allow user to sign out."""
@@ -112,7 +114,7 @@ def userPayments():
 # Should we be hashing these values so that the plaintext isn't coming through?
 
 
-@users.route("/addPayment", methods=["POST"])
+@users.route("/addpayment", methods=["POST"])
 @jwt_required
 def userAddPayment():
     """Allow user to add payment method for subscription."""
@@ -147,7 +149,7 @@ def userAddPayment():
 # User requests reset token
 
 
-@users.route("/resetPassword", methods=["POST"])
+@users.route("/resetpassword", methods=["POST"])
 def resetRequest():
     """Return message for front-end."""
     email = request.form["email"]
@@ -172,7 +174,7 @@ def resetRequest():
     )
 
 
-@users.route("/resetPassword/<token>")
+@users.route("/resetpassword/<token>")
 def verifyResetToken(token):
     """Verify reset token from user to reset password."""
     user = User.verifyResetToken(token)
