@@ -3,6 +3,7 @@ import '../../App.css'
 import './Main.css'
 import ChannelGroup from './ChannelGroup'
 import UserGroup from './UserGroup'
+import SearchBar from './SearchBar'
 class Main extends Component {
     render () {
         return (
@@ -28,13 +29,14 @@ class Main extends Component {
                     />
                 </div>
                 <div className='Feed'>
-                    <div class='SearchBar'>
-                        <form>
-                            <input type='text' placeholder='Search class_name' />
-                        </form>
+                    <SearchBar
+                        placeHolder='Search class_name'
+                    />
+                    <div className='Post'>
                     </div>
                     <div className='CreatePost'>
                         <form>
+                            <textarea placeholder='Message class_name' />
                         </form>
                     </div>
                 </div>
