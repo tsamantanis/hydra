@@ -1,11 +1,6 @@
-## Educational Messaging Web Application
+# Educational Messaging Web Application
 
-### npm i
-### npm run start
-
-## Clone & activate virtual environment:
-
-### Create new virtual environment:
+### Create new virtual environment
 
 ```zsh
 python3 -m venv env
@@ -23,8 +18,14 @@ Install dependencies within environment:
 pip3 install -r requirements.txt
 ```
 
-Run the app by running:
+### Run the app
 
 ```zsh
-python3 app.py
+npm start
+```
+
+In a separate terminal
+
+```zsh
+npm start-api
 ```
