@@ -11,6 +11,7 @@ client = pymongo.MongoClient(os.getenv("DATABASE_URL"))
 db = client.test
 
 # use sk_test_51AQPwCHlrGbOVNVCu63XWCFDErvBRpBjUzQP825hGTcPvye0Eg0Lf4kOJW4mvEaHw7lSVxIpCOQRh887RGB74RRB00y5XZrF75
+# their is a hard coded product that will store all pricing for diffrent courses
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
 
