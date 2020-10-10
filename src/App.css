@@ -45,7 +45,7 @@ p {
 }
 
 small {
-  color: #3D6988;
+  color: var(--darkAccent);
   font-family: 'Jaldi', sans-serif;
   font-size: 14px;
 }
@@ -53,7 +53,7 @@ small {
 /* Label, Input, Button, and Anchor */
 
 label {
-  color: #3D6988;
+  color: var(--darkAccent);
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
   margin-bottom: 5px;
@@ -68,7 +68,7 @@ button, input {
 }
 
 input[type=text], input[type=email], input[type=password] {
-  border: 1px solid #C7D8E3;
+  border: 1px solid var(--lightAccent);
   font-family: 'Roboto', sans-serif;
   outline: none;
   padding: 0 10px;
@@ -76,34 +76,34 @@ input[type=text], input[type=email], input[type=password] {
 }
 
 input[type=text]::placeholder, input[type=email]::placeholder, input[type=password]::placeholder {
-  color: #C7D8E3;
+  color: var(--lightAccent);
   font-size: 12px;
 }
 
 input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
-  box-shadow: 0 0 0 2px #4E47FF;
+  box-shadow: 0 0 0 2px var(--primary);
 }
 
 button, input[type=submit] {
-  background-color: #4E47FF;
+  background-color: var(--primary);
   border: none;
-  color: #F7F7FF;
+  color: var(--light);
   cursor: pointer;
   font-size: 16px;
   margin-top: 0
 }
 
 button:hover, input[type=submit]:hover {
-  background-color: #1CA0DE;
+  background-color: var(--accent);
 }
 
 a {
-  color: #4E47FF;
+  color: var(--primary);
   text-decoration: none;
 }
 
 a:hover {
-  color: #1CA0DE;
+  color: var(--accent);
 }
 
 /* Form Styles */
@@ -125,7 +125,7 @@ form legend {
 }
 
 form legend h6 {
-  color: #3D6988;
+  color: var(--darkAccent);
   margin-bottom: 30px;
 }
 
@@ -147,7 +147,7 @@ form fieldset label {
 
 .splitView {
   align-items: center;
-  background-color: #F7F7FF;
+  background-color: var(--light);
   display: flex;
   flex-direction: row;
   justify-content: center;
