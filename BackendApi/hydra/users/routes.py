@@ -41,10 +41,10 @@ def signUp():
     """Sign up new user, add to DB, return new user object as JSON."""
     if request.method == "GET":
         return
-    firstName = request.form.get("firstName")
-    lastName = request.form.get("lastName")
-    email = request.form.get("email")
-    password = request.form.get("password")
+    firstName = request.json.get("firstName")
+    lastName = request.json.get("lastName")
+    email = request.json.get("email")
+    password = request.json.get("password")
     newUser = User(firstName, lastName, email, password)
     insertUser = {
         "firstName": firstName,
@@ -59,8 +59,8 @@ def signUp():
 @users.route("/signin", methods=["POST"])
 def signIn():
     """Sign in user."""
-    email = request.form.get("email")
-    password = request.form.get("password")
+    email = request.json.get("email")
+    password = request.json.get("password")
     user = db.users.find_one_or_404({"email": email})
     if not user:
         return (
@@ -97,9 +97,9 @@ def userProfile():
             bio=currentUser.bio,
         )
     if request.method == "PUT":
-        bio = request.form.get("bio")
-        newFirstName = request.form.get("firstName")
-        newLastName = request.form.get("lastName")
+        bio = request.json.get("bio")
+        newFirstName = request.json.get("firstName")
+        newLastName = request.json.get("lastName")
         return jsonify(firstName=newFirstName, lastName=newLastName, bio=bio)
     if request.method == "POST":
         # TODO: handle image uploading
@@ -129,8 +129,8 @@ def userAddPayment():
     """Allow user to add payment method for subscription."""
     currentUser = get_jwt_identity()
     userLoaderCallback(currentUser)
-    cardNumber = request.form["cardNumber"]
-    expMonth = request.form["expMonth"]
+    cardNumber = request.json["cardNumber"]
+    expMonth = request.json["expMonth"]
     stripe.PaymentMethod.create(
         type="card",
         card={
@@ -161,7 +161,7 @@ def userAddPayment():
 @users.route("/resetpassword", methods=["POST"])
 def resetRequest():
     """Return message for front-end."""
-    email = request.form["email"]
+    email = request.json["email"]
     user = db.users.find_one_or_404({"email": email})
     if not user:
         return (
@@ -189,7 +189,7 @@ def verifyResetToken(token):
     user = User.verifyResetToken(token)
     if not user:
         return jsonify({"msg": "Token is invalid or expired."})
-    newPassword = sha256_crypt.hash(request.form["newPassword"])
+    newPassword = sha256_crypt.hash(request.json["newPassword"])
     updatedUser = db.users.update_one(
         {"_id": ObjectId(user.id)},
         {"$set": {"password": newPassword}},
