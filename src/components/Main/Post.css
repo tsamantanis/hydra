@@ -38,9 +38,17 @@
     margin: 5px 0 0 5px;
     align-items: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .Post .PostContent .PostMessage {
     height: 120px;
+    display: flex;
+}
+
+.Post .PostContent .PostImage {
+    height: 234px;
+    width: 100%;
+    border-radius: 10px;
+    background: var(--darkAccent);
 }

@@ -42,7 +42,9 @@ class SignIn extends Component {
                             <label htmlFor='password'>Password</label>
                             <input type='password' name='password' placeholder='Enter your password' />
                         </fieldset>
-                        <button type='button' onClick={this.signIn}>Sign In</button>
+                        <div className="buttonGradientContainer m-b-10">
+                            <button className="m-l-0" type='button' onClick={this.signIn}>Sign In</button>
+                        </div>
                     </form>
                     <small>Need an account? <a href='/users/signUp'>Sign Up</a></small>
                 </div>

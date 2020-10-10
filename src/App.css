@@ -90,19 +90,23 @@ input[type=text]::placeholder, input[type=email]::placeholder, input[type=passwo
 
 input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
   box-shadow: 0 0 0 2px var(--primary);
+  transition: 0.4s ease;
 }
 
 button, input[type=submit] {
   background-color: var(--primary);
+  background-image: none;
   border: none;
   color: var(--light);
   cursor: pointer;
   font-size: 16px;
-  margin-top: 0
+  margin-top: 0;
+  transition: 0.4s ease;
 }
 
 button:hover, input[type=submit]:hover {
-  background-color: var(--accent);
+    background: transparent;
+    transition: 0.4s ease;
 }
 
 a {
@@ -247,6 +251,21 @@ form fieldset label {
 .m-t-n20 {
     margin-top: -20px;
 }
+.m-l-0 {
+    margin-left: 0px;
+}
+.m-l-n5 {
+    margin-left: -5px;
+}
+.m-l-n10 {
+    margin-left: -10px;
+}
+.m-l-n15 {
+    margin-left: -15px;
+}
+.m-l-n20 {
+    margin-left: -20px;
+}
 
 /* Split View */
 
@@ -277,4 +296,14 @@ form fieldset label {
   flex-direction: column;
   justify-content: center;
   width: 100%;
+}
+
+.buttonGradientContainer {
+    height: 40px;
+    width: 350px;
+    border-radius: 10px;
+    background-image: -webkit-linear-gradient(#5EFC8D 0%, #0CBCD3 43.23, #1CA0DE 56.77, #268FE4 65.1, #4E47FF 100%);
+    background-image: -o-linear-gradient(#5EFC8D 0%, #0CBCD3 43.23, #1CA0DE 56.77, #268FE4 65.1, #4E47FF 100%);
+    background-image: linear-gradient(135deg, #5EFC8D 0%, #0CBCD3 43.23%, #1CA0DE 56.77%, #268FE4 65.1%, #4E47FF 100%);
+    transition: 0.4s ease-in ease-out;
 }

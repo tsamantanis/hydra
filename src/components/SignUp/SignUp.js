@@ -66,7 +66,9 @@ class SignUp extends Component {
                             <label htmlFor='password'>Confirm Password</label>
                             <input type='password' name='confirmPassword' placeholder='Confirm the password' />
                         </fieldset>
-                        <button type='button' onClick={this.signUp}>Sign Up</button>
+                        <div className="buttonGradientContainer m-b-10">
+                            <button className="m-l-0" type='button' onClick={this.signUp}>Sign Up</button>
+                        </div>
                     </form>
                     <small>Already have an account? <a href='/users/signin'>Sign In</a></small>
                 </div>
