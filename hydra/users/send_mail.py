@@ -2,11 +2,8 @@
 import os
 import smtplib
 
-# TODO: circle back and figure out why getting the username & password
-# not working
 
-
-def send_mail(subject, message, receiver):
+def sendMail(subject, message, receiver):
     """Connect to mail server and send message."""
     username = os.getenv("MAIL_USERNAME")
     password = os.getenv("MAIL_PASSWORD")

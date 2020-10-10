@@ -13,10 +13,10 @@ from flask_jwt_extended import (
     get_jwt_identity,
     get_raw_jwt,
 )
-from hydra.users.utils import userLoaderCallback
+from hydra.users.utils import userLoaderCallback, sendResetEmail
 from hydra.users.user import User
-from passlib.hash import sha256_crypt
 from hydra import db, jwt
+from passlib.hash import sha256_crypt
 import stripe
 
 users = Blueprint("users", __name__)
@@ -144,3 +144,45 @@ def userAddPayment():
         },
     )
     return stripe.paymentMethod, 200
+
+
+# User requests reset token
+
+
+@users.route("/users/resetPassword", methods=["POST"])
+def resetRequest():
+    """Return message for front-end."""
+    email = request.form["email"]
+    user = db.users.find_one_or_404({"email": email})
+    if not user:
+        return (
+            jsonify(
+                {
+                    "msg": "There is no account associated with that email address."
+                }
+            ),
+            400,
+        )
+    sendResetEmail(user)
+    return (
+        jsonify(
+            {
+                "msg": "An email has been sent with a link to reset your password."
+            }
+        ),
+        200,
+    )
+
+
+@users.route("/users/resetPassword/<token>")
+def verifyResetToken(token):
+    """Verify reset token from user to reset password."""
+    user = User.verifyResetToken(token)
+    if not user:
+        return jsonify({"msg": "Token is invalid or expired."})
+    newPassword = sha256_crypt.hash(request.form["newPassword"])
+    updatedUser = db.users.update_one(
+        {"_id": ObjectId(user.id)},
+        {"$set": {"password": newPassword}},
+    )
+    return jsonify({updatedUser}), 200
