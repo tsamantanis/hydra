@@ -13,7 +13,7 @@ class SignIn extends Component {
               <h6>Enter your email to get a password reset link</h6>
             </legend>
             <fieldset>
-              <label for='email'>Email Address</label>
+              <label htmlFor='email'>Email Address</label>
               <input type='email' name='email' placeholder='name@address.com' />
             </fieldset>
             <button type='submit'>Reset Password</button>
