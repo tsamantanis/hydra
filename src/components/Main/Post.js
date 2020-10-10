@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
-import './SearchBar.css'
 
-class SearchBar extends Component {
+class Post extends Component {
     render() {
         return (
-            <div className='SearchBar'>
+            <div className='Post'>
                 <form className='m-t-10 m-l-10 m-r-10'>
                     <input type='text' placeholder={this.props.placeHolder} />
                 </form>
@@ -13,4 +12,4 @@ class SearchBar extends Component {
     }
 }
 
-export default SearchBar
+export default Post
