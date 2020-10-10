@@ -80,6 +80,14 @@ small {
   font-size: 14px;
 }
 
+label {
+  color: #3D6988;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  margin-bottom: 5px;
+  margin-top: 10px
+}
+
 button, input {
   border-radius: 10px;
   height: 40px;
@@ -92,6 +100,7 @@ input[type=text], input[type=email], input[type=password] {
   font-family: 'Roboto', sans-serif;
   outline: none;
   padding: 0 10px;
+  margin-top: 0;
 }
 
 input[type=text]::placeholder, input[type=email]::placeholder, input[type=password]::placeholder {
@@ -109,6 +118,7 @@ button, input[type=submit] {
   color: #F7F7FF;
   cursor: pointer;
   font-size: 16px;
+  margin-top: 0
 }
 
 a {
