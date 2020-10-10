@@ -13,7 +13,6 @@ class SignUp extends Component {
         const password = document.querySelector('input[name=password]').value
         const confirmPassword = document.querySelector('input[name=confirmPassword]').value
         if (firstName && lastName && email && password && password === confirmPassword) {
-<<<<<<< HEAD
             api({
                 method: 'post',
                 url: '/users/signup',
@@ -26,26 +25,6 @@ class SignUp extends Component {
                 headers: {
                     'content-type': 'multipart/form-data'
                 },
-=======
-            // api(
-            //     method: 'post',
-            //     url: '/users/signup',
-            //     data: {
-            //         firstName: firstName,
-            //         lastName: lastName,
-            //         email: email,
-            //         password: password
-            //     },
-            //     headers: {
-            //         'content-type': 'multipart/form-data'
-            //     },
-            // )
-            api.post('/users/signup', {
-               firstName: firstName,
-               lastName: lastName,
-               email: email,
-               password: password
->>>>>>> bbf215574700d8d8dd608611ea6caf2189b07440
             })
             .then(function (response) {
                 console.log(response)
