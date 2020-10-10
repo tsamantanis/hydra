@@ -33,6 +33,15 @@
     width: 60px;
 }
 
+.Main .Nav .NavItem:hover {
+    cursor: pointer;
+    border: 3px solid var(--lightAccent);
+    border-radius: 10px;
+    height: 57px;
+    width: 57px;
+    transition: 0.3s ease;
+}
+
 /* Main Channels */
 
 .Main .Channels {
