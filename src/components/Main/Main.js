@@ -28,7 +28,15 @@ class Main extends Component {
                     />
                 </div>
                 <div className='Feed'>
-                    <h1>Posts</h1>
+                    <div class='SearchBar'>
+                        <form>
+                            <input type='text' placeholder='Search class_name' />
+                        </form>
+                    </div>
+                    <div className='CreatePost'>
+                        <form>
+                        </form>
+                    </div>
                 </div>
                 <div className='Users'>
                     <UserGroup
