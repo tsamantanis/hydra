@@ -6,7 +6,7 @@ import happiness from '../../assets/happiness.svg'
 class SignIn extends Component {
   render () {
     return (
-      <div className='SignIn'>
+      <div className='SignIn splitView'>
         <div className='left'>
           <form method='POST'>
             <legend>
