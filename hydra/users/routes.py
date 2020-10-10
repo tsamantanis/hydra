@@ -17,6 +17,7 @@ from hydra.users.utils import userLoaderCallback
 from hydra.users.user import User
 from passlib.hash import sha256_crypt
 from hydra import db, jwt
+import stripe
 
 users = Blueprint("users", __name__)
 
@@ -97,16 +98,49 @@ def userProfile():
 
 
 @users.route("/users/payments")
+@jwt_required
 def userPayments():
     """
     Return user payment methods stored through Stripe.
 
     Segment of payment info revealed to us through Stripe API for UI.
     """
-    pass
+    currentUser = get_jwt_identity()
+    userLoaderCallback(currentUser)
+    return stripe.paymentMethod.retrieve(f"{currentUser.stripeId}")
 
 
-@users.route("/users/addPayment")
+# TODO: update values based on client side input/form (stripe specific?)
+# Should we be hashing these values so that the plaintext isn't coming through?
+
+
+@users.route("/users/addPayment", methods=["POST"])
+@jwt_required
 def userAddPayment():
     """Allow user to add payment method for subscription."""
-    pass
+    currentUser = get_jwt_identity()
+    userLoaderCallback(currentUser)
+    cardNumber = request.form["cardNumber"]
+    expMonth = request.form["expMonth"]
+    stripe.PaymentMethod.create(
+        type="card",
+        card={
+            "number": None,
+            "exp_month": None,
+            "exp_year": None,
+            "cvc": None,
+        },
+        billing_details={
+            "address": {
+                "city": None,
+                "country": None,
+                "line1": None,
+                "line1": None,
+                "postal_code": None,
+                "state": None,
+            },
+            "email": None,
+            "name": None,
+        },
+    )
+    return stripe.paymentMethod, 200
