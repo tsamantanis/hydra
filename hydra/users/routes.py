@@ -33,7 +33,7 @@ def checkIfTokenInBlacklist(decryptedToken):
     return jti in db.blacklist.find_all({"decrypt": jti})
 
 
-@users.route("/users/signUp", methods=["POST"])
+@users.route("/signUp", methods=["POST"])
 def signUp():
     """Sign up new user, add to DB, return new user object as JSON."""
     firstName = request.form.get("firstName")
@@ -45,7 +45,7 @@ def signUp():
     return jsonify(signUpUser), 200
 
 
-@users.route("/users/signIn", methods=["POST"])
+@users.route("/signIn", methods=["POST"])
 def signIn():
     """Sign in user."""
     email = request.form.get("email")
@@ -63,7 +63,7 @@ def signIn():
 
 
 # Revoke current user token, logging them out.
-@users.route("/users/signOut")
+@users.route("/signOut")
 @jwt_required
 def signOut():
     """Allow user to sign out."""
@@ -72,7 +72,7 @@ def signOut():
     return jsonify({"msg": "Successfully logged out."}), 200
 
 
-@users.route("/users/<user_id>", methods=["GET", "PUT", "POST"])
+@users.route("/<user_id>", methods=["GET", "PUT", "POST"])
 @jwt_required
 def userProfile():
     """Provide data for user profile, editable by the user."""
@@ -95,7 +95,7 @@ def userProfile():
         pass
 
 
-@users.route("/users/payments")
+@users.route("/payments")
 @jwt_required
 def userPayments():
     """
@@ -112,7 +112,7 @@ def userPayments():
 # Should we be hashing these values so that the plaintext isn't coming through?
 
 
-@users.route("/users/addPayment", methods=["POST"])
+@users.route("/addPayment", methods=["POST"])
 @jwt_required
 def userAddPayment():
     """Allow user to add payment method for subscription."""
@@ -147,7 +147,7 @@ def userAddPayment():
 # User requests reset token
 
 
-@users.route("/users/resetPassword", methods=["POST"])
+@users.route("/resetPassword", methods=["POST"])
 def resetRequest():
     """Return message for front-end."""
     email = request.form["email"]
@@ -172,7 +172,7 @@ def resetRequest():
     )
 
 
-@users.route("/users/resetPassword/<token>")
+@users.route("/resetPassword/<token>")
 def verifyResetToken(token):
     """Verify reset token from user to reset password."""
     user = User.verifyResetToken(token)
