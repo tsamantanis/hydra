@@ -4,6 +4,7 @@ import './Main.css'
 import ChannelGroup from './ChannelGroup'
 import UserGroup from './UserGroup'
 import SearchBar from './SearchBar'
+import Post from './Post'
 class Main extends Component {
     render () {
         return (
@@ -32,8 +33,7 @@ class Main extends Component {
                     <SearchBar
                         placeHolder='Search class_name'
                     />
-                    <div className='Post'>
-                    </div>
+                    <Post />
                     <div className='CreatePost'>
                         <form>
                             <textarea placeholder='Message class_name' />
