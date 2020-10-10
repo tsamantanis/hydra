@@ -18,36 +18,44 @@ h1, h2, h3, h4, h5, h6, p, button {
 
 h1 {
   font-size: 36px;
+  height: 36px;
 }
 
 h2 {
   font-size: 32px;
+  height: 32px;
 }
 
 h3 {
   font-size: 29px;
+  height: 29px;
 }
 
 h4 {
   font-size: 26px;
+  height: 26px;
 }
 
 h5 {
   font-size: 23px;
+  height: 23px;
 }
 
 h6 {
   font-size: 20px;
+  height: 20px;
 }
 
 p {
   font-size: 16px;
+  height: 16px;
 }
 
 small {
   color: var(--darkAccent);
   font-family: 'Jaldi', sans-serif;
   font-size: 14px;
+  height: 14px;
 }
 
 /* Label, Input, Button, and Anchor */
@@ -126,7 +134,8 @@ form legend {
 
 form legend h6 {
   color: var(--darkAccent);
-  margin-bottom: 30px;
+  margin-top: 24px;
+  margin-bottom: 45px;
 }
 
 form fieldset {
