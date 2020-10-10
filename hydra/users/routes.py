@@ -13,7 +13,7 @@ from flask_jwt_extended import (
     get_jwt_identity,
     get_raw_jwt,
 )
-from hydra.users import utils
+from hydra.users.utils import userLoaderCallback
 from hydra.users.user import User
 from passlib.hash import sha256_crypt
 from hydra import db, jwt
@@ -78,6 +78,7 @@ def signOut():
 def userProfile():
     """Provide data for user profile, editable by the user."""
     currentUser = get_jwt_identity()
+    userLoaderCallback(currentUser)
     if request.method == "GET":
         return jsonify(
             email=currentUser.email,
