@@ -8,12 +8,12 @@ class Main extends Component {
         return (
             <div className='Main'>
                 <div className='Nav'>
-                    <div className='NavItem' />
-                    <div className='NavItem' />
+                    <div className='NavItem m-b-20' />
+                    <div className='NavItem m-b-20' />
                 </div>
                 <div className='Channels'>
                     <h1>Class Name</h1>
-                    <hr />
+                    <hr className='m-t-40' />
                     <ChannelGroup
                         channelLabel='Lectures'
                         channelNames={['Channel Name', 'Channel Name']}

@@ -31,7 +31,6 @@
   border-radius: 10px;
   height: 60px;
   width: 60px;
-  margin: 18px;
 }
 
 /* Main Channels */
@@ -50,20 +49,7 @@
 .Main .Channels hr {
   border: 1px solid var(--accent);
   height: 0;
-  margin-top: 40px;
   width: 100%;
-}
-
-.Main .Channels .ChannelGroup {
-  margin: 16px 0 16px 24px;
-}
-
-.Main .Channels .ChannelGroup>h5 {
-  margin-bottom: 24px;
-}
-
-.Main .Channels .ChannelGroup .ChannelItem {
-  margin: 16px 0;
 }
 
 /* Main Feed */
@@ -83,20 +69,11 @@
   flex-basis: 24%;
 }
 
-.Main .Users .UserGroup {
-  margin: 16px 0 16px 16px;
-}
-
-.Main .Users .UserGroup>h4 {
-  margin-bottom: 32px;
-}
-
 .Main .Users .UserItem {
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 24px 0;
 }
 
 .Main .Users .UserItem .UserIcon {
@@ -111,15 +88,9 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin-left: 9px;
-  margin-top: -14px;
-}
-
-.Main .Users .UserItem .User .UserName {
-  margin: 3px 0;
+  margin-top: -15px;
 }
 
 .Main .Users .UserItem .User .UserStatus {
   color: var(--lightAccent);
-  margin: 3px 0;
 }
