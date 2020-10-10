@@ -1,6 +1,6 @@
 """Dependencies and package import."""
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from hydra import app
+from hydra import create_app
 
 
 class User:
@@ -18,7 +18,9 @@ class User:
         self.is_root = False
         self.stripeId = None
         self.bio = None
-        self.profilePhotoUrl = None  # TODO: Set this to be a default profile image.
+        self.profilePhotoUrl = (
+            None  # TODO: Set this to be a default profile image.
+        )
 
     def setIsAdmin(self):
         """Set isAdmin to true under certain conditions."""

@@ -22,8 +22,9 @@ users = Blueprint("users", __name__)
 
 
 # Helper function to identify blacklisted tokens
-# This enables us to revoke tokens when a user logs out
-# Will likely need to restructure based on how we create the db resource
+# This enables us to see tokens as revoked when a user logs out
+# Can be made more robust to check for tokens we didn't create, possibly
+# improve on later
 
 
 @jwt.token_in_blacklist_loader
