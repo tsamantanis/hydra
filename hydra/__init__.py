@@ -7,17 +7,18 @@ from flask_jwt_extended import JWTManager
 from hydra.config import Config
 import stripe
 
+client = pymongo.MongoClient(os.getenv("DATABASE_URL"))
+db = client.test
+
 # use sk_test_51AQPwCHlrGbOVNVCu63XWCFDErvBRpBjUzQP825hGTcPvye0Eg0Lf4kOJW4mvEaHw7lSVxIpCOQRh887RGB74RRB00y5XZrF75
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+
 
 def create_app(config_class=Config):
     """Return app."""
     app = Flask(__name__)
     app.config.from_object(config_class)
     CORS(app)
-
-    client = pymongo.MongoClient(os.getenv("DATABASE_URL"))
-    db = client.test
 
     jwt = JWTManager(app)
 
