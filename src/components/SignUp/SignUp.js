@@ -3,7 +3,7 @@ import axios from 'axios'
 import '../../App.css'
 import happiness from '../../assets/happiness.svg'
 
-class SignIn extends Component {
+class SignUp extends Component {
   signUp () {
     const firstName = document.querySelector('input[name=firstName]').value
     const lastName = document.querySelector('input[name=lastName]').value
@@ -11,7 +11,7 @@ class SignIn extends Component {
     const password = document.querySelector('input[name=password]').value
     const confirmPassword = document.querySelector('input[name=confirmPassword]').value
     if (firstName && lastName && email && password && password === confirmPassword) {
-      axios.post('/users/signup/', {
+      axios.post('/users/signUp/', {
         firstName: firstName,
         lastName: lastName,
         email: email,
@@ -69,4 +69,4 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn
+export default SignUp
