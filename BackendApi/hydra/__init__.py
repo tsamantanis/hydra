@@ -1,14 +1,18 @@
 """Dependency and package import."""
 import os
-import pymongo
+from flask_pymongo import PyMongo
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from hydra.config import Config
 import stripe
 
-client = pymongo.MongoClient(os.getenv("DATABASE_URL"))
-db = client.test
+app = Flask(__name__)
+app.config.from_object(Config)
+
+mongo = PyMongo(app)
+db = mongo.db
+print(type(db))
 jwt = JWTManager()
 
 # use sk_test_51AQPwCHlrGbOVNVCu63XWCFDErvBRpBjUzQP825hGTcPvye0Eg0Lf4kOJW4mvEaHw7lSVxIpCOQRh887RGB74RRB00y5XZrF75
@@ -21,8 +25,6 @@ stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 # def load_user(userId):
 #     return db.User.find({'_id' : id(userId)})
 
-app = Flask(__name__)
-app.config.from_object(Config)
 CORS(app)
 
 jwt.init_app(app)
@@ -30,6 +32,7 @@ jwt.init_app(app)
 from hydra.main.routes import main
 from hydra.users.routes import users
 from hydra.group.routes import groupBlueprint
+from hydra.channels.routes import channels
 
 # from hydra.groups.routes import groups
 # TODO: continue route imports
@@ -37,4 +40,3 @@ from hydra.group.routes import groupBlueprint
 app.register_blueprint(main, url_prefix="/")
 app.register_blueprint(users, url_prefix="/users")
 app.register_blueprint(groupBlueprint, url_prefix="/groups")
-
