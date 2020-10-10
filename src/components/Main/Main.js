@@ -18,6 +18,15 @@ class SignIn extends Component {
             <div className='ChannelItem'>
               <h6># Channel Name</h6>
             </div>
+            <div className='ChannelItem'>
+              <h6># Channel Name</h6>
+            </div>
+          </div>
+          <div className='ChannelGroup'>
+            <h5>Assignments</h5>
+            <div className='ChannelItem'>
+              <h6># Channel Name</h6>
+            </div>
           </div>
         </div>
         <div className='Feed'>

@@ -49,11 +49,15 @@
 }
 
 .Main .Channels .ChannelGroup {
-  padding: 0 24px;
+  margin: 16px 0 16px 24px;
+}
+
+.Main .Channels .ChannelGroup h5 {
+  margin-bottom: 9px;
 }
 
 .Main .Channels .ChannelGroup .ChannelItem {
-
+  margin: 6px 0;
 }
 
 .Main .Feed {
