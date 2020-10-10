@@ -45,12 +45,12 @@
 
 .Main .Channels h1 {
   padding: 18px;
-  padding-bottom: 0;
 }
 
 .Main .Channels hr {
   border: 1px solid var(--accent);
   height: 0;
+  margin-top: 40px;
   width: 100%;
 }
 
@@ -58,12 +58,12 @@
   margin: 16px 0 16px 24px;
 }
 
-.Main .Channels .ChannelGroup h5 {
-  margin-bottom: 9px;
+.Main .Channels .ChannelGroup>h5 {
+  margin-bottom: 24px;
 }
 
 .Main .Channels .ChannelGroup .ChannelItem {
-  margin: 6px 0;
+  margin: 16px 0;
 }
 
 /* Main Feed */

@@ -6,10 +6,12 @@ class SignIn extends Component {
   render () {
     return (
       <div className='Main'>
+
         <div className='Nav'>
           <div className='NavItem' />
           <div className='NavItem' />
         </div>
+
         <div className='Channels'>
           <h1>Class Name</h1>
           <hr />
@@ -29,9 +31,11 @@ class SignIn extends Component {
             </div>
           </div>
         </div>
+
         <div className='Feed'>
           <h1>Posts</h1>
         </div>
+
         <div className='Users'>
 
           <div className='UserGroup'>
