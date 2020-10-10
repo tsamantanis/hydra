@@ -121,6 +121,10 @@ button, input[type=submit] {
   margin-top: 0
 }
 
+button:hover, input[type=submit]:hover {
+  background-color: #1CA0DE;
+}
+
 a {
   color: #4E47FF;
   text-decoration: none;
