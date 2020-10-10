@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import '../../App.css'
 import coworking from '../../assets/coworking.svg'
 
-class SignIn extends Component {
+class PasswordReset extends Component {
   render () {
     return (
       <div className='PasswordReset splitView'>
@@ -28,4 +28,4 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn
+export default PasswordReset
