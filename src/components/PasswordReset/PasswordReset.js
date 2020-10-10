@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import '../../App.css'
-import './PasswordReset.css'
 import coworking from '../../assets/coworking.svg'
 
 class SignIn extends Component {

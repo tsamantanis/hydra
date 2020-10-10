@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import '../../App.css'
-import './SignIn.css'
 import happiness from '../../assets/happiness.svg'
 
 class SignIn extends Component {
