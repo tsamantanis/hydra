@@ -43,7 +43,7 @@ class SignUp extends Component {
           <form method='POST'>
             <legend>
               <h1>Sign Up</h1>
-              <h6>Get access to course material and real instructors</h6>
+              <h6>Access course material and live instructors</h6>
             </legend>
             <fieldset>
               <label htmlFor='firstName'>First Name</label>
