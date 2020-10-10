@@ -19,12 +19,6 @@ jwt = JWTManager()
 # their is a hard coded product that will store all pricing for diffrent courses
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
-
-# TODO whereever we want to do the flask_login stuff we need to set the loginManagers load_user meathod
-# @loginManager.user_loader
-# def load_user(userId):
-#     return db.User.find({'_id' : id(userId)})
-
 CORS(app)
 
 jwt.init_app(app)
@@ -33,9 +27,6 @@ from hydra.main.routes import main
 from hydra.users.routes import users
 from hydra.group.routes import groupBlueprint
 from hydra.channels.routes import channels
-
-# from hydra.groups.routes import groups
-# TODO: continue route imports
 
 app.register_blueprint(main, url_prefix="/")
 app.register_blueprint(users, url_prefix="/users")
