@@ -21,24 +21,20 @@ stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 # def load_user(userId):
 #     return db.User.find({'_id' : id(userId)})
 
+app = Flask(__name__)
+app.config.from_object(Config)
+CORS(app)
 
-def create_app(config_class=Config):
-    """Return app."""
-    app = Flask(__name__)
-    app.config.from_object(config_class)
-    CORS(app)
+jwt.init_app(app)
 
-    jwt.init_app(app)
+from hydra.main.routes import main
+from hydra.users.routes import users
+from hydra.group.routes import groupBlueprint
 
-    from hydra.main.routes import main
-    from hydra.users.routes import users
-    from hydra.group.routes import groupBlueprint
+# from hydra.groups.routes import groups
+# TODO: continue route imports
 
-    # from hydra.groups.routes import groups
-    # TODO: continue route imports
+app.register_blueprint(main, url_prefix="/")
+app.register_blueprint(users, url_prefix="/users")
+app.register_blueprint(groupBlueprint, url_prefix="/groups")
 
-    app.register_blueprint(main, url_prefix="/")
-    app.register_blueprint(users, url_prefix="/users")
-    app.register_blueprint(groupBlueprint, url_prefix="/groups")
-
-    return app

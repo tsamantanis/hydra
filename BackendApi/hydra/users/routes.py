@@ -40,7 +40,7 @@ def checkIfTokenInBlacklist(decryptedToken):
 def signUp():
     """Sign up new user, add to DB, return new user object as JSON."""
     if request.method == "GET":
-        return
+        return "hello", 200
     firstName = request.json.get("firstName")
     lastName = request.json.get("lastName")
     email = request.json.get("email")
@@ -81,7 +81,6 @@ def signOut():
     jti = get_raw_jwt()["jti"]
     db.blacklist.insert_one(jti)
     return jsonify({"msg": "Successfully logged out."}), 200
-
 
 @users.route("/<user_id>", methods=["GET", "PUT", "POST"])
 @jwt_required

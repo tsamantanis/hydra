@@ -1,6 +1,6 @@
 """Dependencies and package import."""
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from hydra import create_app
+from hydra import app
 
 
 class User:
