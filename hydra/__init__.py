@@ -2,6 +2,7 @@
 import os
 import pymongo
 from flask import Flask
+from flask_cors import CORS
 from flask_login import LoginManager
 from hydra.config import Config
 
@@ -14,6 +15,7 @@ def create_app(config_class=Config):
     """Return app."""
     app = Flask(__name__)
     app.config.from_object(config_class)
+    CORS(app)
 
     login_manager.init_app(app)
 
@@ -21,12 +23,12 @@ def create_app(config_class=Config):
     db = client.test
 
     from hydra.main.routes import main
-    from hydra.users.routes import users
+    from hydra.user.routes import user
 
     # from hydra.groups.routes import groups
     # TODO: continue route imports
 
     app.register_blueprint(main)
-    app.register_blueprint(users)
+    app.register_blueprint(user)
 
     return app
