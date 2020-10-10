@@ -33,6 +33,9 @@ def checkIfTokenInBlacklist(decryptedToken):
     return jti in db.blacklist.find_all({"decrypt": jti})
 
 
+# TODO: re-implement password hashing after debugging
+
+
 @users.route("/signup", methods=["GET", "POST"])
 def signUp():
     """Sign up new user, add to DB, return new user object as JSON."""
@@ -41,10 +44,16 @@ def signUp():
     firstName = request.form.get("firstName")
     lastName = request.form.get("lastName")
     email = request.form.get("email")
-    password = sha256_crypt.hash(request.form.get("password"))
+    password = request.form.get("password")
     newUser = User(firstName, lastName, email, password)
-    signUpUser = db.users.insert_one(newUser)
-    return jsonify(signUpUser), 200
+    insertUser = {
+        "firstName": firstName,
+        "lastName": lastName,
+        "email": email,
+        "password": password,
+    }
+    signUpUser = db.users.insert_one(insertUser)
+    return jsonify({"msg": "POST method successful"}), 200
 
 
 @users.route("/signin", methods=["POST"])
@@ -58,7 +67,7 @@ def signIn():
             jsonify({"msg": "There is no user associated with that email."}),
             400,
         )
-    if password != sha256_crypt.verify(user.password):
+    if password != sha256_crypt.verify(user.password, password):
         return jsonify({"msg": "Incorrect password entered."}), 400
     accessToken = create_access_token(identity=user.id)
     return jsonify(accessToken=accessToken), 200
