@@ -100,7 +100,26 @@ def groupIdJoin(groupId):
         ],
         defaultPaymentMethod=postData.paymentMethodId
     )
-    if priceSubscriptionObject.get('status'):
+    if priceSubscriptionObject.get('status') == 'active':
         group.enrolledId.append(currentUser._id)
-        return 'Invalid Payment', 200
-    return 'Group Joined', 200
+        current_user.enrolledGroups.append(group._id)
+        return 'Group Joined', 200
+    return 'Error', 200
+
+@hostBlueprint.route('/<groupId>/leave', methods=['POST'])
+def groupIdLeave(groupId):
+    if groupId not in currentUser.enrolledGroups or groupId not in currentUser.ownedGroups:
+        return 'Not Already Enrolled', 200
+    group = db.Group.find({'_id' : id(groupId)})
+    if group is None:
+        return 'Group Not Found', 404
+    userGroupData = {}
+    for group in current_user.enrolledGroups:
+        if group.get(groupId) == group._id:
+            userGroupData = group
+    priceSubscriptionObject = stripe.Subscription.delete(userGroupData.get('stripeSubscriptionId'))
+    if priceSubscriptionObject.get('status') == 'canceled':
+        group.enrolledId.remove(currentUser._id)
+        current_user.enrolledGroups.remove(group._id)
+        return 'Group Left', 200
+    return 'Error', 200
