@@ -8,7 +8,7 @@ class SignIn extends Component {
     return (
       <div className='SignIn'>
         <div className='left'>
-          <form>
+          <form method='POST'>
             <legend>
               <h1>Sign In</h1>
               <h6>Access your messages, tutorials, and more</h6>
