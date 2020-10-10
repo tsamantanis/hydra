@@ -6,6 +6,7 @@ import './App.css'
 
 import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
+import PasswordReset from './components/PasswordReset/PasswordReset'
 
 class App extends Component {
     // constructor(props) {
@@ -25,6 +26,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/users/signup' component={SignUp} />
           <Route exact path='/users/signin' component={SignIn} />
+          <Route exact path='/users/reset' component={PasswordReset} />
           {/* <Route path='/' component={RedirectToLogin} /> */}
         </Switch>
       </BrowserRouter>
