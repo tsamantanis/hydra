@@ -33,6 +33,10 @@ def groupsAll():
                 {str(index): contentId}
                 for index, contentId in enumerate(group["contentIds"])
             ],
+            "assignmentIds": [
+                {str(index): assignmentId}
+                for index, assignmentId in enumerate(group.assignmentIds)
+            ],
             "dis": group["dis"],
             "keywords": [
                 {str(index): keyword}
@@ -60,6 +64,7 @@ def groupCreate():
             ownerId: postData.ownerId,
             enrolledIds: {},
             contentIds: {},
+            assignmentIds: {},
             dis: postData.dis,
             channelsIds: {},
             keywords: postData.keywords,
@@ -109,6 +114,10 @@ def groupId(groupId):
         "contentIds": [
             {str(index): contentId}
             for index, contentId in enumerate(group.contentIds)
+        ],
+        "assignmentIds": [
+            {str(index): assignmentId}
+            for index, assignmentId in enumerate(group.assignmentIds)
         ],
         "dis": group.dis,
         "keywords": [
