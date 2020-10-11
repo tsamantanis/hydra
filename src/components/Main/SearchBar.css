@@ -4,7 +4,7 @@
     border-bottom: 2px solid var(--accent);
     display: flex;
     flex-direction: column;
-    height: 95.5px;
+    height: auto;
     justify-content: center;
     width: 100%;
 }
