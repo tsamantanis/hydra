@@ -26,6 +26,31 @@ class AddChannel extends Component {
         });
     }
 
+    createChannel() {
+        const name = document.querySelector('input[name=channelName]').value
+        const dis = document.querySelector('input[name=description]').value
+        if (name && dis) {
+            api({
+                method: 'POST',
+                url: '/channels/create',
+                data: {
+                    "name": name,
+                    "dis": dis
+                },
+            })
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        } else if (!name) {
+            console.log('Please enter a name.')
+        } else if (!dis) {
+            console.log('Please enter a description.')
+        }
+    }
+
     render () {
         return (
             !this.state.modal ?
@@ -53,7 +78,7 @@ class AddChannel extends Component {
                         </div>
                     </ModalBody>
                     <ModalFooter className='m-b-40'>
-                        <Button onClick={this.toggle}>Add</Button>
+                        <Button onClick={this.addChannel}>Add</Button>
                     </ModalFooter>
                 </Modal>
         )
