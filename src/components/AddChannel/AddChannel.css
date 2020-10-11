@@ -1,0 +1,80 @@
+.AddChannelModal {
+    background-color: var(--light) !important;
+    height: 480px !important;
+}
+
+/* Modal Header */
+
+.AddChannelModal .modal-header {
+    border: none;
+    padding: 0;
+}
+
+.AddChannelModal .modal-header button {
+    width: 28px;
+    position: absolute;
+    top: 15px;
+    right: 22px;
+    padding: 5px;
+}
+
+.AddChannelModal .modal-header button span {
+    margin: auto;
+    color: var(--darkAccent);
+    font-family: 'Jaldi', sans-serif;
+}
+
+.AddChannelModal .modal-header button span:hover {
+    color: var(--dark);
+}
+
+/* Modal Body */
+
+.AddChannelModal .modal-body {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 30px;
+    width: 100%;
+}
+
+.AddChannelModal .modal-body p {
+    text-transform: none;
+}
+
+.AddChannelModal .modal-body .userInput {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.AddChannelModal .modal-body .userInput label {
+    color: var(--darkAccent);
+    font-family: 'Jaldi', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    height: 16px;
+}
+
+.AddChannelModal .modal-body input {
+    width: 100%;
+}
+
+/* Modal Footer */
+
+.AddChannelModal .modal-footer {
+    border: none;
+    padding: 10px 30px;
+}
+
+.AddChannelModal .modal-footer button {
+    background-color: var(--accent);
+    border: none;
+    border-radius: 7px;
+    color: var(--light);
+    height: 35px;
+    width: 100px;
+}
