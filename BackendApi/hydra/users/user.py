@@ -6,9 +6,9 @@ from hydra import app
 class User:
     """Create User class."""
 
-    def __init__(self, _id, firstName, lastName, email, password):
+    def __init__(self, id, firstName, lastName, email, password):
         """Initialize properties of users."""
-        self._id = _id
+        self.id = _id
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
