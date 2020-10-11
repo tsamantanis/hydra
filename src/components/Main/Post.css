@@ -46,7 +46,7 @@
     display: flex;
 }
 
-.Post .PostContent .PostMessage {
+.Post .PostContent .PostMessage p {
     height: auto;
 }
 
