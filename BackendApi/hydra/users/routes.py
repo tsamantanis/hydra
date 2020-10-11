@@ -63,13 +63,12 @@ def signIn():
     email = request.json.get("email")
     password = request.json.get("password")
     user = db.users.find_one_or_404({"email": email})
-    print(f"User password: {user['password']}")
     if not user:
         return (
             jsonify({"msg": "There is no user associated with that email."}),
             400,
         )
-    if sha256_crypt.verify(password, user["password"]) is False:
+    if not sha256_crypt.verify(password, user["password"]):
         return jsonify({"msg": "Incorrect password entered."}), 400
     userIdToString = str(user["_id"])
     accessToken = create_access_token(identity=userIdToString)
@@ -77,6 +76,7 @@ def signIn():
 
 
 # Revoke current user token, logging them out.
+# TODO: further testing on this route
 @users.route("/signout")
 @jwt_required
 def signOut():
