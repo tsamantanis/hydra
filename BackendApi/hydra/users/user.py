@@ -1,6 +1,4 @@
-"""Dependencies and package import."""
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from hydra import app
+"""Create user class for utility, may delete later."""
 
 
 class User:
@@ -38,18 +36,3 @@ class User:
     def setOwnedGroups(self):
         """For tutors/instructors, set owned groups when created."""
         pass
-
-    def getResetToken(self, expires_sec=900):
-        """Enable 'forgot password' functionality."""
-        s = Serializer(app.config["SECRET_KEY"], expires_sec)
-        return s.dumps({"user_id": self.id}).decode("utf-8")
-
-    @staticmethod
-    def verifyResetToken(token):
-        """Verify that the user enters the correct pass reset token."""
-        s = Serializer(app.config["SECRET_KEY"])
-        try:
-            userId = s.loads(token)["user_id"]
-        except:
-            return None
-        return User.query.get(user_id)
