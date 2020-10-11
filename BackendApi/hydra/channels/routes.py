@@ -7,6 +7,7 @@ from flask_jwt_extended import (
     get_jwt_identity,
     get_raw_jwt,
 )
+from bson.json_util import dumps
 
 channels = Blueprint("channels", __name__)
 
@@ -21,8 +22,8 @@ def showChannels(groupId):
 
     channel.id, channel.name, channel.description
     """
-    channels = db.channels.find_all({"groupId": groupId})
-    return jsonify({channels})
+    channels = list(db.channels.find({"groupId": groupId}))
+    return dumps(channels)
 
 
 @channels.route("/groups/<groupId>/channels/create", methods=["POST", "PUT"])

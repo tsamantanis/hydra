@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import '../../App.css'
 import './Main.css'
 
-import ChannelGroup from './ChannelGroup'
+import ChannelList from './ChannelList'
 import UserGroup from './UserGroup'
 import SearchBar from './SearchBar'
 import Post from './Post'
@@ -35,18 +35,7 @@ class Main extends Component {
                 <div className={this.state.showCommunity ? 'Channels' : 'Channels Channels-lg'}>
                     <h1>Class Name</h1>
                     <hr className='m-t-30' />
-                    <ChannelGroup
-                        channelLabel='Lectures'
-                        channelNames={['Channel Name', 'Channel Name']}
-                    />
-                    <ChannelGroup
-                        channelLabel='Assignments'
-                        channelNames={['Channel Name', 'Channel Name']}
-                    />
-                    <ChannelGroup
-                        channelLabel='Groups'
-                        channelNames={['Channel Name', 'Channel Name']}
-                    />
+                    <ChannelList />
                 </div>
                 <div className={this.state.showCommunity ? 'Feed' : 'Feed Feed-lg'}>
                     <div className='HeaderToolbar'>
