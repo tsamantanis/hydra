@@ -16,10 +16,10 @@ def userLoaderCallback(identity):
 
     If user does not exist, return None. Else, return the user.
     """
-    user = db.users.find_one_or_404({"_id": identity})
-    if identity not in user:
+    currentUser = db.users.find_one_or_404({"_id": identity})
+    if identity not in currentUser:
         return None
-    return user
+    return currentUser
 
 
 # Define function to send user reset password tokens

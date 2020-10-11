@@ -90,8 +90,7 @@ def signOut():
 @jwt_required
 def userProfile():
     """Provide data for user profile, editable by the user."""
-    currentUser = get_jwt_identity()
-    userLoaderCallback(currentUser)
+    userLoaderCallback()
     if request.method == "GET":
         return jsonify(
             email=currentUser.email,
