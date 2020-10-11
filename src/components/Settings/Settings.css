@@ -1,7 +1,9 @@
 .SettingsModal {
     background-color: var(--light) !important;
     height: 700px !important;
-    width: 700px !important;;
+    width: 700px !important;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Modal Header */
@@ -16,7 +18,7 @@
     position: absolute;
     top: 15px;
     right: 22px;
-    padding: 2px;
+    padding: 5px;
 }
 
 .SettingsModal .modal-header button span {
@@ -30,6 +32,10 @@
 }
 
 /* Modal Body */
+
+.SettingsModal .modal-body {
+    padding: 30px 70px;
+}
 
 .SettingsModal .modal-body h2 {
     font-size: 32px;
@@ -49,23 +55,28 @@
     cursor: pointer;
 }
 
-.SettingsModal .modal-body .tab .tablinks:active,
+.SettingsModal .modal-body .tab .tablinks:focus,
 .SettingsModal .modal-body .tab .tablinks:hover {
     color: var(--accent);
     text-decoration: none;
 }
 
-/* General Section */
-
-.SettingsModal .modal-body .general {
-
+.SettingsModal .modal-body .tab .active {
+    color: var(--accent);
 }
 
-.SettingsModal .modal-body .general .UserIcon {
-    background-color: var(--accent);
-    border-radius: 10px;
-    height: 40px;
-    width: 40px;
+.SettingsModal .modal-body hr {
+    border: 1px solid var(--lightAccent)
+}
+
+/*  Modal Body - General Section */
+
+.SettingsModal .modal-body .general {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
 }
 
 .SettingsModal .modal-body .general .Avatar {
@@ -73,19 +84,115 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    width: 100%;
 }
+
+.SettingsModal .modal-body .general .Avatar .left {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.SettingsModal .modal-body .general .Avatar .left .UserIcon {
+    background-color: var(--accent);
+    border-radius: 10px;
+    height: 40px;
+    width: 40px;
+}
+
+.SettingsModal .modal-body .general .Avatar .left .avatarText {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: -5px;
+}
+
+.SettingsModal .modal-body .general .Avatar .right button {
+    background-color: var(--accent);
+    border-radius: 7px;
+    font-family: 'Jaldi';
+    font-weight: bold;
+    font-size: 20px;
+    height: 35px;
+    width: 100px;
+}
+
+.SettingsModal .modal-body .general .UserInfo {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.SettingsModal .modal-body .general .UserInfo .left,
+.SettingsModal .modal-body .general .UserInfo .right {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.SettingsModal .modal-body .general .UserInfo .left .userInput,
+.SettingsModal .modal-body .general .UserInfo .right .userInput {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.SettingsModal .modal-body .general .UserInfo .left .userInput>input,
+.SettingsModal .modal-body .general .UserInfo .right .userInput>input {
+    width: 100%;
+}
+
+
+.SettingsModal .modal-body .general .UserInfo .right>button {
+    align-self: flex-end;
+    background-color: var(--accent);
+    border-radius: 7px;
+    font-family: 'Jaldi';
+    font-weight: bold;
+    font-size: 20px;
+    height: 35px;
+    width: 100px;
+}
+
+/*  Modal Body - Notifications Section */
+
+/*  Modal Body - Billing Section */
 
 /* Modal Footer */
 
 .SettingsModal .modal-footer {
     align-items: flex-start;
+    border: none;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     height: 100px;
+    justify-content: center;
+    padding: 0 70px 30px 70px;
+    width: 100%;
+}
+
+.SettingsModal .modal-footer hr {
+    border: 1px solid var(--lightAccent);
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .SettingsModal .modal-footer .deleteAccount {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.SettingsModal .modal-footer .deleteAccount .deleteAccountText {
     align-items: flex-start;
     display: flex;
     flex-direction: column;
@@ -93,19 +200,25 @@
     justify-content: flex-start;
 }
 
-.SettingsModal .modal-footer .deleteAccount h6 {
+.SettingsModal .modal-footer .deleteAccount .deleteAccountText h6 {
     font-size: 20px;
     font-weight: bold;
     height: 20px;
 }
 
-.SettingsModal .modal-footer .deleteAccount small {
+.SettingsModal .modal-footer .deleteAccount .deleteAccountText small {
     color: var(--darkAccent);
     font-family: 'Jaldi', sans-serif;
     font-size: 14px;
     height: 14px;
 }
 
-.SettingsModal .modal-footer button {
+.SettingsModal .modal-footer .deleteAccount>button {
+    border-radius: 7px;
+    font-family: 'Jaldi';
+    font-weight: bold;
+    font-size: 20px;
+    height: 35px;
+    line-height: 23px;
     width: 100px;
 }
