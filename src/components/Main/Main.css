@@ -43,6 +43,37 @@
     width: 60px;
 }
 
+/* Header Toolbar */
+.Main .HeaderToolbar {
+    background-color: var(--darkAccent);
+    border-bottom: 2px solid var(--accent);
+    align-items: flex-start;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.Main .HeaderToolbar a {
+    display: flex;
+    color: var(--light);
+    font-weight: bold;
+    font-size: 10px;
+    text-decoration: none;
+    justify-content: center;
+    transition: 0.3s ease;
+}
+
+.Main .HeaderToolbar a:hover {
+    color: var(--accent);
+    border-radius: 100%;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
 /* Main Channels */
 
 .Main .Channels {
@@ -52,10 +83,17 @@
     flex-basis: 17%;
 }
 
+.Main .Channels-lg {
+    align-items: flex-start;
+    background-color: var(--darkAccent);
+    color: var(--light);
+    flex-basis: 23% !important;
+}
+
 .Main .Channels h1 {
     font-size: 36px;
     height: 36px;
-    padding: 18px;
+    padding: 5%;
 }
 
 .Main .Channels hr {
@@ -81,6 +119,12 @@
     align-items: center;
     background-color: var(--light);
     flex-basis: 55%;
+}
+
+.Main .Feed-lg {
+    align-items: center;
+    background-color: var(--light);
+    flex-basis: 74% !important;
 }
 
 .Main .Feed textarea::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -163,6 +207,30 @@
     border: 1px solid var(--accent);
     height: 0;
     width: 100%;
+}
+
+.Main .Users .UsersTitle {
+    align-items: flex-start;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Main .Users .UsersTitle a {
+    color: var(--light);
+    font-weight: bold;
+    font-size: 10px;
+    text-decoration: none;
+    justify-content: center;
+    transition: 0.3s ease;
+}
+
+.Main .Users .UsersTitle a:hover {
+    color: var(--accent);
+    border-radius: 100%;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s ease;
 }
 
 .Main .Users .UserItem {
