@@ -8,7 +8,7 @@ class User:
 
     def __init__(self, id, firstName, lastName, email, password):
         """Initialize properties of users."""
-        self.id = _id
+        self.id = id
         self.firstName = firstName
         self.lastName = lastName
         self.email = email

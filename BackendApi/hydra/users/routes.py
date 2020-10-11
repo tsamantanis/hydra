@@ -165,7 +165,7 @@ def userAddPayment():
 @users.route("/resetpassword", methods=["POST"])
 def resetRequest():
     """Return message for front-end."""
-    email = request.json["email"]
+    email = request.json.get("email")
     user = db.users.find_one_or_404({"email": email})
     curUser = User(
         user["_id"],
@@ -200,9 +200,9 @@ def verifyResetToken(token):
     user = User.verifyResetToken(token)
     if not user:
         return jsonify({"msg": "Token is invalid or expired."})
-    newPassword = sha256_crypt.hash(request.json["newPassword"])
+    newPassword = sha256_crypt.hash(request.json.get("newPassword"))
     updatedUser = db.users.update_one(
         {"_id": ObjectId(user.id)},
         {"$set": {"password": newPassword}},
     )
-    return jsonify({updatedUser}), 200
+    return jsonify({"msg": "Your password has been updated."}), 200
