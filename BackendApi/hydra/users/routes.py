@@ -195,7 +195,7 @@ def resetRequest():
 
 
 @users.route("/resetpassword/<token>")
-def verifyResetToken(token):
+def verifyResetTokenView(token):
     """Verify reset token from user to reset password."""
     user = User.verifyResetToken(token)
     if not user:

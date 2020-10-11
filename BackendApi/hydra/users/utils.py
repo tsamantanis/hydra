@@ -30,6 +30,6 @@ def sendResetEmail(user):
     token = user.getResetToken()
     msg = f"""
                 To reset your password, please click the following link:
-                {url_for('verifyResetToken', token=token, _external=True)}
+                {url_for('verifyResetTokenView', token=token, _external=True)}
                 If you did not make this request, please ignore this email."""
     sendMail("Reset Password", msg, user.email)
