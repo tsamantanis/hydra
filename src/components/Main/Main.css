@@ -34,12 +34,30 @@
     width: 60px;
 }
 
-.Main .Nav .NavItem:last-child {
+.Main .Nav .NavItem:hover {
+    border: 3px solid var(--lightAccent);
+    border-radius: 10px;
+    cursor: pointer;
+    height: 60px;
+    transition: 0.3s ease;
+    width: 60px;
+}
+
+.Main .Nav .AddClass {
+    background-color: var(--light);
+    color: var(--accent);
+    border: 3px solid transparent;
+    border-radius: 10px;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: auto;
 }
 
-.Main .Nav .NavItem:hover {
-    border: 3px solid var(--lightAccent);
+.Main .Nav .AddClass:hover {
+    border: 3px solid var(--accent);
     border-radius: 10px;
     cursor: pointer;
     height: 60px;

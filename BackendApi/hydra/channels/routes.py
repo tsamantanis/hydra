@@ -13,7 +13,7 @@ channels = Blueprint("channels", __name__)
 # TODO: test with Postman when bug is figured out.
 
 
-@channels.route("/group/<groupId>/channels")
+@channels.route("/groups/<groupId>/channels")
 # @jwt_required
 def showChannels(groupId):
     """
@@ -25,15 +25,20 @@ def showChannels(groupId):
     return jsonify({channels})
 
 
-@channels.route("/group/<groupId>/channels/create", methods=["POST", "PUT"])
+@channels.route("/groups/<groupId>/channels/create", methods=["POST", "PUT"])
 # @jwt_required
 def createChannel(groupId):
     """Create channel document in database."""
+    print("In function")
     name = request.json.get("name")
-    description = request.json.get("description")
-    newChannel = {"name": name, "description": description}
+    print(f"Name: {name}")
+    dis = request.json.get("dis")
+    print(f"Description: {dis}")
+    newChannel = {"name": name, "dis": dis}
+    print(f"New Channel: {newChannel}")
     insertedChannel = db.channels.insert_one(newChannel)
-    return jsonify(insertedChannel)
+    print(f"Inserted Channel: {insertedChannel}")
+    return jsonify({"msg": "This has been successful"})
 
 
 @channels.route("/channels/<groupId>/delete", methods=["POST"])

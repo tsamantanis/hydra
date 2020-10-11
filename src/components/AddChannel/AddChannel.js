@@ -78,7 +78,7 @@ class AddChannel extends Component {
                         </div>
                     </ModalBody>
                     <ModalFooter className='m-b-40'>
-                        <Button onClick={this.addChannel}>Add</Button>
+                        <Button onClick={this.createChannel}>Add</Button>
                     </ModalFooter>
                 </Modal>
         )
