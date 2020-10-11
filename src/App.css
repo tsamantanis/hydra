@@ -1,7 +1,7 @@
 /* App */
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .App {
@@ -11,151 +11,158 @@
 /* Heading and Text */
 
 h1, h2, h3, h4, h5, h6, p, button {
-  font-family: 'Jaldi', sans-serif;
-  font-weight: bold;
-  margin: 0;
+    font-family: 'Jaldi', sans-serif;
+    font-weight: bold;
+    margin: 0;
 }
 
 h1 {
-  font-size: 36px;
-  height: 36px;
+    font-size: 36px;
+    height: 36px;
 }
 
 h2 {
-  font-size: 32px;
-  height: 32px;
+    font-size: 32px;
+    height: 32px;
 }
 
 h3 {
-  font-size: 29px;
-  height: 29px;
+    font-size: 29px;
+    height: 29px;
 }
 
 h4 {
-  font-size: 26px;
-  height: 26px;
+    font-size: 26px;
+    height: 26px;
 }
 
 h5 {
-  font-size: 23px;
-  height: 23px;
+    font-size: 23px;
+    height: 23px;
 }
 
 h6 {
-  font-size: 20px;
-  height: 20px;
+    font-size: 20px;
+    height: 20px;
+}
+
+p.big, a.big {
+    color: var(--darkAccent);
+    font-size: 16px;
+    height: 16px;
+    text-transform: uppercase;
 }
 
 p {
-  font-size: 16px;
-  height: 16px;
+    font-size: 16px;
+    height: 16px;
 }
 
 small {
-  color: var(--darkAccent);
-  font-family: 'Jaldi', sans-serif;
-  font-size: 14px;
-  height: 14px;
+    color: var(--darkAccent);
+    font-family: 'Jaldi', sans-serif;
+    font-size: 14px;
+    height: 14px;
 }
 
 /* Label, Input, Button, and Anchor */
 
 label {
-  color: var(--darkAccent);
-  font-family: 'Roboto', sans-serif;
-  font-size: 12px;
-  margin-bottom: 5px;
-  margin-top: 10px
+    color: var(--darkAccent);
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    margin-bottom: 5px;
+    margin-top: 10px
 }
 
 button, input {
-  border-radius: 10px;
-  height: 40px;
-  margin: 16px;
-  width: 350px;
+    border-radius: 10px;
+    height: 40px;
+    margin: 16px;
+    width: 350px;
 }
 
 input[type=text], input[type=email], input[type=password] {
-  border: 1px solid var(--lightAccent);
-  font-family: 'Roboto', sans-serif;
-  outline: none;
-  padding: 0 10px;
-  margin-top: 0;
+    border: 1px solid var(--lightAccent);
+    font-family: 'Roboto', sans-serif;
+    outline: none;
+    padding: 0 10px;
+    margin-top: 0;
 }
 
 input[type=text]::placeholder, input[type=email]::placeholder, input[type=password]::placeholder {
-  color: var(--lightAccent);
-  font-size: 12px;
+    color: var(--lightAccent);
+    font-size: 12px;
 }
 
 input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
-  box-shadow: 0 0 0 2px var(--primary);
+    box-shadow: 0 0 0 2px var(--primary);
 }
 
 button, input[type=submit] {
-  background-color: var(--primary);
-  border: none;
-  color: var(--light);
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 0
+    background-color: var(--primary);
+    border: none;
+    color: var(--light);
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 0
 }
 
 button:hover, input[type=submit]:hover {
-  background-color: var(--accent);
+    background-color: var(--accent);
 }
 
 a {
   color: var(--primary);
-  text-decoration: none;
+    text-decoration: none;
 }
 
 a:hover {
-  color: var(--accent);
+    color: var(--accent);
 }
 
 /* Form Styles */
 
 form {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 350px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 350px;
 }
 
 form legend {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 
 form legend h6 {
-  color: var(--darkAccent);
-  margin-top: 24px;
-  margin-bottom: 45px;
+    color: var(--darkAccent);
+    margin-top: 24px;
+    margin-bottom: 45px;
 }
 
 form fieldset {
-  align-items: center;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
+    align-items: center;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
 }
 
 form fieldset label {
-  align-self: flex-start;
-  margin-left: 22px;
+    align-self: flex-start;
+    margin-left: 22px;
 }
 
 /* Margins */
 
 .m-0 {
-    margin: 0px;
+    margin: 0;
 }
 .m-l-5 {
     margin-left: 5px;
@@ -194,7 +201,7 @@ form fieldset label {
     margin-right: 40px;
 }
 .m-t-0 {
-    margin-top: 0px;
+    margin-top: 0;
 }
 .m-t-5 {
     margin-top: 5px;
@@ -215,7 +222,7 @@ form fieldset label {
     margin-top: 40px;
 }
 .m-b-0 {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 .m-b-5 {
     margin-bottom: 5px;
@@ -251,30 +258,30 @@ form fieldset label {
 /* Split View */
 
 .splitView {
-  align-items: center;
-  background-color: var(--light);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 16px;
+    align-items: center;
+    background-color: var(--light);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 16px;
 }
 
 .splitView .left {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 50%
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%
 }
 
 .splitView .right {
-  width: 50%;
+    width: 50%;
 }
 
 .splitView .right img {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
 }
