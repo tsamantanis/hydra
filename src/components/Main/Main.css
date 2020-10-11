@@ -75,6 +75,7 @@
     height: 100%;
     width: 100%;
     margin-top: 10px;
+    overflow-y: scroll;
 }
 
 /* Main Users */
@@ -136,6 +137,7 @@
     background-color: var(--light);
     width: 90%;
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .Main .CreatePost .NewPostMessage {
