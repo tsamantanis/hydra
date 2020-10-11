@@ -34,6 +34,10 @@
     width: 60px;
 }
 
+.Main .Nav .NavItem:last-child {
+    margin-bottom: auto;
+}
+
 .Main .Nav .NavItem:hover {
     border: 3px solid var(--lightAccent);
     border-radius: 10px;
@@ -41,6 +45,53 @@
     height: 60px;
     transition: 0.3s ease;
     width: 60px;
+}
+
+/* Main Settings */
+.Main .Nav .Settings {
+    color: white;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 10px;
+    transition: 0.3s ease;
+}
+
+.Main .Nav .Settings:hover {
+    cursor: pointer;
+    color: white;
+    border: 2px solid var(--light);
+    background-color: var(--accent);
+}
+
+/* Header Toolbar */
+.Main .HeaderToolbar {
+    background-color: var(--darkAccent);
+    border-bottom: 2px solid var(--accent);
+    align-items: flex-start;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.Main .HeaderToolbar a {
+    display: flex;
+    color: var(--light);
+    font-weight: bold;
+    font-size: 10px;
+    text-decoration: none;
+    justify-content: center;
+    transition: 0.3s ease;
+}
+
+.Main .HeaderToolbar a:hover {
+    color: var(--accent);
+    border-radius: 100%;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s ease;
 }
 
 /* Main Channels */

@@ -1,9 +1,15 @@
+.Settings {
+    margin-top: auto;
+}
+
 .SettingsModal {
     background-color: var(--light) !important;
     height: 700px !important;
     width: 700px !important;
+    margin-left: -100px !important;
     display: flex;
     flex-direction: column;
+    display: block;
 }
 
 /* Modal Header */
@@ -147,6 +153,7 @@
 
 .SettingsModal .modal-body .general .UserInfo .left .userInput>input,
 .SettingsModal .modal-body .general .UserInfo .right .userInput>input {
+    color: var(--dark);
     width: 100%;
 }
 

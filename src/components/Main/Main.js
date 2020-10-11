@@ -1,10 +1,14 @@
 import React, {Component} from 'react'
 import '../../App.css'
 import './Main.css'
+
 import ChannelGroup from './ChannelGroup'
 import UserGroup from './UserGroup'
 import SearchBar from './SearchBar'
 import Post from './Post'
+
+import Settings from '../Settings/Settings';
+
 class Main extends Component {
     constructor(props) {
         super(props);
@@ -24,6 +28,7 @@ class Main extends Component {
                 <div className='Nav'>
                     <div className='NavItem m-b-20' />
                     <div className='NavItem m-b-20' />
+                    <Settings />
                 </div>
                 <div className={this.state.showCommunity ? 'Channels' : 'Channels Channels-lg'}>
                     <h1>Class Name</h1>
