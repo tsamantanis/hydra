@@ -10,7 +10,7 @@ import api from '../../api'
 import '../../App.css'
 import './AddChannel.css'
 
-class Settings extends Component {
+class AddChannel extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -54,4 +54,4 @@ class Settings extends Component {
     }
 }
 
-export default Settings
+export default AddChannel
