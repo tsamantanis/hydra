@@ -71,7 +71,7 @@ def signIn():
     if password != user["password"]:
         return jsonify({"msg": "Incorrect password entered."}), 400
     accessToken = create_access_token(identity=user["_id"])
-    return jsonify(accessToken=accessToken), 200
+    return jsonify({"accessToken": accessToken}), 200
 
 
 # Revoke current user token, logging them out.
@@ -101,7 +101,9 @@ def userProfile():
         bio = request.json.get("bio")
         newFirstName = request.json.get("firstName")
         newLastName = request.json.get("lastName")
-        return jsonify(firstName=newFirstName, lastName=newLastName, bio=bio)
+        return jsonify(
+            {"firstName": newFirstName, "lastName": newLastName, "bio": bio}
+        )
     if request.method == "POST":
         # TODO: handle image uploading
         pass
