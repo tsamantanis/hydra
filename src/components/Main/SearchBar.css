@@ -1,17 +1,27 @@
 .SearchBar {
+    align-items: center;
     background-color: var(--darkAccent);
+    display: flex;
+    flex-direction: column;
+    height: 65px;
+    justify-content: flex-end;
     width: 100%;
-    border-bottom: 2px solid var(--accent);
 }
 
-.SearchBar form, .SearchBar  form input[type=text] {
-    width: 97%;
+.SearchBar form {
+    box-shadow: 0 0 3px 0 var(--dark);
+    height: 40px;
+    padding-bottom: 1px;
+    width: 91%;
 }
+
 
 .SearchBar form input[type=text] {
     background-color: var(--darkAccent);
     border: 2px solid var(--light);
     color: var(--light);
+    height: 40px;
+    width: 100%;
 }
 
 .SearchBar form input[type=text]::placeholder {

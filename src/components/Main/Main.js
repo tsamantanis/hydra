@@ -7,7 +7,7 @@ import SearchBar from './SearchBar'
 import Post from './Post'
 class Main extends Component {
     render () {
-        let posts = ["Post"]
+        let posts = ["Post", "Post", "Post"]
         return (
             <div className='Main'>
                 <div className='Nav'>
@@ -43,12 +43,12 @@ class Main extends Component {
                             )
                         })}
                     </div>
-                    <div className='CreatePost'>
+                    <div className='CreatePost m-0'>
                         <textarea className="NewPostMessage" placeholder='Message class_name' rows="3" />
                     </div>
                 </div>
                 <div className='Users'>
-                    <h1 className="m-t-n10">Community</h1>
+                    <h1>Community</h1>
                     <hr className='m-t-40' />
                     <UserGroup
                         groupTitle="Instructors"

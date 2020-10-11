@@ -5,6 +5,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    overflow-x: hidden;
 }
 
 .Main, .Main>div {
@@ -28,19 +29,19 @@
 
 .Main .Nav .NavItem {
     background-color: var(--accent);
+    border: 3px solid transparent;
     border-radius: 10px;
     height: 60px;
     width: 60px;
-    border: 3px solid transparent;
 }
 
 .Main .Nav .NavItem:hover {
-    cursor: pointer;
     border: 3px solid var(--lightAccent);
     border-radius: 10px;
+    cursor: pointer;
     height: 60px;
-    width: 60px;
     transition: 0.3s ease;
+    width: 60px;
 }
 
 /* Main Channels */
@@ -70,12 +71,64 @@
     flex-basis: 55%;
 }
 
-/* Main Posts */
+.Main .Feed textarea::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--accent);
+    font-weight: 1000;
+    opacity: 0.8; /* Firefox */
+}
+
+.Main .Feed textarea:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: var(--accent);
+    font-weight: 1000;
+}
+
+.Main .Feed textarea::-ms-input-placeholder { /* Microsoft Edge */
+    color: var(--accent);
+    font-weight: 1000;
+}
+
+/* Main Feed Posts */
+
 .Main .Feed .Posts {
     height: 100%;
     width: 100%;
-    margin-top: 10px;
     overflow-y: scroll;
+}
+
+/* Main Feed CreatePost */
+
+.Main .CreatePost {
+    align-items: center;
+    background-color: var(--light);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+.Main .CreatePost .NewPostMessage {
+    background: transparent;
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    box-shadow: 0 0 3px 0 var(--dark);
+    color: var(--darkAccent);
+    height: 100%;
+    padding: 15px;
+    outline: none;
+    overflow-y: scroll;
+    resize: none;
+    width: 92%;
+}
+
+.Main .CreatePost .NewPostMessage:hover {
+    background: rgba(28, 160, 222, 0.1);
+    transition: 0.3s ease;
+}
+
+.Main .CreatePost .NewPostMessage:focus {
+    background: transparent;
+    transition: 0.3s ease;
 }
 
 /* Main Users */
@@ -88,6 +141,9 @@
 }
 
 .Main .Users h1 {
+    font-size: 36px;
+    height: 36px;
+    margin-top: -10px;
     padding: 18px;
 }
 
@@ -98,7 +154,7 @@
 }
 
 .Main .Users .UserItem {
-    align-items: center;
+    align-items: flex-start;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -125,53 +181,22 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin-top: -15px;
+}
+
+.Main .Users .UserItem .User h6 {
+    font-family: 'Jaldi', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    height: 20px;
 }
 
 .Main .Users .UserItem .User .UserStatus {
     color: var(--lightAccent);
 }
 
-.Main .CreatePost {
-    align-items: center;
-    background-color: var(--light);
-    width: 90%;
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-.Main .CreatePost .NewPostMessage {
-    width: 100%;
-    background: transparent;
-    outline: none;
-    padding: 15px;
-    border-radius: 10px;
-    border: 2px solid var(--accent);
-    color: var(--darkAccent);
-}
-
-.Main .CreatePost .NewPostMessage:hover {
-    background: rgba(28, 160, 222, 0.1);
-    transition: 0.3s ease;
-}
-
-.Main .CreatePost .NewPostMessage:focus {
-    background: transparent;
-    transition: 0.3s ease;
-}
-
-textarea::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: var(--accent);
-  opacity: 0.8; /* Firefox */
-  font-weight: 1000;
-}
-
-textarea:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: var(--accent);
-  font-weight: 1000;
-}
-
-textarea::-ms-input-placeholder { /* Microsoft Edge */
-  color: var(--accent);
-  font-weight: 1000;
+.Main .Users .UserItem .User .UserStatus p {
+    font-family: 'Jaldi', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    height: 16px;
 }
