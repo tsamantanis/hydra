@@ -17,13 +17,13 @@
 }
 
 .Post .UserItem .UserIcon {
-    background-color: var(--accent);
+    background-color: var(--lightAccent);
     border-radius: 10px;
     height: 48px;
     width: 48px;
 }
 
-.Post .PostComments .UserItem .UserCommentIcon {
+.Post .PostComments .UserItem .UserIcon {
     background-color: var(--lightAccent);
     border-radius: 10px;
     height: 48px;
@@ -84,4 +84,23 @@
     width: 100%;
     border-radius: 10px;
     background: var(--darkAccent);
+}
+
+.Post .AddComment .UserItem input[type="text"] {
+    margin-top: auto;
+    margin-bottom: auto;
+    border: none;
+    width: 80%;
+    outline: none;
+    color: var(--darkAccent);
+}
+
+.Post .AddComment .UserItem input[type="text"]::placeholder {
+    color: var(--lightAccent);
+}
+
+.Post .AddComment .UserItem input[type="text"]:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
 }
