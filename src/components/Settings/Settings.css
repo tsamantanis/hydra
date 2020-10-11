@@ -1,0 +1,111 @@
+.SettingsModal {
+    background-color: var(--light) !important;
+    height: 700px !important;
+    width: 700px !important;;
+}
+
+/* Modal Header */
+
+.SettingsModal .modal-header {
+    border: none;
+    padding: 0;
+}
+
+.SettingsModal .modal-header button {
+    width: 28px;
+    position: absolute;
+    top: 15px;
+    right: 22px;
+    padding: 2px;
+}
+
+.SettingsModal .modal-header button span {
+    margin: auto;
+    color: var(--darkAccent);
+    font-family: 'Jaldi', sans-serif;
+}
+
+.SettingsModal .modal-header button span:hover {
+    color: var(--dark);
+}
+
+/* Modal Body */
+
+.SettingsModal .modal-body h2 {
+    font-size: 32px;
+    font-weight: bold;
+    height: 32px;
+}
+
+.SettingsModal .modal-body .tab {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.SettingsModal .modal-body .tab .tablinks {
+    color: var(--darkAccent);
+    cursor: pointer;
+}
+
+.SettingsModal .modal-body .tab .tablinks:active,
+.SettingsModal .modal-body .tab .tablinks:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+/* General Section */
+
+.SettingsModal .modal-body .general {
+
+}
+
+.SettingsModal .modal-body .general .UserIcon {
+    background-color: var(--accent);
+    border-radius: 10px;
+    height: 40px;
+    width: 40px;
+}
+
+.SettingsModal .modal-body .general .Avatar {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* Modal Footer */
+
+.SettingsModal .modal-footer {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100px;
+}
+
+.SettingsModal .modal-footer .deleteAccount {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 60%;
+    justify-content: flex-start;
+}
+
+.SettingsModal .modal-footer .deleteAccount h6 {
+    font-size: 20px;
+    font-weight: bold;
+    height: 20px;
+}
+
+.SettingsModal .modal-footer .deleteAccount small {
+    color: var(--darkAccent);
+    font-family: 'Jaldi', sans-serif;
+    font-size: 14px;
+    height: 14px;
+}
+
+.SettingsModal .modal-footer button {
+    width: 100px;
+}
