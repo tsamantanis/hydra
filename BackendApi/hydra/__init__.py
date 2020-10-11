@@ -34,3 +34,4 @@ from hydra.channels.routes import channels
 app.register_blueprint(main, url_prefix="/")
 app.register_blueprint(users, url_prefix="/users")
 app.register_blueprint(groups, url_prefix="/groups")
+app.register_blueprint(channels)

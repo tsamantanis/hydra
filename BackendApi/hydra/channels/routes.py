@@ -13,7 +13,7 @@ channels = Blueprint("channels", __name__)
 # TODO: test with Postman when bug is figured out.
 
 
-@channels.route("/channels/<groupId>")
+@channels.route("/group/<groupId>/channels")
 # @jwt_required
 def showChannels(groupId):
     """
@@ -25,7 +25,7 @@ def showChannels(groupId):
     return jsonify({channels})
 
 
-@channels.route("/channels/<groupId>/create", methods=["POST", "PUT"])
+@channels.route("/group/<groupId>/channels/create", methods=["POST", "PUT"])
 # @jwt_required
 def createChannel(groupId):
     """Create channel document in database."""
