@@ -32,7 +32,7 @@ class AddChannel extends Component {
         if (name && dis) {
             api({
                 method: 'POST',
-                url: '/channels/create',
+                url: '/groups/1/channels/create',
                 data: {
                     "name": name,
                     "dis": dis
