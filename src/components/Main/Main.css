@@ -34,6 +34,10 @@
     width: 60px;
 }
 
+.Main .Nav .NavItem:last-child {
+    margin-bottom: auto;
+}
+
 .Main .Nav .NavItem:hover {
     border: 3px solid var(--lightAccent);
     border-radius: 10px;

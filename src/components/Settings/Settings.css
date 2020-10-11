@@ -1,3 +1,7 @@
+.Settings {
+    margin-top: auto;
+}
+
 .SettingsModal {
     background-color: var(--light) !important;
     height: 700px !important;
