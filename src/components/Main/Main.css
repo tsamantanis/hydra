@@ -86,6 +86,9 @@
 
 .Main .Feed {
     align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-color: var(--light);
     flex-basis: 55%;
 }
@@ -103,11 +106,11 @@
     border-bottom: 2px solid var(--accent);
     align-items: flex-start;
     flex-direction: row;
+    flex-basis: 11.6%;
     display: flex;
     justify-content: space-between;
+    height: 100%;
     width: 100%;
-    padding-left: 5%;
-    padding-right: 5%;
 }
 
 .Main .Feed .HeaderToolbar a {
