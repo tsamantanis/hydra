@@ -11,6 +11,7 @@ from flask_jwt_extended import (
     get_jwt_identity,
     get_raw_jwt,
 )
+
 from hydra.users.utils import userLoaderCallback, sendResetEmail
 from hydra.users.user import User
 from hydra import db, jwt

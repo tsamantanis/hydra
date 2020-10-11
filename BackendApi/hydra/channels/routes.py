@@ -1,6 +1,12 @@
 """Package and dependency imports."""
 from flask import Blueprint, jsonify, request
 from hydra import db
+from flask_jwt_extended import (
+    jwt_required,
+    create_access_token,
+    get_jwt_identity,
+    get_raw_jwt,
+)
 
 channels = Blueprint("channels", __name__)
 
