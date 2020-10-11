@@ -18,18 +18,21 @@
     line-height: 24px;
 }
 
-.ChannelGroup .ChannelTitle h3 a {
+.ChannelGroup .ChannelTitle a {
     color: var(--light);
-    padding: 0 5px;
-    height: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+    justify-content: center;
+    transition: 0.3s ease;
 }
 
-.ChannelGroup .ChannelTitle h3 a:hover {
-    background-color: var(--accent);
-    border-radius: 5px;
+.ChannelGroup .ChannelTitle a:hover {
+    color: var(--accent);
+    border-radius: 100%;
     cursor: pointer;
     text-decoration: none;
-    transition: 0.3s ease-in ease-out;
+    transition: 0.3s ease;
 }
 
 .ChannelGroup .ChannelItem h6 {
