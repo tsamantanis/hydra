@@ -4,8 +4,11 @@ import './ChannelGroup.css'
 class ChannelGroup extends Component {
     render() {
         return (
-            <div className='ChannelGroup m-t-15 m-b-15 m-l-20'>
-                <h5 className="m-b-15">{this.props.channelLabel}</h5>
+            <div className='ChannelGroup m-t-15 m-b-15'>
+                <div className='ChannelTitle'>
+                    <h5 className="m-b-15">{this.props.channelLabel}</h5>
+                    <h3><a href="#">+</a></h3>
+                </div>
                 { this.props.channelNames.map((channelName) => {
                     return(
                         <div className='ChannelItem m-b-10'>

@@ -1,21 +1,50 @@
 .ChannelGroup {
     width: 100%;
-    padding: 10px;
+    padding: 10px 20px;
 }
 
-.ChannelItem h6 {
-    padding: 5px;
-    display:flex;
-    align-items:center;
-    width:100%;
-    height:30px;
+.ChannelGroup .ChannelTitle {
+    align-items: flex-start;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
 }
 
-.ChannelItem:hover {
+.ChannelGroup .ChannelTitle h3 {
+    font-size: 29px;
+    font-weight: bold;
+    margin-bottom: 0;
+    height: 10px;
+    line-height: 24px;
+}
+
+.ChannelGroup .ChannelTitle h3 a {
+    color: var(--light);
+    padding: 0 5px;
+    height: 10px;
+}
+
+.ChannelGroup .ChannelTitle h3 a:hover {
+    background-color: var(--accent);
     border-radius: 5px;
     cursor: pointer;
-    width: 80%;
-    background-color: var(--accent);
+    text-decoration: none;
     transition: 0.3s ease-in ease-out;
+}
+
+.ChannelGroup .ChannelItem h6 {
+    align-items:center;
+    display:flex;
+    height:30px;
+    padding: 5px;
+    width:100%;
+}
+
+.ChannelGroup .ChannelItem:hover {
+    background-color: var(--accent);
+    border-radius: 5px;
+    cursor: pointer;
     min-height: 30px;
+    transition: 0.3s ease-in ease-out;
+    width: 80%;
 }
