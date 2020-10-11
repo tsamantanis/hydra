@@ -31,14 +31,15 @@
     border-radius: 10px;
     height: 60px;
     width: 60px;
+    border: 3px solid transparent;
 }
 
 .Main .Nav .NavItem:hover {
     cursor: pointer;
     border: 3px solid var(--lightAccent);
     border-radius: 10px;
-    height: 57px;
-    width: 57px;
+    height: 60px;
+    width: 60px;
     transition: 0.3s ease;
 }
 
