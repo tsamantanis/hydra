@@ -7,11 +7,11 @@ class UserGroup extends Component {
                 <h4 className="m-b-30">{this.props.groupTitle}</h4>
                 { this.props.userItems.map((item) => {
                     return (
-                        <div className='UserItem m-b-20'>
+                        <div className='UserItem m-t-n5'>
                             <div className='UserIcon' />
                             <div className='User m-l-10'>
                                 <div className='UserName m-b-5'>
-                                    <h4>{item.name}</h4>
+                                    <h6>{item.name}</h6>
                                 </div>
                                 <div className='UserStatus'>
                                     <p>{item.status}</p>

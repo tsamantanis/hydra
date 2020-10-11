@@ -1,6 +1,7 @@
 .SearchBar {
     background-color: var(--darkAccent);
     width: 100%;
+    border-bottom: 2px solid var(--accent);
 }
 
 .SearchBar form, .SearchBar  form input[type=text] {
@@ -15,4 +16,16 @@
 
 .SearchBar form input[type=text]::placeholder {
     color: var(--light);
+}
+
+.SearchBar form input[type=text]:hover {
+    background-color: white;
+    border: 2px solid var(--accent);
+    color: var(--darkAccent);
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.SearchBar form input[type=text]:hover::placeholder {
+    color: var(--darkAccent);
 }
