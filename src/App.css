@@ -11,7 +11,7 @@
 /* Heading and Text */
 
 h1, h2, h3, h4, h5, h6, p, button, input, textarea {
-    font-family: 'Jaldi', sans-serif;
+    font-family: 'Jaldi', sans-serif !important;
     font-weight: bold;
     margin: 0;
 }

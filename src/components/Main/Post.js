@@ -14,7 +14,7 @@ class Post extends Component {
                 <div className='UserItem m-b-20'>
                     <div className='UserIcon' />
                     <div className='User m-l-10'>
-                        <div className='UserName m-b-5'>
+                        <div className='UserName m-t-20'>
                             <h4>{item.name}</h4>
                         </div>
                         <div className='UserStatus'>
