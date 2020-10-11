@@ -47,13 +47,13 @@ def signUp():
     email = request.json.get("email")
     password = request.json.get("password")
     newUser = User(firstName, lastName, email, password)
-    insertUser = {
-        "firstName": firstName,
-        "lastName": lastName,
-        "email": email,
-        "password": password,
-    }
-    signUpUser = db.users.insert_one(insertUser)
+    # insertUser = {
+    #     "firstName": firstName,
+    #     "lastName": lastName,
+    #     "email": email,
+    #     "password": password,
+    # }
+    signUpUser = db.users.insert_one(newUser)
     return jsonify({"msg": "POST method successful"}), 200
 
 
