@@ -22,6 +22,29 @@
     width: 48px;
 }
 
+.Post .PostComments .UserItem .UserCommentIcon {
+    background-color: var(--lightAccent);
+    border-radius: 10px;
+    height: 48px;
+    width: 48px;
+    margin-bottom: auto;
+}
+
+.Post .PostComments .UserItem .UserComment {
+    background-color: var(--accent);
+    border-radius: 10px;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 90%;
+    height: 130px;
+    margin-left: 10px;
+    /* margin-top: 30px; */
+    padding: 10px;
+    color: var(--light);
+}
+
 .Post .UserItem .User {
     align-items: flex-start;
     display: flex;
@@ -35,10 +58,15 @@
 }
 
 .Post .PostContent {
-    margin: 5px 0 0 5px;
+    margin: 5px;
     align-items: center;
     display: flex;
     flex-direction: column;
+}
+
+.Post hr {
+    width: 100%;
+    border: 1px solid var(--lightAccent);
 }
 
 .Post .PostContent .PostMessage {
