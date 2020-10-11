@@ -2,8 +2,10 @@
     background-color: var(--light) !important;
     height: 700px !important;
     width: 700px !important;
+    margin-left: -100px !important;
     display: flex;
     flex-direction: column;
+    display: block;
 }
 
 /* Modal Header */
