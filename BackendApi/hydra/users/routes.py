@@ -70,7 +70,7 @@ def signIn():
         )
     if password != user["password"]:
         return jsonify({"msg": "Incorrect password entered."}), 400
-    accessToken = create_access_token(identity=user["_id"])
+    accessToken = create_access_token(identity=user.id)
     return jsonify({"accessToken": accessToken}), 200
 
 
