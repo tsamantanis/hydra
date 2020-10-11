@@ -24,7 +24,7 @@ class Main extends Component {
 
     createPost() {
         const message = document.getElementById('NewPostMessage').value
-        if (text) {
+        if (message) {
             api({
                 method: 'POST',
                 url: '/groups/1/channels/1',
@@ -39,7 +39,7 @@ class Main extends Component {
             .catch(function (error) {
                 console.log(error)
             })
-        } else if (!text) {
+        } else if (!message) {
             console.log('Please enter a message.')
         }
     }
