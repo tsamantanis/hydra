@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required
 from bson.objectid import ObjectId
 from flask_jwt_extended import (
@@ -7,44 +7,50 @@ from flask_jwt_extended import (
     get_jwt_identity,
     get_raw_jwt,
 )
-groupBlueprint = Blueprint("Groups", __name__)
+from hydra import db
+import stripe
+
+groups = Blueprint("groups", __name__)
+
+# TODO: This data will need to be serialized more properly to pass to front end.
 
 
-@groupBlueprint.route("/", methods=["GET"])
+@groups.route("/", methods=["GET"])
 @jwt_required
 def groupsAll():
+    currentUser = get_jwt_identity()
     groups = db.Group.find({})
     data = [
         {
-            "name": group.id,
-            "groupId": group.id,
-            "ownerId": group.ownerId,
+            "name": group["_id"],
+            "groupId": group["_id"],
+            "ownerId": group["ownerId"],
             "enrolledIds": [
                 {str(index): enrolledId}
-                for index, enrolledId in enumerate(group.enrolledIds)
+                for index, enrolledId in enumerate(group["enrolledIds"])
             ],
             "contentIds": [
                 {str(index): contentId}
-                for index, contentId in enumerate(group.contentIds)
+                for index, contentId in enumerate(group["contentIds"])
             ],
-            "dis": group.dis,
+            "dis": group["dis"],
             "keywords": [
                 {str(index): keyword}
-                for index, keyword in enumerate(group.keywords)
+                for index, keyword in enumerate(group["keywords"])
             ],
         }
         for group in groups
     ]
-    return flask.jsonify(data), ""
+    return jsonify({"group": [group for group in groups]}), 200
 
 
-@groupBlueprint.route("/create", methods=["POST"])
-@jwt_required
+@groups.route("/create", methods=["POST"])
+# @jwt_required
 def groupCreate():
     postData = request.json
 
     priceStripeObject = stripe.Price.create(
-        unit_amount=postData.price,
+        unit_amount=postData["price"],
         currency="usd",
         recurring={"interval": "month"},
         product="prod_IAvvfq4TnCuNDG",
@@ -65,7 +71,7 @@ def groupCreate():
     return "", 200
 
 
-@groupBlueprint.route("/search", methods=["GET"])
+@groups.route("/search", methods=["GET"])
 @jwt_required
 def groupSearch():
     getData = request.args
@@ -83,7 +89,7 @@ def groupSearch():
     return flask.jsonify(data), 200
 
 
-@groupBlueprint.route("/<groupId>", methods=["GET"])
+@groups.route("/<groupId>", methods=["GET"])
 @jwt_required
 def groupId(groupId):
     group = db.Group.find({"_id": ObjectId(groupId)})
@@ -114,7 +120,7 @@ def groupId(groupId):
     return flask.jsonify(data), ""
 
 
-@groupBlueprint.route("/<groupId>/join", methods=["POST"])
+@groups.route("/<groupId>/join", methods=["POST"])
 @jwt_required
 def groupIdJoin(groupId):
     if (
@@ -140,7 +146,7 @@ def groupIdJoin(groupId):
     return "Error", 200
 
 
-@groupBlueprint.route("/<groupId>/leave", methods=["POST"])
+@groups.route("/<groupId>/leave", methods=["POST"])
 @jwt_required
 def groupIdLeave(groupId):
     if (

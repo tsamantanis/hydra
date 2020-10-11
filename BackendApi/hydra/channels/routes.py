@@ -14,7 +14,7 @@ channels = Blueprint("channels", __name__)
 
 
 @channels.route("/channels/<groupId>")
-@jwt_required
+# @jwt_required
 def showChannels(groupId):
     """
     For channels in specified group, return channel information.
@@ -26,7 +26,7 @@ def showChannels(groupId):
 
 
 @channels.route("/channels/<groupId>/create", methods=["POST", "PUT"])
-@jwt_required
+# @jwt_required
 def createChannel(groupId):
     """Create channel document in database."""
     name = request.json.get("name")

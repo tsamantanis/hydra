@@ -88,9 +88,13 @@ def signOut():
 # TODO: further testing on this route
 @users.route("/<user_id>", methods=["GET", "PUT", "POST"])
 @jwt_required
-def userProfile():
+def userProfile(user_id):
     """Provide data for user profile, editable by the user."""
-    currentUser = userLoaderCallback(get_raw_jwt)
+    print("In user profile end")
+    currentUser = get_jwt_identity()
+    print(f"Current user after calling get identity {currentUser}")
+    currentUser = userLoaderCallback(user_id)
+    print(f"Current user after calling user loader cb {currentUser}")
     if request.method == "GET":
         return jsonify(
             email=currentUser.email,
@@ -166,7 +170,7 @@ def userAddPayment():
 # from sign in on this route. fix tomorrow.
 
 
-@users.route("/resetpassword", methods=["POST"])
+@users.route("/passwordreset/sendtoken", methods=["POST"])
 def resetRequest():
     """Return message for front-end."""
     email = request.json.get("email")
@@ -191,7 +195,7 @@ def resetRequest():
     )
 
 
-@users.route("/resetpassword/<token>")
+@users.route("/passwordreset/<token>")
 def verifyResetTokenView(token):
     """Verify reset token from user to reset password."""
     user = User.verifyResetToken(token)
