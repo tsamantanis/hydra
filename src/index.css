@@ -5,6 +5,8 @@
   --lightAccent: #C7D8E3;
   --dark: #2C4251;
   --darkAccent: #3D6988;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 html, body, #root, #root>div {
