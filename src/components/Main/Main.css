@@ -31,14 +31,15 @@
     border-radius: 10px;
     height: 60px;
     width: 60px;
+    border: 3px solid transparent;
 }
 
 .Main .Nav .NavItem:hover {
     cursor: pointer;
     border: 3px solid var(--lightAccent);
     border-radius: 10px;
-    height: 57px;
-    width: 57px;
+    height: 60px;
+    width: 60px;
     transition: 0.3s ease;
 }
 
@@ -74,6 +75,7 @@
     height: 100%;
     width: 100%;
     margin-top: 10px;
+    overflow-y: scroll;
 }
 
 /* Main Users */
@@ -135,6 +137,7 @@
     background-color: var(--light);
     width: 90%;
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .Main .CreatePost .NewPostMessage {

@@ -6,6 +6,7 @@
     border-radius: 10px;
     box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.25);
     padding: 20px;
+    margin-bottom: 10px;
 }
 
 .Post .UserItem {
@@ -16,10 +17,33 @@
 }
 
 .Post .UserItem .UserIcon {
-    background-color: var(--accent);
+    background-color: var(--lightAccent);
     border-radius: 10px;
     height: 48px;
     width: 48px;
+}
+
+.Post .PostComments .UserItem .UserIcon {
+    background-color: var(--lightAccent);
+    border-radius: 10px;
+    height: 48px;
+    width: 48px;
+    margin-bottom: auto;
+}
+
+.Post .PostComments .UserItem .UserComment {
+    background-color: var(--accent);
+    border-radius: 10px;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 90%;
+    height: 130px;
+    margin-left: 10px;
+    /* margin-top: 30px; */
+    padding: 10px;
+    color: var(--light);
 }
 
 .Post .UserItem .User {
@@ -35,10 +59,15 @@
 }
 
 .Post .PostContent {
-    margin: 5px 0 0 5px;
+    margin: 5px;
     align-items: center;
     display: flex;
     flex-direction: column;
+}
+
+.Post hr {
+    width: 100%;
+    border: 1px solid var(--lightAccent);
 }
 
 .Post .PostContent .PostMessage {
@@ -55,4 +84,23 @@
     width: 100%;
     border-radius: 10px;
     background: var(--darkAccent);
+}
+
+.Post .AddComment .UserItem input[type="text"] {
+    margin-top: auto;
+    margin-bottom: auto;
+    border: none;
+    width: 80%;
+    outline: none;
+    color: var(--darkAccent);
+}
+
+.Post .AddComment .UserItem input[type="text"]::placeholder {
+    color: var(--lightAccent);
+}
+
+.Post .AddComment .UserItem input[type="text"]:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
 }

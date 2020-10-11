@@ -23,10 +23,26 @@ class Post extends Component {
                     </div>
                 </div>
                 <div className='PostContent'>
-                    <div className='PostMessage'>
+                    <div className='PostMessage m-b-10'>
                         <p>{item.message}</p>
                     </div>
                     <div className='PostImage m-b-20' />
+                </div>
+                <hr />
+                <div className='PostComments m-t-20 m-b-20'>
+                    <div className='UserItem'>
+                        <div className='UserIcon' />
+                        <div className="UserComment">
+                            <p>{item.message}</p>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div className="AddComment m-t-20">
+                    <div className='UserItem'>
+                        <div className='UserIcon' />
+                        <input type="text" className="NewComment" placeholder="Comment on this thread" />
+                    </div>
                 </div>
                 {/*<form className='m-t-10 m-l-10 m-r-10'>
                     <input type='text' placeholder={this.props.placeHolder} />

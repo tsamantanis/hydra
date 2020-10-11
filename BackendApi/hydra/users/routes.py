@@ -67,7 +67,7 @@ def signIn():
             jsonify({"msg": "There is no user associated with that email."}),
             400,
         )
-    if password != sha256_crypt.verify(user.password, password):
+    if password != user["password"]:
         return jsonify({"msg": "Incorrect password entered."}), 400
     accessToken = create_access_token(identity=user.id)
     return jsonify(accessToken=accessToken), 200
@@ -81,6 +81,7 @@ def signOut():
     jti = get_raw_jwt()["jti"]
     db.blacklist.insert_one(jti)
     return jsonify({"msg": "Successfully logged out."}), 200
+
 
 @users.route("/<user_id>", methods=["GET", "PUT", "POST"])
 @jwt_required
