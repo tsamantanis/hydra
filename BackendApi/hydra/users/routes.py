@@ -34,7 +34,7 @@ def checkIfTokenInBlacklist(decryptedToken):
     return jti in db.blacklist.find_all({"decrypt": jti})
 
 
-#  TODO: do we need to return user to front end after sign up?
+# TODO: re-implement password hashing after debugging
 
 
 @users.route("/signup", methods=["GET", "POST"])
@@ -103,12 +103,25 @@ def userProfile(user_id):
             bio=currentUser.bio,
         )
     if request.method == "PUT":
-        bio = request.json.get("bio")
-        newFirstName = request.json.get("firstName")
-        newLastName = request.json.get("lastName")
-        return jsonify(
-            {"firstName": newFirstName, "lastName": newLastName, "bio": bio}
-        )
+        jsonSet = {}
+        if request.json.get("bio") != None:
+            jsonSet["firstName"] = request.json.get("firstName")
+        if request.json.get("bio") != None:
+            jsonSet["lastName"] = request.json.get("lastName")
+        if request.json.get("bio") != None:
+            jsonSet["email"] = request.json.get("email")
+        if request.json.get("bio") != None:
+            jsonSet["password"] = request.json.get("password")
+        if request.json.get("bio") != None:
+            jsonSet["bio"] = request.json.get("bio")
+
+        db.User.update(
+                    { '_id': currentUser['_id'] },
+                    { '$set':
+                        jsonSet
+                    }
+                )
+        return 'User Updated', 200
     if request.method == "POST":
         # TODO: handle image uploading
         pass
@@ -137,27 +150,30 @@ def userAddPayment():
     """Allow user to add payment method for subscription."""
     currentUser = get_jwt_identity()
     userLoaderCallback(currentUser)
-    cardNumber = request.json["cardNumber"]
-    expMonth = request.json["expMonth"]
+    number = request.json.get("number")
+    expMonth = request.json.get("country")
+    cardNumber = request.json.get("line1")
+    expMonth = request.json.get("line2")
+    cardNumber = request.json.get("cardNumber")
+    expMonth = request.json.get("expMonth")
     stripe.PaymentMethod.create(
         type="card",
         card={
-            "number": None,
-            "exp_month": None,
-            "exp_year": None,
-            "cvc": None,
+            "number": request.json.get("number"),
+            "exp_month": request.json.get("exp_month"),
+            "exp_year": request.json.get("exp_year"),
+            "cvc": request.json.get("cvc"),
         },
         billing_details={
             "address": {
-                "city": None,
-                "country": None,
-                "line1": None,
-                "line1": None,
-                "postal_code": None,
-                "state": None,
+                "city": request.json.get("city"),
+                "country": request.json.get("country"),
+                "line1": request.json.get("address").get('line1'),
+                "line2": request.json.get("address").get('line2'),
+                "postal_code": request.json.get("address").get('postal_code'),
+                "state": request.json.get("address").get('state')
             },
-            "email": None,
-            "name": None,
+            "name": request.json.get("name"),
         },
     )
     return stripe.paymentMethod, 200
