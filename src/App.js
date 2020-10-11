@@ -8,7 +8,6 @@ import Main from './components/Main/Main'
 import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import PasswordReset from './components/PasswordReset/PasswordReset'
-import AddChannel from './components/AddChannel/AddChannel'
 
 class App extends Component {
     // constructor(props) {
@@ -29,7 +28,6 @@ class App extends Component {
           <Route exact path='/users/signup' component={SignUp} />
           <Route exact path='/users/signin' component={SignIn} />
           <Route exact path='/users/passwordreset' component={PasswordReset} />
-          <Route exact path='/channels/create' component={AddChannel} />
           <Route exact path='/' component={Main} />
           {/* <Route path='/' component={RedirectToLogin} /> */}
         </Switch>
