@@ -149,6 +149,7 @@
 
 .SettingsModal .modal-body .general .UserInfo .left .userInput>input,
 .SettingsModal .modal-body .general .UserInfo .right .userInput>input {
+    color: var(--dark);
     width: 100%;
 }
 

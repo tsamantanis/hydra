@@ -46,6 +46,62 @@ class Settings extends Component {
         document.getElementById('generalTab').click()
     }
 
+    updateAccount () {
+        const firstName = document.querySelector('input[name=firstName]').value
+        const lastName = document.querySelector('input[name=lastName]').value
+        const email = document.querySelector('input[name=email]').value
+        const password = document.querySelector('input[name=password]').value
+        if (firstName && lastName && email && password) {
+            api({
+                method: 'POST',
+                url: '/users/user_id',
+                data: {
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "email": email,
+                    "password": password
+                },
+            })
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        } else if (!firstName) {
+            console.log('Please enter a first name.')
+        } else if (!lastName) {
+            console.log('Please enter a last name.')
+        } else if (!email) {
+            console.log('Please enter an email.')
+        } else if (!password) {
+            console.log('Please enter a password.')
+        }
+    }
+
+    deleteAccount() {
+        const firstName = document.querySelector('input[name=firstName]').value
+        const lastName = document.querySelector('input[name=lastName]').value
+        const email = document.querySelector('input[name=email]').value
+        const password = document.querySelector('input[name=password]').value
+        api({
+            method: 'DELETE',
+            url: '/users/user_id',
+            data: {
+                "firstName": firstName,
+                "lastName": lastName,
+                "email": email,
+                "password": password
+            },
+        })
+        .then(function (response) {
+            console.log(response)
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+    }
+
     render () {
         return (
             !this.state.modal ?
@@ -87,23 +143,23 @@ class Settings extends Component {
                                 <div className='left m-r-10'>
                                     <div className='userInput'>
                                         <label htmlFor='firstName'>First Name</label>
-                                        <input type='text' name='firstName' id='firstName' placeholder='Jimi'/>
+                                        <input type='text' name='firstName' id='firstName' value='Jimi'/>
                                     </div>
                                     <div className='userInput'>
                                         <label htmlFor='email'>Email Address</label>
-                                        <input type='email' name='email' id='email' placeholder='name@address.com'/>
+                                        <input type='email' name='email' id='email' value='name@address.com'/>
                                     </div>
                                 </div>
                                 <div className='right m-l-10'>
                                     <div className='userInput'>
                                         <label htmlFor='lastName'>Last Name</label>
-                                        <input type='text' name='lastName' id='lastName' placeholder='Hendrix'/>
+                                        <input type='text' name='lastName' id='lastName' value='Hendrix'/>
                                     </div>
                                     <div className='userInput'>
                                         <label htmlFor='password'>Password</label>
-                                        <input type='text' name='password' id='password' placeholder='&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;'/>
+                                        <input type='text' name='password' id='password' value='&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;'/>
                                     </div>
-                                    <button type='button' className='m-t-20'>Save</button>
+                                    <button type='button' className='m-t-20' onClick={this.updateAccount}>Save</button>
                                 </div>
                             </div>
                         </section>
@@ -124,7 +180,7 @@ class Settings extends Component {
                                 <h6>Delete your account</h6>
                                 <small>Please note, deleting your account is a permanent action and will not be recoverable once completed.</small>
                             </div>
-                            <Button color='danger' onClick={this.toggle}>Delete</Button>
+                            <Button color='danger' onClick={this.deleteAccount}>Delete</Button>
                         </div>
                     </ModalFooter>
                 </Modal>
