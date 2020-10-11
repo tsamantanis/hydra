@@ -54,7 +54,7 @@ def signUp():
         "password": newUser.password,
     }
     signUpUser = db.users.insert_one(insertUser)
-    return jsonify(insertUser), 200
+    return jsonify({newUser}), 200
 
 
 @users.route("/signin", methods=["POST"])
