@@ -167,6 +167,9 @@ def resetRequest():
     """Return message for front-end."""
     email = request.json["email"]
     user = db.users.find_one_or_404({"email": email})
+    curUser = User(
+        user["firstName"], user["lastName"], user["email"], user["password"]
+    )
     if not user:
         return (
             jsonify(
@@ -176,7 +179,7 @@ def resetRequest():
             ),
             400,
         )
-    sendResetEmail(user)
+    sendResetEmail(curUser)
     return (
         jsonify(
             {
