@@ -161,6 +161,10 @@ def userAddPayment():
 
 # User requests reset token
 
+# TODO: More testing on this route. I
+# Literally do not understand why I'm getting an error
+# from sign in on this route. fix tomorrow.
+
 
 @users.route("/resetpassword", methods=["POST"])
 def resetRequest():
