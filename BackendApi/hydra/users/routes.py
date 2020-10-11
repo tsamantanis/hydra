@@ -76,7 +76,6 @@ def signIn():
 
 
 # Revoke current user token, logging them out.
-# TODO: further testing on this route
 @users.route("/signout")
 @jwt_required
 def signOut():
@@ -86,11 +85,12 @@ def signOut():
     return jsonify({"msg": "Successfully logged out."}), 200
 
 
+# TODO: further testing on this route
 @users.route("/<user_id>", methods=["GET", "PUT", "POST"])
 @jwt_required
 def userProfile():
     """Provide data for user profile, editable by the user."""
-    userLoaderCallback()
+    currentUser = userLoaderCallback(get_raw_jwt)
     if request.method == "GET":
         return jsonify(
             email=currentUser.email,
