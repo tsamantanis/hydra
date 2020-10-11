@@ -15,8 +15,8 @@ class Main extends Component {
                     <div className='NavItem m-b-20' />
                 </div>
                 <div className='Channels'>
-                    <h1 className="m-t-n10">Class Name</h1>
-                    <hr className='m-t-40' />
+                    <h1>Class Name</h1>
+                    <hr className='m-t-30' />
                     <ChannelGroup
                         channelLabel='Lectures'
                         channelNames={['Channel Name', 'Channel Name']}
@@ -49,7 +49,7 @@ class Main extends Component {
                 </div>
                 <div className='Users'>
                     <h1>Community</h1>
-                    <hr className='m-t-40' />
+                    <hr className='m-t-30' />
                     <UserGroup
                         groupTitle="Instructors"
                         userItems={[

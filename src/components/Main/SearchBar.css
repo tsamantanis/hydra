@@ -1,17 +1,16 @@
 .SearchBar {
     align-items: center;
     background-color: var(--darkAccent);
+    border-bottom: 2px solid var(--accent);
     display: flex;
     flex-direction: column;
-    height: 65px;
-    justify-content: flex-end;
+    height: 95.5px;
+    justify-content: center;
     width: 100%;
 }
 
 .SearchBar form {
-    box-shadow: 0 0 3px 0 var(--dark);
     height: 40px;
-    padding-bottom: 1px;
     width: 91%;
 }
 
