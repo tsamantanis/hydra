@@ -133,6 +133,9 @@
 
 .Main .Feed {
     align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-color: var(--light);
     flex-basis: 55%;
 }
@@ -142,6 +145,40 @@
     background-color: var(--light);
     flex-basis: 74% !important;
 }
+
+/* Header Feed Toolbar */
+
+.Main .Feed .HeaderToolbar {
+    background-color: var(--darkAccent);
+    border-bottom: 2px solid var(--accent);
+    align-items: flex-start;
+    flex-direction: row;
+    flex-basis: 11.6%;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+.Main .Feed .HeaderToolbar a {
+    display: flex;
+    color: var(--light);
+    font-weight: bold;
+    font-size: 10px;
+    text-decoration: none;
+    justify-content: center;
+    transition: 0.3s ease;
+}
+
+.Main .Feed .HeaderToolbar a:hover {
+    color: var(--accent);
+    border-radius: 100%;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+/* Header Feed Textarea */
 
 .Main .Feed textarea::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: var(--accent);

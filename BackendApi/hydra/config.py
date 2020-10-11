@@ -4,7 +4,7 @@ import os, json
 class Config(object):
     """Initialize environment variables."""
     config = None
-    with open(os.path.join(os.getcwd(), 'app.config')) as config_file:
+    with open(os.path.join(os.getcwd(), 'BackendApi/app.config')) as config_file:
         config = json.load(config_file)
 
     DEBUG = False
