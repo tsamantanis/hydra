@@ -46,7 +46,7 @@ def signUp():
     lastName = request.json.get("lastName")
     email = request.json.get("email")
     password = sha256_crypt.hash(request.json.get("password"))
-    newUser = User(firstName, lastName, email, password)
+    # newUser = User(firstName, lastName, email, password)
     insertUser = {
         "firstName": newUser.firstName,
         "lastName": newUser.lastName,
