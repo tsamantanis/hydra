@@ -47,13 +47,13 @@ def signUp():
     email = request.json.get("email")
     password = request.json.get("password")
     newUser = User(firstName, lastName, email, password)
-    # insertUser = {
-    #     "firstName": firstName,
-    #     "lastName": lastName,
-    #     "email": email,
-    #     "password": password,
-    # }
-    signUpUser = db.users.insert_one(newUser)
+    insertUser = {
+        "firstName": newUser.firstName,
+        "lastName": newUser.lastName,
+        "email": newUser.email,
+        "password": newUser.password,
+    }
+    signUpUser = db.users.insert_one(insertUser)
     return jsonify({"msg": "POST method successful"}), 200
 
 
@@ -70,7 +70,9 @@ def signIn():
         )
     if password != user["password"]:
         return jsonify({"msg": "Incorrect password entered."}), 400
-    accessToken = create_access_token(identity=user.id)
+    userIdToString = str(user["_id"])
+    print(userIdToString)
+    accessToken = create_access_token(identity=userIdToString)
     return jsonify({"accessToken": accessToken}), 200
 
 
