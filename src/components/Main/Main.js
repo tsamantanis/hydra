@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import api from '../../api'
 import '../../App.css'
 import './Main.css'
 
@@ -19,6 +20,37 @@ class Main extends Component {
 
     toggleCommunity = () => {
         this.setState({showCommunity: !this.state.showCommunity})
+    }
+
+    createPost() {
+        const message = document.getElementById('NewPostMessage').value
+        if (text) {
+            api({
+                method: 'POST',
+                url: '/groups/1/channels/1',
+                data: {
+                    "user_id": 1,
+                    "message": message
+                },
+            })
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        } else if (!text) {
+            console.log('Please enter a message.')
+        }
+    }
+
+    submitOnEnter(event) {
+        if (event.which === 13 && !event.shiftKey) {
+            event.target.form.dispatchEvent(new Event("submit", {cancelable: true}))
+            event.preventDefault()
+        } else if (event.which === 13) {
+            this.createPost()
+        }
     }
 
     render () {
@@ -71,7 +103,7 @@ class Main extends Component {
                         })}
                     </div>
                     <div className='CreatePost m-0'>
-                        <textarea className="NewPostMessage" placeholder='Message class_name' rows="3" />
+                        <textarea className="NewPostMessage" id="NewPostMessage" placeholder='Message class_name' rows="3" onKeyPress={this.submitOnEnter} />
                     </div>
                 </div>
                 { this.state.showCommunity ?
