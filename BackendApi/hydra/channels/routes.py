@@ -45,3 +45,16 @@ def createChannel(groupId):
 @jwt_required
 def deleteChannel(groupId):
     pass
+
+@channels.route("/<channelId>")
+# @jwt_required
+def getChannel(groupId, channelId):
+    """
+    For channels in specified group, return channel information.
+
+    channel.id, channel.name, channel.description
+    """
+    channel = db.channels.find_all({"groupId": groupId,
+        "_id": ObjectId(channelId)
+    })
+    return jsonify({channel})
