@@ -186,7 +186,7 @@ def contentCreate(groupId):
     group.contentIds.append(content._id)
     return "", 200
 
-@groupBlueprint.route("/pdfs/<pdfId>", methods=["DELETE"])
+@groupBlueprint.route("/<contentId>/pdfs/<pdfId>", methods=["DELETE"])
 @jwt_required
 def pdfRemove(groupId, contentId, pdfId):
     content = db.Content.find({"_id": ObjectId(contentId)})
@@ -198,7 +198,7 @@ def pdfRemove(groupId, contentId, pdfId):
         )
     return 'Content Deleted', 204
 
-@groupBlueprint.route("/videos/<videoId>", methods=["DELETE"])
+@groupBlueprint.route("/<contentId>/videos/<videoId>", methods=["DELETE"])
 @jwt_required
 def pdfRemove(groupId, contentId, videoId):
     content = db.Content.find({"_id": ObjectId(contentId)})

@@ -17,72 +17,44 @@ groupBlueprint = Blueprint("Content", __name__)
 @jwt_required
 def contentAll(groupId):
     group = db.Group.find({"_id": ObjectId(groupId)})
-    contents = [db.Assignments.find({"_id" : ObjectId(assignmentId)}) for assignmentId in group.assignmentIds]
+    assignments = [db.Assignment.find({"_id" : ObjectId(assignmentId)}) for assignmentId in group.assignmentIds]
     data = [
         {
-            "contentId": content.id,
-            "name": content.name,
-            "dis": content.dis,
+            "assignmentId": assignment.id,
+            "name": assignment.name,
+            "dis": assignment.dis,
         }
-        for content in contents
+        for assignment in assignments
     ]
     return flask.jsonify(data), ""
 
-@groupBlueprint.route("/<contentId>", methods=["GET", "PATCH"])
+@groupBlueprint.route("/<assignmentId>", methods=["GET", "PATCH"])
 @jwt_required
-def contentId(groupId, contentId):
+def contentId(groupId, assignmentId):
     httpCode = 200
     group = db.Group.find({"_id": ObjectId(groupId)})
     if group is None:
         return "Group Not Found", 404
-    content = db.Content.find({"_id": ObjectId(contentId)})
-    if content is None:
-        return "Content Not Found", 404
+    assignment = db.Assignment.find({"_id": ObjectId(assignmentId)})
+    if assignment is None:
+        return "Assignment Not Found", 404
     if request.method == 'DELETE':
-        for videoId in content.videoIds:
-            db.Video.deleteOne(
-                {
-                    "_id": ObjectId(videoId)
-                }
-            )
-        for pdfId in content.pdfIds:
+        for pdfId in assignment.pdfIds:
             db.Pdf.deleteOne(
                 {
                     "_id": ObjectId(pdfId)
                 }
             )
-        db.Content.deleteOne(
+        db.Assignment.deleteOne(
             {
-                "_id" : ObjectId(content._id)
+                "_id" : ObjectId(assignment._id)
             }
         )
         httpCode = 204
-        return 'Content Deleted', httpCode
+        return 'Assignment Deleted', httpCode
     if request.method == 'PATCH':
         patchData = request.json
         patchFiles = request.files
-        for videoData in patchData.get('videos'):
-            jsonSet = {}
-            if videoData.dis != None:
-                jsonSet.dis = videoData.dis
-            if videoData.url != None:
-                jsonSet.url = videoData.url   
-            elif patchFiles.get(videoData._id) != None:
-                videoFile = patchFiles.get(videoData._id)
-                jsonSet.url = path.join(app.config["VIDEO_PATH"], '{0}.{1}'.format({videoData._id}, videoFile.filename.split('.')[-1]))
-                videoFile.save(jsonSet.url)
-            if videoData.videoID == True:
-                db.Video.update(
-                    { '_id': videoData.videoId },
-                    { '$set':
-                        jsonSet
-                    }
-                )
-            else:
-                createdVideo = db.Video.insert(
-                    jsonSet
-                )
-                content.videoIds.append(createdVideo._id)
 
         for pdfData in patchData.get('pdfs'):
             jsonSet = {}
@@ -105,26 +77,15 @@ def contentId(groupId, contentId):
                 createdPdf = db.Pdf.insert(
                     jsonSet
                 )
-                content.pdfIds.append(createdPdf._id)
+                assignment.pdfIds.append(createdPdf._id)
         httpCode = 204
     group = db.Group.find({"_id": ObjectId(groupId)})
-    content = db.Content.find({"_id": ObjectId(contentId)})
-    videos = [db.Video.find({"_id": ObjectId(videoId)}) for videoId in content.videoIds]
-    pdfs = [db.Pdf.find({"_id": ObjectId(pdfId)}) for pdfId in content.pdfIds]
+    assignment = db.Assignment.find({"_id": ObjectId(assignmentId)})
+    pdfs = [db.Pdf.find({"_id": ObjectId(pdfId)}) for pdfId in assignment.pdfIds]
     data = {
-        "name": group.id,
-        "dis": group.id,
-        "contentId": group.ownerId,
-        "videos": [
-            {
-                str(index): {
-                    'videoId' : video._id,
-                    'url' : video.url,
-                    'dis' : video.dis
-                }
-            }
-            for index, video in enumerate(videos)
-        ],
+        "name": assignment.name,
+        "dis": assignment.dis,
+        "assignmentId": assignment._id,
         "pdfs": [
             {
                 str(index): {
@@ -140,32 +101,16 @@ def contentId(groupId, contentId):
 
 @groupBlueprint.route("/create", methods=["POST"])
 @jwt_required
-def contentCreate(groupId):
+def assignmentCreate(groupId):
     postData = request.json
     postFiles = request.files
-    content = db.Content.insert_one(
+    assignment = db.Assignment.insert_one(
         {
             'name' : postData.get('name'),
             'dis' : postData.get('dis'),
-            'videos' : [],
             'pdfs' : [],
         }
     )
-    for videoData in postData.get('videos'):
-        jsonSet = {}
-        if videoData.dis != None:
-            jsonSet.dis = videoData.dis
-        if videoData.url != None:
-            jsonSet.url = videoData.url   
-        elif postFiles.get(videoData.tempFileId) != None:
-            videoFile = postFiles.get(videoData.tempFileId)
-            jsonSet.url = path.join(app.config["PDF_PATH"], '{0}.{1}'.format({videoData._id}, videoFile.filename.split('.')[-1]))
-            videoFile.save(jsonSet.url)
-        else:
-            createdVideo = db.Video.insert(
-                jsonSet
-            )
-            content.videoIds.append(createdVideo._id)
 
     for pdfData in postData.get('pdfs'):
         jsonSet = {}
@@ -181,31 +126,31 @@ def contentCreate(groupId):
             createdPdf = db.Pdf.insert(
                 jsonSet
             )
-            content.pdfIds.append(createdPdf._id)
+            assignment.pdfIds.append(createdPdf._id)
     group = db.Group.find({"_id": ObjectId(groupId)})
-    group.contentIds.append(content._id)
+    group.assignmentIds.append(assignment._id)
     return "", 200
 
-@groupBlueprint.route("/pdfs/<pdfId>", methods=["DELETE"])
+@groupBlueprint.route("/assignmentId/pdfs/<pdfId>", methods=["DELETE"])
 @jwt_required
-def pdfRemove(groupId, contentId, pdfId):
-    content = db.Content.find({"_id": ObjectId(contentId)})
-    content.pdfIds.remove(pdfId)
+def pdfRemove(groupId, assignmentId, pdfId):
+    assignment = db.assignment.find({"_id": ObjectId(assignmentId)})
+    assignment.pdfIds.remove(pdfId)
     db.Pdf.deleteOne(
             {
                 "_id": ObjectId(pdfId)
             }
         )
-    return 'Content Deleted', 204
+    return 'Assignment Deleted', 204
 
-@groupBlueprint.route("/videos/<videoId>", methods=["DELETE"])
+@groupBlueprint.route("/assignmentId/videos/<videoId>", methods=["DELETE"])
 @jwt_required
-def pdfRemove(groupId, contentId, videoId):
-    content = db.Content.find({"_id": ObjectId(contentId)})
-    content.videoIds.remove(videoId)
+def pdfRemove(groupId, assignmentId, videoId):
+    assignment = db.Assignment.find({"_id": ObjectId(assignmentId)})
+    assignment.videoIds.remove(videoId)
     db.Video.deleteOne(
             {
                 "_id": ObjectId(videoId)
             }
         )
-    return 'Content Deleted', 204
+    return 'Assignment Deleted', 204
