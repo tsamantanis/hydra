@@ -11,9 +11,13 @@ class SignIn extends Component {
         const email = document.querySelector('input[name=email]').value
         const password = document.querySelector('input[name=password]').value
         if (email && password) {
-            api.post('/users/signin', {
-                email: email,
-                password: password
+            api({
+                method: 'POST',
+                url: '/users/signin',
+                data: {
+                    "email": email,
+                    "password": password
+                },
             })
             .then(function (response) {
                 console.log(response)
