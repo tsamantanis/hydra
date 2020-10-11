@@ -54,7 +54,7 @@ def signUp():
         "password": newUser.password,
     }
     signUpUser = db.users.insert_one(insertUser)
-    return jsonify({"msg": "POST method successful"}), 200
+    return jsonify(signUpUser), 200
 
 
 @users.route("/signin", methods=["POST"])
@@ -62,9 +62,7 @@ def signIn():
     """Sign in user."""
     email = request.json.get("email")
     password = request.json.get("password")
-    print(f"Password: {password}")
     user = db.users.find_one_or_404({"email": email})
-    print(f"User from db: {user}")
     if not user:
         return (
             jsonify({"msg": "There is no user associated with that email."}),
@@ -72,9 +70,7 @@ def signIn():
         )
     if password != user["password"]:
         return jsonify({"msg": "Incorrect password entered."}), 400
-    print(f"User id before stringified: {user['_id']}")
     userIdToString = str(user["_id"])
-    print(userIdToString)
     accessToken = create_access_token(identity=userIdToString)
     return jsonify({"accessToken": accessToken}), 200
 

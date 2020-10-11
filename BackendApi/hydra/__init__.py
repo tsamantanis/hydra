@@ -14,7 +14,6 @@ app.config.from_object(Config)
 
 mongo = PyMongo(app)
 db = mongo.db
-print(type(db))
 jwt = JWTManager()
 # socketio = SocketIO()
 
