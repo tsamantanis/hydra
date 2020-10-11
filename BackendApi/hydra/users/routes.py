@@ -68,7 +68,7 @@ def signIn():
             jsonify({"msg": "There is no user associated with that email."}),
             400,
         )
-    if not sha256_crypt.verify(user["password"], password):
+    if not sha256_crypt.verify(password, user["password"]):
         return jsonify({"msg": "Incorrect password entered."}), 400
     userIdToString = str(user["_id"])
     accessToken = create_access_token(identity=userIdToString)
