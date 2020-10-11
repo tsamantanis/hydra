@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_jwt_extended import jwt_required
-
+from bson.objectid import ObjectId 
 groupBlueprint = Blueprint("Groups", __name__)
 
 
@@ -33,6 +33,7 @@ def groupsAll():
 
 
 @groupBlueprint.route("/create", methods=["POST"])
+@jwt_required
 def groupCreate():
     postData = request.json
 
@@ -59,6 +60,7 @@ def groupCreate():
 
 
 @groupBlueprint.route("/search", methods=["GET"])
+@jwt_required
 def groupSearch():
     getData = request.args
     groups = list()
@@ -76,8 +78,9 @@ def groupSearch():
 
 
 @groupBlueprint.route("/<groupId>", methods=["GET"])
+@jwt_required
 def groupId(groupId):
-    group = db.Group.find({"_id": id(groupId)})
+    group = db.Group.find({"_id": ObjectId(groupId)})
     if group is None:
         return "Group Not Found", 404
     priceStripeObject = stripe.Price.retrieve(
@@ -106,6 +109,7 @@ def groupId(groupId):
 
 
 @groupBlueprint.route("/<groupId>/join", methods=["POST"])
+@jwt_required
 def groupIdJoin(groupId):
     if (
         groupId in currentUser.enrolledGroups
@@ -113,7 +117,7 @@ def groupIdJoin(groupId):
     ):
         return "Already Enrolled", 200
     postData = request.json
-    group = db.Group.find({"_id": id(groupId)})
+    group = db.Group.find({"_id": ObjectId(groupId)})
     if group is None:
         return "Group Not Found", 404
     priceSubscriptionObject = stripe.Subscription.create(
@@ -131,13 +135,14 @@ def groupIdJoin(groupId):
 
 
 @groupBlueprint.route("/<groupId>/leave", methods=["POST"])
+@jwt_required
 def groupIdLeave(groupId):
     if (
         groupId not in currentUser.enrolledGroups
         or groupId not in currentUser.ownedGroups
     ):
         return "Not Already Enrolled", 200
-    group = db.Group.find({"_id": id(groupId)})
+    group = db.Group.find({"_id": ObjectId(groupId)})
     if group is None:
         return "Group Not Found", 404
     userGroupData = {}

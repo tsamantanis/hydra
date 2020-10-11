@@ -2,14 +2,16 @@ from hydra import flask
 from flask import Blueprint
 from flask_jwt_extended import jwt_required
 from os import path
+from bson.objectid import ObjectId 
+
 groupBlueprint = Blueprint("Content", __name__)
 
 # base path /groups/<groupId>/contents
 @groupBlueprint.route("/", methods=["GET"])
 @jwt_required
 def contentAll(groupId):
-    group = db.Group.find({"_id": id(groupId)})
-    contents = [db.Content.find({"_id" : id(contentId)}) for contentId in group.content_ids]
+    group = db.Group.find({"_id": ObjectId(groupId)})
+    contents = [db.Content.find({"_id" : ObjectId(contentId)}) for contentId in group.content_ids]
     data = [
         {
             "contentId": content.id,
@@ -21,30 +23,31 @@ def contentAll(groupId):
     return flask.jsonify(data), ""
 
 @groupBlueprint.route("/<contentId>", methods=["GET", "PATCH"])
+@jwt_required
 def contentId(groupId, contentId):
     httpCode = 200
-    group = db.Group.find({"_id": id(groupId)})
+    group = db.Group.find({"_id": ObjectId(groupId)})
     if group is None:
         return "Group Not Found", 404
-    content = db.Content.find({"_id": id(contentId)})
+    content = db.Content.find({"_id": ObjectId(contentId)})
     if content is None:
         return "Content Not Found", 404
     if request.method == 'DELETE':
         for videoId in content.videoIds:
             db.Video.deleteOne(
                 {
-                    "_id": id(videoId)
+                    "_id": ObjectId(videoId)
                 }
             )
         for pdfId in content.pdfIds:
             db.Pdf.deleteOne(
                 {
-                    "_id": id(pdfId)
+                    "_id": ObjectId(pdfId)
                 }
             )
         db.Content.deleteOne(
             {
-                "_id" : id(content._id)
+                "_id" : ObjectId(content._id)
             }
         )
         httpCode = 204
@@ -98,10 +101,10 @@ def contentId(groupId, contentId):
                 )
                 content.pdfIds.append(createdPdf._id)
         httpCode = 204
-    group = db.Group.find({"_id": id(groupId)})
-    content = db.Content.find({"_id": id(contentId)})
-    videos = [db.Video.find({"_id": id(videoId)}) for videoId in content.videoIds]
-    pdfs = [db.Pdf.find({"_id": id(pdfId)}) for pdfId in content.pdfIds]
+    group = db.Group.find({"_id": ObjectId(groupId)})
+    content = db.Content.find({"_id": ObjectId(contentId)})
+    videos = [db.Video.find({"_id": ObjectId(videoId)}) for videoId in content.videoIds]
+    pdfs = [db.Pdf.find({"_id": ObjectId(pdfId)}) for pdfId in content.pdfIds]
     data = {
         "name": group.id,
         "dis": group.id,
@@ -130,6 +133,7 @@ def contentId(groupId, contentId):
     return flask.jsonify(data), httpCode
 
 @groupBlueprint.route("/create", methods=["POST"])
+@jwt_required
 def contentCreate(groupId):
     postData = request.json
     postFiles = request.files
@@ -172,28 +176,30 @@ def contentCreate(groupId):
                 jsonSet
             )
             content.pdfIds.append(createdPdf._id)
-    group = db.Group.find({"_id": id(groupId)})
+    group = db.Group.find({"_id": ObjectId(groupId)})
     group.contentIds.append(content._id)
     return "", 200
 
 @groupBlueprint.route("/pdfs/<pdfId>", methods=["DELETE"])
+@jwt_required
 def pdfRemove(groupId, contentId, pdfId):
-    content = db.Content.find({"_id": id(contentId)})
+    content = db.Content.find({"_id": ObjectId(contentId)})
     content.pdfIds.remove(pdfId)
     db.Pdf.deleteOne(
             {
-                "_id": id(pdfId)
+                "_id": ObjectId(pdfId)
             }
         )
     return 'Content Deleted', 204
 
 @groupBlueprint.route("/videos/<videoId>", methods=["DELETE"])
+@jwt_required
 def pdfRemove(groupId, contentId, videoId):
-    content = db.Content.find({"_id": id(contentId)})
+    content = db.Content.find({"_id": ObjectId(contentId)})
     content.videoIds.remove(videoId)
     db.Video.deleteOne(
             {
-                "_id": id(videoId)
+                "_id": ObjectId(videoId)
             }
         )
     return 'Content Deleted', 204
