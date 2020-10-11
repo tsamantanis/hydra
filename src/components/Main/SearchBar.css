@@ -23,7 +23,6 @@
     width: 91%;
 }
 
-
 .SearchBar form input[type=text] {
     background-color: var(--darkAccent);
     border: 2px solid var(--light);
