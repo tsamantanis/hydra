@@ -15,6 +15,7 @@
 .DS_Store
 __pycache__
 pycache
+config.py
 env
 .env
 .env.local
