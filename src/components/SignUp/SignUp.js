@@ -15,16 +15,13 @@ class SignUp extends Component {
         const confirmPassword = document.querySelector('input[name=confirmPassword]').value
         if (firstName && lastName && email && password && password === confirmPassword) {
             api({
-                method: 'post',
+                method: 'POST',
                 url: '/users/signup',
                 data: {
-                    firstName: firstName,
-                    lastName: lastName,
-                    email: email,
-                    password: password
-                },
-                headers: {
-                    'content-type': 'multipart/form-data'
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "email": email,
+                    "password": password
                 },
             })
             .then(function (response) {
