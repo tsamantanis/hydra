@@ -5,7 +5,6 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    overflow-x: hidden;
 }
 
 .Main, .Main>div {
@@ -91,8 +90,9 @@
 
 .Main .Feed .Posts {
     height: 100%;
-    width: 100%;
     overflow-y: scroll;
+    padding-top: 20px;
+    width: 100%;
 }
 
 /* Main Feed CreatePost */
