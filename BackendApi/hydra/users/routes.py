@@ -168,7 +168,11 @@ def resetRequest():
     email = request.json["email"]
     user = db.users.find_one_or_404({"email": email})
     curUser = User(
-        user["firstName"], user["lastName"], user["email"], user["password"]
+        user["_id"],
+        user["firstName"],
+        user["lastName"],
+        user["email"],
+        user["password"],
     )
     if not user:
         return (
