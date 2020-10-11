@@ -146,7 +146,7 @@ form legend {
 form legend h6 {
     color: var(--darkAccent);
     margin-top: 24px;
-    margin-bottom: 45px;
+    margin-bottom: 20px;
 }
 
 form fieldset {
@@ -160,7 +160,7 @@ form fieldset {
 
 form fieldset label {
     align-self: flex-start;
-    margin-left: 22px;
+    margin-top: 20px;
 }
 
 /* Margins */

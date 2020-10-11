@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import api from '../../api'
 
 import '../../App.css'
+import './SignIn.css'
 import happiness from '../../assets/happiness.svg'
 
 class SignIn extends Component {
@@ -42,7 +43,7 @@ class SignIn extends Component {
                             <label htmlFor='password'>Password</label>
                             <input type='password' name='password' placeholder='Enter your password' />
                         </fieldset>
-                        <div className="buttonGradientContainer m-b-10">
+                        <div className="buttonGradientContainer m-b-10 m-t-30">
                             <button className="m-l-0" type='button' onClick={this.signIn}>Sign In</button>
                         </div>
                     </form>

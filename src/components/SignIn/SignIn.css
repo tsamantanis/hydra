@@ -1,0 +1,13 @@
+.SignIn .left form legend h1 {
+    color: var(--dark);
+    font-weight: bold;
+}
+
+.SignIn .left form legend h6 {
+    font-weight: bold;
+}
+
+.SignIn .left form .buttonGradientContainer button {
+    border-radius: 10px;
+    font-family: 'Jardi', sans-serif;
+}
