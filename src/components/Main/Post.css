@@ -42,8 +42,12 @@
 }
 
 .Post .PostContent .PostMessage {
-    height: 120px;
+    min-height: 30px;
     display: flex;
+}
+
+.Post .PostContent .PostMessage {
+    height: auto;
 }
 
 .Post .PostContent .PostImage {
