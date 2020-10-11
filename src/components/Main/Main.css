@@ -147,6 +147,16 @@
     color: var(--darkAccent);
 }
 
+.Main .CreatePost .NewPostMessage:hover {
+    background: rgba(28, 160, 222, 0.1);
+    transition: 0.3s ease;
+}
+
+.Main .CreatePost .NewPostMessage:focus {
+    background: transparent;
+    transition: 0.3s ease;
+}
+
 textarea::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: var(--accent);
   opacity: 0.8; /* Firefox */
