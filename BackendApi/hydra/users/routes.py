@@ -34,7 +34,7 @@ def checkIfTokenInBlacklist(decryptedToken):
     return jti in db.blacklist.find_all({"decrypt": jti})
 
 
-# TODO: re-implement password hashing after debugging
+#  TODO: do we need to return user to front end after sign up?
 
 
 @users.route("/signup", methods=["GET", "POST"])
@@ -45,7 +45,7 @@ def signUp():
     firstName = request.json.get("firstName")
     lastName = request.json.get("lastName")
     email = request.json.get("email")
-    password = request.json.get("password")
+    password = sha256_crypt.hash(request.json.get("password"))
     newUser = User(firstName, lastName, email, password)
     insertUser = {
         "firstName": newUser.firstName,
@@ -54,7 +54,7 @@ def signUp():
         "password": newUser.password,
     }
     signUpUser = db.users.insert_one(insertUser)
-    return jsonify({newUser}), 200
+    return jsonify({"msg": "Sign Up successful."}), 200
 
 
 @users.route("/signin", methods=["POST"])
@@ -68,7 +68,7 @@ def signIn():
             jsonify({"msg": "There is no user associated with that email."}),
             400,
         )
-    if password != user["password"]:
+    if not sha256_crypt.verify(user["password"], password):
         return jsonify({"msg": "Incorrect password entered."}), 400
     userIdToString = str(user["_id"])
     accessToken = create_access_token(identity=userIdToString)
