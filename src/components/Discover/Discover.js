@@ -74,6 +74,7 @@ console.log(this.state.groups);
                                 {filteredGroups && filteredGroups.map(group => {
                                     return(
                                         <Group
+                                            groupId={group._id}
                                             groupName={group.name}
                                             groupPrice="68"
                                             groupPrice={group.price}

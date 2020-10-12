@@ -8,14 +8,14 @@ import os
 
 groups = Blueprint("groups", __name__)
 
-stripe.api_key = "sk_test_51AQPwCHlrGbOVNVCu63XWCFDErvBRpBjUzQP825hGTcPvye0Eg0Lf4kOJW4mvEaHw7lSVxIpCOQRh887RGB74RRB00y5XZrF75"
 @groups.route("/", methods=["GET"])
 def allGroups():
     """Show all groups to users, enable search on client."""
     groups = db.Group.find({})
     groupData = []
-    print("Getting data")
+    print(f"Getting data: {groups}")
     for group in groups:
+        print(group)
         priceStripeObject = stripe.Price.retrieve(
             group["stripePriceId"],
         )
@@ -124,14 +124,14 @@ def groupSearch():
 @login_required
 def groupId(groupId):
     """Access group details based on groupId"""
-    group = db.Group.find({"_id": ObjectId(groupId)})
+    group = db.Group.find_one({"_id": ObjectId(groupId)})
     if group is None:
         return "Group Not Found", 404
     priceStripeObject = stripe.Price.retrieve(
         group["stripePriceId"],
     )
     data = {
-        "name": group["_id"],
+        "name": group["name"],
         "groupId": group["_id"],
         "ownerId": group["ownerId"],
         "enrolledIds": [
