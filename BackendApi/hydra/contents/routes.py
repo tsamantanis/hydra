@@ -24,6 +24,7 @@ def contentAll(groupId):
     data = [
         {
             "contentId": content["_id"],
+            "channelId" : content["channelId"],
             "name": content["name"],
             "dis": content["dis"],
         }
@@ -78,10 +79,10 @@ def contentId(groupId, contentId):
         for pdfId in content["pdfIds"]
     ]
     data = {
-        "name": group["_id"],
-        "dis": group["_id"],
-        "contentId": group["ownerId"],
-        "channelId" : group["channelId"],
+        "name": content["name"],
+        "dis": content["dis"],
+        "contentId": content["_id"],
+        "channelId" : content["channelId"],
         "videos": [
             {
                 str(index): {
