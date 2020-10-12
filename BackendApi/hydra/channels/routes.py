@@ -1,13 +1,14 @@
 """Package and dependency imports."""
 from flask import Blueprint, jsonify, request
 from hydra import db
-from flask_login import current_user
+from flask_login import current_user, login_required
 from bson.json_util import dumps
 
 channels = Blueprint("channels", __name__)
 
 
 @channels.route("/groups/<groupId>/channels")
+@login_required
 def showChannels(groupId):
     """
     For channels in specified group, return channel information.
@@ -19,6 +20,7 @@ def showChannels(groupId):
 
 
 @channels.route("/groups/<groupId>/channels/create", methods=["POST", "PUT"])
+@login_required
 def createChannel(groupId):
     """Create channel document in database."""
 
@@ -32,12 +34,13 @@ def createChannel(groupId):
 
 
 @channels.route("/channels/<groupId>/delete", methods=["POST"])
+@login_required
 def deleteChannel(groupId):
     pass
 
 
 @channels.route("/<channelId>")
-# @jwt_required
+@login_required
 def getChannel(groupId, channelId):
     """
     For channels in specified group, return channel information.
