@@ -115,14 +115,20 @@
     margin-top: -5px;
 }
 
-.SettingsModal .modal-body .general .Avatar .right button {
-    background-color: var(--accent);
+.SettingsModal .modal-body .general .Avatar .buttonGradientContainerAlt,
+.SettingsModal .modal-body .general .Avatar .buttonGradientContainerAlt button {
     border-radius: 7px;
-    font-family: 'Jaldi';
-    font-weight: bold;
     font-size: 20px;
     height: 35px;
     width: 100px;
+}
+
+.SettingsModal .modal-body .general .Avatar .buttonGradientContainerAlt button {
+    background-color: var(--accent);
+}
+
+.SettingsModal .modal-body .general .Avatar .buttonGradientContainerAlt button:hover {
+    background-color: transparent;
 }
 
 .SettingsModal .modal-body .general .UserInfo {
@@ -158,15 +164,21 @@
 }
 
 
-.SettingsModal .modal-body .general .UserInfo .right>button {
+.SettingsModal .modal-body .general .UserInfo .buttonGradientContainerAlt,
+.SettingsModal .modal-body .general .UserInfo .buttonGradientContainerAlt button {
     align-self: flex-end;
-    background-color: var(--accent);
     border-radius: 7px;
-    font-family: 'Jaldi';
-    font-weight: bold;
     font-size: 20px;
     height: 35px;
     width: 100px;
+}
+
+.SettingsModal .modal-body .general .UserInfo .buttonGradientContainerAlt button {
+    background-color: var(--accent);
+}
+
+.SettingsModal .modal-body .general .UserInfo .buttonGradientContainerAlt button:hover {
+    background-color: transparent;
 }
 
 /*  Modal Body - Notifications Section */
@@ -221,11 +233,14 @@
 }
 
 .SettingsModal .modal-footer .deleteAccount>button {
+    background-color: #EB5757;
     border-radius: 7px;
-    font-family: 'Jaldi';
-    font-weight: bold;
     font-size: 20px;
     height: 35px;
     line-height: 23px;
     width: 100px;
+}
+
+.SettingsModal .modal-footer .deleteAccount>button:hover {
+    background-color: #D23E3E;
 }

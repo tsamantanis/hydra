@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {Button} from 'reactstrap';
 import {Modal} from 'reactstrap';
 import {ModalHeader} from 'reactstrap';
 import {ModalBody} from 'reactstrap';
@@ -134,7 +133,7 @@ class Settings extends Component {
                                         <small>PNG or JPG no bigger than 1000px wide and tall.</small>
                                     </div>
                                 </div>
-                                <div className='right'>
+                                <div className='right buttonGradientContainerAlt'>
                                     <button type='button'>Upload</button>
                                 </div>
                             </div>
@@ -159,7 +158,9 @@ class Settings extends Component {
                                         <label htmlFor='password'>Password</label>
                                         <input type='text' name='password' id='password' value='&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;'/>
                                     </div>
-                                    <button type='button' className='m-t-20' onClick={this.updateAccount}>Save</button>
+                                    <div className='buttonGradientContainerAlt m-t-20'>
+                                        <button type='button' onClick={this.updateAccount}>Save</button>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -180,7 +181,7 @@ class Settings extends Component {
                                 <h6>Delete your account</h6>
                                 <small>Please note, deleting your account is a permanent action and will not be recoverable once completed.</small>
                             </div>
-                            <Button color='danger' onClick={this.deleteAccount}>Delete</Button>
+                            <button onClick={this.deleteAccount}>Delete</button>
                         </div>
                     </ModalFooter>
                 </Modal>
