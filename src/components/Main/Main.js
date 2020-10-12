@@ -58,6 +58,10 @@ class Main extends Component {
         window.location.href = '/discover'
     }
 
+    getAllUsersGroups() {
+        // This will get all the groups of the current user so they can be displayed as NavItems
+    }
+
     render () {
         let posts = ["Post", "Post", "Post"]
         return (
