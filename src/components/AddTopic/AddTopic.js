@@ -34,13 +34,13 @@ class AddTopic extends Component {
         const dis = document.querySelector('input[name=description]').value
         const category = document.querySelector('input[name=channelLabel]').value
         const url = document.querySelector('input[name=videoUrl]').value
-        const file = document.querySelector('input[name=attachments]').value
-        let fileDis = null
-        let formData = null
-        if (file) {
-            formData = new FormData(file)
-            fileDis = file.split(/(\\|\/)/g).pop().replace(/\.[^/.]+$/, "")
-        }
+        // const file = document.querySelector('input[name=attachments]').value
+        // let fileDis = null
+        // let formData = null
+        // if (file) {
+        //     formData = new FormData(file)
+        //     fileDis = file.split(/(\\|\/)/g).pop().replace(/\.[^/.]+$/, "")
+        // }
         if (name && dis) {
             api({
                 method: 'POST',
