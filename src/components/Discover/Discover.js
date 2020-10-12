@@ -62,19 +62,21 @@ class Discover extends Component {
         return (
             <div className='Discover'>
                 <img src={ellipse} alt='ellipse' className='ellipse' />
-                <form>
+                <form className='discoverForm'>
                     <label htmlFor='discoverClasses'><h4 className='m-0'>Discover Classes</h4></label>
-                    <input type='text' name='discoverClasses' id='discoverClasses' placeholder='Search from a list of thousands of classes' value={this.state.searchTerm} onChange={this.updateSearch} />
+                    <input type='text' className='discoverClasses' name='discoverClasses' id='discoverClasses' placeholder='Search from a list of thousands of classes' value={this.state.searchTerm} onChange={this.updateSearch} />
                 </form>
-                <div className='searchResults row'>
-                    {filteredGroups.map(group => {
-                        return(
-                            <Group
-                                groupName={group.name}
-                                groupPrice="68"
-                            />
-                        )
-                    })}
+                <div className='searchResults'>
+                    <div className='resultGroups'>
+                        {filteredGroups.map(group => {
+                            return(
+                                <Group
+                                    groupName={group.name}
+                                    groupPrice="68"
+                                    />
+                            )
+                        })}
+                    </div>
                 </div>
                 <img src={school} alt='school' className='school' />
             </div>
