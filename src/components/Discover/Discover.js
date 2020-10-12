@@ -14,13 +14,12 @@ class Discover extends Component {
         super(props);
         this.state = {
             groups: [],
-            displayGroups: [],
-            loading: true,
+            searchTerm: '',
         }
     }
 
     componentDidMount() {
-        this.getGroups.apply(this)
+        this.getGroups();
     }
 
     getGroups = () => {
@@ -31,7 +30,7 @@ class Discover extends Component {
         })
         .then(function (response) {
             for (const group of response.data) {
-                _this.setState({groups: [..._this.state.groups, group], loading: false})
+                _this.setState({groups: [..._this.state.groups, group]})
             }
         })
         .catch(function (error) {
@@ -39,17 +38,11 @@ class Discover extends Component {
         })
     }
 
-    searchGroups = (event) => {
-        this.setState({displayGroups: []})
-        const search = document.getElementById('discoverClasses').value
-        if (search.length > 0) {
-            this.state.groups.forEach(group => {
-                if (group.name.includes(search) || group.keywords.includes(search) || group.dis.includes(search)) {
-                    this.setState({displayGroups: [...this.state.displayGroups, group]})
-                }
-            })
-        }
-    }
+    updateSearch = (event) => {
+        this.setState({
+            searchTerm: event.target.value
+        });
+    };
 
     preventSubmit(event) {
         if (event.which === 13) {
@@ -58,16 +51,23 @@ class Discover extends Component {
     }
 
     render () {
-        return (
+        let filteredGroups = this.state.groups.filter((group) => {
+            let searchable = group.name + group.keywords.toString().replace(',', '') + group.dis;
+            let searchTerms = this.state.searchTerm.toLowerCase().trim().split(' ');
+            return searchTerms.every((term) => {
+                return searchable.toLowerCase().includes(term);
+            })
+        })
 
+        return (
             <div className='Discover'>
                 <img src={ellipse} alt='ellipse' className='ellipse' />
                 <form>
                     <label htmlFor='discoverClasses'><h4 className='m-0'>Discover Classes</h4></label>
-                    <input type='text' name='discoverClasses' id='discoverClasses' placeholder='Search from a list of thousands of classes' onKeyUp={this.searchGroups.bind(this)} onKeyPress={this.preventSubmit} />
+                    <input type='text' name='discoverClasses' id='discoverClasses' placeholder='Search from a list of thousands of classes' value={this.state.searchTerm} onChange={this.updateSearch} />
                 </form>
                 <div className='searchResults row'>
-                    {this.state.displayGroups.map(group => {
+                    {filteredGroups.map(group => {
                         return(
                             <Group
                                 groupName={group.name}
