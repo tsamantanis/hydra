@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
+from bson.json_util import dumps
 from bson.objectid import ObjectId
 from hydra import db
 import stripe
@@ -9,7 +10,7 @@ groups = Blueprint("groups", __name__)
 
 
 @groups.route("/", methods=["GET"])
-@login_required
+# @login_required
 def groupsAll():
     groups = []
     for groups in current_user.enrolledGroups:
@@ -42,9 +43,13 @@ def groupsAll():
     return jsonify({"group": [group for group in groups]}), 200
 
 
+# TODO: roles required for certain access
+
+
 @groups.route("/create", methods=["POST"])
 @login_required
 def groupCreate():
+    """Create new group."""
     postData = request.json
 
     priceStripeObject = stripe.Price.create(
@@ -72,15 +77,13 @@ def groupCreate():
 @groups.route("/search", methods=["GET"])
 @login_required
 def groupSearch():
-    getData = request.args
+    """Search for groups to join (user)."""
+    params = request.args.get("params")
     groups = list()
-    for (
-        word
-    ) in (
-        getData.params
-    ):  # TODO: Joe, will you clarify? This said "parms", and I assumed you meant "params, but am not sure"
-        groups.append(db.Group.find({"$text": {"$search": word}}))
+    for word in params:
+        groups.append(db.Group.find_one_or_404({"$text": {"$search": word}}))
     groups
+    print(groups)
     data = [
         {
             "name": group["_id"],
@@ -88,12 +91,13 @@ def groupSearch():
         }
         for group in groups
     ]
-    return flask.jsonify(data), 200
+    return dumps(data), 200
 
 
 @groups.route("/<groupId>", methods=["GET"])
 @login_required
 def groupId(groupId):
+    """Access group details based on groupId"""
     group = db.Group.find({"_id": ObjectId(groupId)})
     if group is None:
         return "Group Not Found", 404
@@ -119,21 +123,27 @@ def groupId(groupId):
         ],
         "price": priceStripeObject.get("id"),
     }
-    return jsonify(data), ""
+    return dumps(data), 200
 
 
 @groups.route("/<groupId>/join", methods=["POST"])
 @login_required
 def groupIdJoin(groupId):
+    """
+    User can join group.
+
+    Add group id to user's enrolledGroups and create
+    stripe subscription object.
+    """
     if (
         groupId in current_user.enrolledGroups
         or groupId in current_user.ownedGroups
     ):
-        return "Already Enrolled", 200
+        return jsonify({"msg": "Already Enrolled"}), 200
     postData = request.json
     group = db.Group.find({"_id": ObjectId(groupId)})
     if group is None:
-        return "Group Not Found", 404
+        return jsonify({"msg": "Group Not Found"}), 404
     priceSubscriptionObject = stripe.Subscription.create(
         customer=current_user.stripeId,
         items=[
@@ -144,30 +154,31 @@ def groupIdJoin(groupId):
     if priceSubscriptionObject.get("status") == "active":
         group.enrolledId.append(current_user.id)
         current_user.enrolledGroups.append(group["_id"])
-        return "Group Joined", 200
-    return "Error", 200
+        return jsonify({"msg": "Group Joined"}), 200
+    return jsonify({"msg": "Error"}), 200
 
 
 @groups.route("/<groupId>/leave", methods=["POST"])
 @login_required
 def groupIdLeave(groupId):
+    """Remove user from group."""
     if (
         groupId not in current_user.enrolledGroups
         or groupId not in current_user.ownedGroups
     ):
-        return "Not Already Enrolled", 200
+        return jsonify({"msg": "Not Enrolled"}), 200
     group = db.Group.find({"_id": ObjectId(groupId)})
     if group is None:
-        return "Group Not Found", 404
+        return jsonify({"msg": "Group Not Found"}), 404
     userGroupData = {}
     for group in current_user.enrolledGroups:
-        if group.get(groupId) == group._id:
+        if group.get(groupId) == group["_id"]:
             userGroupData = group
     priceSubscriptionObject = stripe.Subscription.delete(
         userGroupData.get("stripeSubscriptionId")
     )
     if priceSubscriptionObject.get("status") == "canceled":
-        group.enrolledId.remove(current_user._id)
-        current_user.enrolledGroups.remove(group._id)
-        return "Group Left", 200
-    return "Error", 200
+        group.enrolledId.remove(current_user.id)
+        current_user.enrolledGroups.remove(group["_id"])
+        return jsonify({"msg": "Group Left"}), 200
+    return jsonify({"msg": "Error"}), 200

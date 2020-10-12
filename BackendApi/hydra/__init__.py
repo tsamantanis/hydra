@@ -24,7 +24,7 @@ stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
 CORS(app)
 loginManager.init_app(app)
-loginManager.login_view = "signin"
+# loginManager.login_view = "users.signIn"
 # socketio.init_app(app)
 
 from hydra.main.routes import main
