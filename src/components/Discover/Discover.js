@@ -60,27 +60,34 @@ class Discover extends Component {
         })
 console.log(this.state.groups);
         return (
-            <div className='Discover'>
-                <img src={ellipse} alt='ellipse' className='ellipse' />
-                <form className='discoverForm'>
-                    <label htmlFor='discoverClasses'><h4 className='m-0'>Discover Classes</h4></label>
-                    <input type='text' className='discoverClasses' name='discoverClasses' id='discoverClasses' placeholder='Search from a list of thousands of classes' value={this.state.searchTerm} onChange={this.updateSearch} />
-                </form>
-                <div className='searchResults'>
-                    <div className='resultGroups'>
-                        {filteredGroups && filteredGroups.map(group => {
-                            return(
-                                <Group
-                                    groupName={group.name}
-                                    groupPrice="68"
-                                    groupPrice={group.price}
-                                    groupDis={group.dis}
-                                    />
-                            )
-                        })}
-                    </div>
+            <div className="container discover" style={{backgroundImage: 'url('+ellipse+')', backgroundSize: "cover"}}>
+                <div className="row">
+                    <form className='search col-12'>
+                        <label htmlFor='discoverClasses'><h4 className='m-0'>Discover Classes</h4></label>
+                        <input type='text' className='discoverClasses' name='discoverClasses' id='discoverClasses' placeholder='Search from a list of thousands of classes' value={this.state.searchTerm} onChange={this.updateSearch} />
+                    </form>
                 </div>
-                <img src={school} alt='school' className='school' />
+                {filteredGroups ?
+                    <div className="row m-b-30">
+                        <div className="col-9">
+                            <div className="row">
+                                {filteredGroups && filteredGroups.map(group => {
+                                    return(
+                                        <Group
+                                            groupName={group.name}
+                                            groupPrice="68"
+                                            groupPrice={group.price}
+                                            groupDis={group.dis}
+                                            />
+                                    )
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                    :
+                    null
+                }
+                <img src={school} alt='school' className={filteredGroups ? 'school hidden m-t-auto' : 'school m-t-auto'} />
             </div>
         )
     }
