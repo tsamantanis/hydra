@@ -24,6 +24,8 @@ class SignIn extends Component {
             .then(function (response) {
                 console.log(response.data.authToken)
                 // authToken = response.data.authToken
+                localStorage.setItem('token', response.data.authToken);
+
                 window.location.href='/'
             })
             .catch(function (error) {

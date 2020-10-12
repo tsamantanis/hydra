@@ -24,11 +24,12 @@ class SignUp extends Component {
                     "password": password
                 },
             })
-            .then(function (response) {
-                console.log(response)
+            .then((response) => {
+                // localStorage.setItem('token', response.data.authToken);
+
                 window.location.href='/discover'
             })
-            .catch(function (error) {
+            .catch((error) => {
                 console.log(error)
             })
         } else if (!firstName) {
