@@ -11,6 +11,11 @@
     align-items: center;
 }
 
+.Group img {
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 .Group .groupInfo {
     display: flex;
     flex-direction: column;
@@ -21,6 +26,11 @@
 
 .Group .groupInfo h5 {
     color: var(--darkAccent);
+    cursor: pointer;
+}
+
+.Group .groupInfo h5:hover {
+    text-decoration: underline;
 }
 
 .Group .groupInfo h6 {

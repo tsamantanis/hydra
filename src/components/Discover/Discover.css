@@ -1,9 +1,15 @@
+html, body, #root {
+    /* height: 3000px; */
+    overflow-y: visible !important;
+}
+
 .Discover {
     align-items: center;
     background-color: var(--light);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: auto;
 }
 
 .Discover .ellipse {
@@ -16,6 +22,7 @@
 
 .Discover .school {
     bottom: 0;
+    margin-bottom: 0;
     left: 50%;
     margin-left: -28%;
     position: absolute;
@@ -24,10 +31,8 @@
 }
 
 .Discover form {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    top: 290px;
+    position: absolute;
     z-index: 1;
 }
 
@@ -37,5 +42,18 @@
 
 .Discover form input[type=text] {
     background-color: var(--light);
-    color: var(--lightAccent);
+    color: var(--dark);
+}
+
+.Discover .searchResults {
+    position: absolute;
+    top: 50%;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 100px 40px 100px;
+    margin-bottom: 600px;
+    z-index: 2;
 }
