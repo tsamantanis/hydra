@@ -16,7 +16,7 @@ def showChannels(groupId):
 
     channel.id, channel.name, channel.description
     """
-    channelS = db.channels.find({"groupId": groupId})
+    channels = db.channels.find({"groupId": groupId})
     return dumps(channels)
 
 
