@@ -178,7 +178,7 @@ def pdfRemove(groupId, contentId, pdfId):
 
 
 @contents.route("/<contentId>/videos/<videoId>", methods=["DELETE"])
-def pdfRemove(groupId, contentId, videoId):
+def videofRemove(groupId, contentId, videoId):
     content = db.Content.find({"_id": ObjectId(contentId)})
     content.videoIds.remove(videoId)
     db.Video.deleteOne({"_id": ObjectId(videoId)})
