@@ -1,4 +1,4 @@
-from hydra import flask
+import flask
 from flask import Blueprint
 from flask_jwt_extended import jwt_required
 from os import path
@@ -10,10 +10,10 @@ from flask_jwt_extended import (
     get_raw_jwt,
 )
 
-groupBlueprint = Blueprint("Content", __name__)
+contents = Blueprint("Content", __name__)
 
 # base path /groups/<groupId>/contents
-@groupBlueprint.route("/", methods=["GET"])
+@contents.route("/", methods=["GET"])
 @jwt_required
 def contentAll(groupId):
     group = db.Group.find({"_id": ObjectId(groupId)})
@@ -28,7 +28,7 @@ def contentAll(groupId):
     ]
     return flask.jsonify(data), ""
 
-@groupBlueprint.route("/<contentId>", methods=["GET", "PATCH"])
+@contents.route("/<contentId>", methods=["GET", "PATCH"])
 @jwt_required
 def contentId(groupId, contentId):
     httpCode = 200
