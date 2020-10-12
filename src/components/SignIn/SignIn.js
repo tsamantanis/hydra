@@ -6,7 +6,7 @@ import '../../App.css'
 import './SignIn.css'
 import happiness from '../../assets/happiness.svg'
 
-let authToken
+// let authToken
 
 class SignIn extends Component {
     signIn () {
@@ -23,7 +23,7 @@ class SignIn extends Component {
             })
             .then(function (response) {
                 console.log(response.data.authToken)
-                authToken = response.data.authToken
+                // authToken = response.data.authToken
                 window.location.href='/'
             })
             .catch(function (error) {
