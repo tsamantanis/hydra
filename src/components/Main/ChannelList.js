@@ -25,7 +25,7 @@ class ChannelList extends Component {
             url: '/groups/5f83e890d1bf28e13820a756/channels'
         })
         .then((response) => {
-            console.log(response.data);
+            console.log(response.data)
             this.setState({topics: response.data})
         })
         .catch((error) => {
