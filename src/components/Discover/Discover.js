@@ -11,8 +11,23 @@ import Group from './Group'
 
 class Discover extends Component {
 
+    getGroups() {
+        api({
+            method: 'GET',
+            url: '/groups',
+        })
+    }
+
     searchGroups() {
         console.log('searching')
+        const search = document.getElementById('discoverClasses').value
+        if (value.length < 0) {
+            const groups this.getGroups()
+            const displayGroups = groups.filter(group => {
+                return group.name.includes(search) || group.keywords.includes(search) || group.dis.includes(search)
+            })
+            console.log(displayGroups)
+        }
     }
 
     render () {
