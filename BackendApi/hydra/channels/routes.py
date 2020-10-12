@@ -4,6 +4,7 @@ from hydra import db
 from flask_login import current_user, login_required
 from bson.json_util import dumps
 from bson.objectid import ObjectId
+from hydra.users.utils import loadUserToken
 
 channels = Blueprint("channels", __name__)
 
