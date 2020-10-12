@@ -1,13 +1,12 @@
-from hydra import flask
+# from hydra import flask
 from flask import Blueprint
 from os import path
 from bson.objectid import ObjectId
 
-groupBlueprint = Blueprint("Content", __name__)
+contents = Blueprint("contents", __name__)
 
 # base path /groups/<groupId>/contents
-@groupBlueprint.route("/", methods=["GET"])
-@jwt_required
+@contents.route("/", methods=["GET"])
 def contentAll(groupId):
     group = db.Group.find({"_id": ObjectId(groupId)})
     contents = [
@@ -25,8 +24,7 @@ def contentAll(groupId):
     return flask.jsonify(data), ""
 
 
-@groupBlueprint.route("/<contentId>", methods=["GET", "PATCH"])
-@jwt_required
+@contents.route("/<contentId>", methods=["GET", "PATCH"])
 def contentId(groupId, contentId):
     httpCode = 200
     group = db.Group.find({"_id": ObjectId(groupId)})
@@ -117,8 +115,7 @@ def contentId(groupId, contentId):
     return flask.jsonify(data), httpCode
 
 
-@groupBlueprint.route("/create", methods=["POST"])
-@jwt_required
+@contents.route("/create", methods=["POST"])
 def contentCreate(groupId):
     postData = request.json
     postFiles = request.files
@@ -172,8 +169,7 @@ def contentCreate(groupId):
     return "", 200
 
 
-@groupBlueprint.route("/pdfs/<pdfId>", methods=["DELETE"])
-@jwt_required
+@contents.route("/pdfs/<pdfId>", methods=["DELETE"])
 def pdfRemove(groupId, contentId, pdfId):
     content = db.Content.find({"_id": ObjectId(contentId)})
     content.pdfIds.remove(pdfId)
@@ -181,8 +177,7 @@ def pdfRemove(groupId, contentId, pdfId):
     return "Content Deleted", 204
 
 
-@groupBlueprint.route("/<contentId>/videos/<videoId>", methods=["DELETE"])
-@jwt_required
+@contents.route("/<contentId>/videos/<videoId>", methods=["DELETE"])
 def pdfRemove(groupId, contentId, videoId):
     content = db.Content.find({"_id": ObjectId(contentId)})
     content.videoIds.remove(videoId)
