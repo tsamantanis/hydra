@@ -25,7 +25,12 @@ class AddAssignment extends Component {
         });
     }
 
+    componentDidMount() {
+        this.props.getChannels('Assignments')
+    }
+
     createAssignment = () => {
+        const _this = this
         const name = document.getElementById('name').value
         const dis = document.getElementById('description').value
         const maxGrade = document.getElementById('totalPoints').value
@@ -45,6 +50,8 @@ class AddAssignment extends Component {
             })
             .then(function (response) {
                 console.log(response)
+                _this.toggle()
+                _this.props.getChannels('Assignments')
             })
             .catch(function (error) {
                 console.log(error)
