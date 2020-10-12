@@ -125,13 +125,10 @@
     width: 100%;
 }
 
-
-.AddAssignmentModal .modal-body .assignmentInfo .right>button {
+.AddAssignmentModal .modal-body .assignmentInfo .right .buttonGradientContainerAlt,
+.AddAssignmentModal .modal-body .assignmentInfo .right .buttonGradientContainerAlt button {
     align-self: flex-end;
-    background-color: var(--accent);
     border-radius: 7px;
-    font-family: 'Jaldi';
-    font-weight: bold;
     font-size: 20px;
     height: 35px;
     width: 100px;

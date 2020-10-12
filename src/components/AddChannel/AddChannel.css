@@ -64,7 +64,7 @@
 }
 
 .AddChannelModal .buttonGradientContainerAlt,
-.AddChannelModal button {
+.AddChannelModal .buttonGradientContainerAlt button {
     align-self: flex-end;
     border-radius: 7px;
     height: 35px;

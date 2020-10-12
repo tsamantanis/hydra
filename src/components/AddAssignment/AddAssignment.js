@@ -125,7 +125,9 @@ class AddAssignment extends Component {
                                     <label htmlFor='dueDate'>Due Date</label>
                                     <input type='date' id='dueDate' name='dueDate' placeholder='10/13/2020' required/>
                                 </div>
-                                <button className='m-t-40' onClick={this.createAssignment}>Save</button>
+                                <div className='buttonGradientContainerAlt m-t-40'>
+                                    <button onClick={this.createAssignment}>Save</button>
+                                </div>
                             </div>
                         </div>
                     </ModalBody>
