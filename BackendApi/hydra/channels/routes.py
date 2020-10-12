@@ -7,7 +7,7 @@ from bson.json_util import dumps
 channels = Blueprint("channels", __name__)
 
 
-@channels.route("/groups/<groupId>/channels")
+@channels.route("/")
 # @login_required
 def showChannels(groupId):
     """
@@ -19,7 +19,7 @@ def showChannels(groupId):
     return dumps(channels)
 
 
-@channels.route("/groups/<groupId>/channels/create", methods=["POST", "PUT"])
+@channels.route("/create", methods=["POST", "PUT"])
 # @login_required
 def createChannel(groupId):
     """Create channel document in database."""
@@ -33,7 +33,7 @@ def createChannel(groupId):
     return jsonify({"msg": "{{name}} has been added"})
 
 
-@channels.route("/channels/<groupId>/delete", methods=["POST"])
+@channels.route("/delete", methods=["POST"])
 @login_required
 def deleteChannel(groupId):
     pass
