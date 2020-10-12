@@ -82,7 +82,7 @@ button, input {
     width: 350px;
 }
 
-input[type=text], input[type=email], input[type=password], input[type=date], input[type=number], input[type=file] {
+input[type=text], input[type=email], input[type=password], input[type=date], input[type=number], input[type=file], input[type=url] {
     border: 1px solid var(--lightAccent);
     font-family: 'Roboto', sans-serif;
     outline: none;
@@ -90,12 +90,12 @@ input[type=text], input[type=email], input[type=password], input[type=date], inp
     margin-top: 0;
 }
 
-input[type=text]::placeholder, input[type=email]::placeholder, input[type=password]::placeholder, input[type=date]::placeholder , input[type=number]::placeholder, input[type=file]::placeholder {
+input[type=text]::placeholder, input[type=email]::placeholder, input[type=password]::placeholder, input[type=date]::placeholder , input[type=number]::placeholder, input[type=file]::placeholder, input[type=url]::placeholder {
     color: var(--lightAccent);
     font-size: 12px;
 }
 
-input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, input[type=date]:focus, input[type=number]:focus, input[type=file]:focus {
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, input[type=date]:focus, input[type=number]:focus, input[type=file]:focus, input[type=url]:focus {
     box-shadow: 0 0 0 2px var(--primary);
     transition: 0.4s ease;
 }
