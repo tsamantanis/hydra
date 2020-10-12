@@ -13,41 +13,25 @@ class ChannelList extends Component {
         }
     }
 
-    componentDidMount() {
-        this.getTopics();
-        this.getAssignments();
-    }
-
-    getTopics = () => {
+    getChannels = (section) => {
         const _this = this
         api({
             method: 'GET',
             url: '/groups/5f83e890d1bf28e13820a756/channels'
         })
         .then((response) => {
-            console.log(response.data)
-            this.setState({topics: response.data})
+            console.log(section)
+            for (const channel of response.data) {
+                if (channel.category === section) {
+                    this.setState({section: [...this.state.section, channel.name]})
+                }
+            }
+            console.log(this.state.section)
         })
         .catch((error) => {
             console.log(error)
         })
     }
-
-    getAssignments = () => {
-        const _this = this
-        api({
-            method: 'GET',
-            url: '/groups/5f83e890d1bf28e13820a756/assignments'
-        })
-        .then((response) => {
-            this.setState({assignments: response.data})
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-    }
-
-
 
     render() {
         return (
@@ -55,19 +39,19 @@ class ChannelList extends Component {
                 <ChannelSection
                     channelLabel='Topics'
                     channels={this.state.channels}
-                    getChannels={this.getTopics}
+                    getChannels={this.getChannels.bind(this, 'Topics')}
                     loadPosts={this.props.loadPosts}
                 />
                 <ChannelSection
                     channelLabel='Assignments'
                     channels={this.state.assignments}
-                    getChannels={this.getAssignments}
+                    getChannels={this.getChannels.bind(this, 'Assignments')}
                     loadPosts={this.props.loadPosts}
                 />
                 <ChannelSection
                     channelLabel='Discussions'
                     channels={this.state.assignments}
-                    getChannels={this.getAssignments}
+                    getChannels={this.getChannels.bind(this, 'Discussions')}
                     loadPosts={this.props.loadPosts}
                 />
             </>

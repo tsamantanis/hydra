@@ -24,6 +24,10 @@ class AddTopic extends Component {
         });
     }
 
+    componentDidMount() {
+        this.props.getChannels('Topics')
+    }
+
     createTopic = () => {
         const _this = this
         const name = document.querySelector('input[name=channelName]').value
@@ -41,7 +45,7 @@ class AddTopic extends Component {
             })
             .then(function (response) {
                 _this.toggle()
-                _this.props.getChannels()
+                _this.props.getChannels('Topics')
             })
             .catch(function (error) {
                 console.log(error)
