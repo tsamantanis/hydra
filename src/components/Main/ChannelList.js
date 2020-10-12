@@ -21,7 +21,7 @@ class ChannelList extends Component {
             url: '/groups/5f83e890d1bf28e13820a756/channels'
         })
         .then(function (response) {
-            for (channel in response) {
+            for (const channel in response) {
                 this.state.channels.push(channel)
             }
         })
