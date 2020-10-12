@@ -1,5 +1,5 @@
 html, body, #root {
-    /* height: 3000px; */
+    /* min-height: 800px; */
     /* overflow-y: visible !important; */
 }
 
@@ -8,7 +8,7 @@ html, body, #root {
     background-color: var(--light);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     height: auto;
     overflow-y: scroll;
 }
@@ -31,30 +31,46 @@ html, body, #root {
     z-index: 1;
 }
 
-.Discover form {
-    top: 290px;
-    position: absolute;
-    z-index: 1;
+.Discover .discoverForm {
+    margin-top: 40px;
+    margin-bottom: -40px;
+    z-index: 2;
+    height: 360px;
 }
 
-.Discover form label h4 {
+.Discover .discoverForm label h4 {
     color: var(--light);
 }
 
-.Discover form input[type=text] {
+.Discover .discoverForm>.discoverClasses {
     background-color: var(--light);
     color: var(--dark);
+    height: 40px !important;
 }
 
 .Discover .searchResults {
-    position: absolute;
-    top: 50%;
-    align-items: flex-start;
+    align-items: center;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 0 100px 40px 100px;
-    margin-bottom: 600px;
     z-index: 2;
+    width: 100%;
+    padding: 0 50px;
+}
+
+.Discover .searchResults .resultGroups {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+    width: 80%;
+}
+
+.Discover .searchResults .resultGroups>a {
+    height: 431.6px !important;
+    margin: 20px 40px;
+    padding: 0;
+    width: 290px !important;
 }

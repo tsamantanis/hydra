@@ -17,6 +17,7 @@ def allGroups():
     for group in groups:
         groupData.append(
             {
+                "_id": str(group["_id"]),
                 "name": group["name"],
                 "dis": group["dis"],
                 "ownerId": group["ownerId"],
