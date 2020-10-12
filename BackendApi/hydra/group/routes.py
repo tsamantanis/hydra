@@ -15,6 +15,9 @@ def allGroups():
     groups = db.Group.find({})
     groupData = []
     for group in groups:
+        priceStripeObject = stripe.Price.retrieve(
+            group["stripePriceId"],
+        )
         groupData.append(
             {
                 "_id": str(group["_id"]),
@@ -22,7 +25,7 @@ def allGroups():
                 "dis": group["dis"],
                 "ownerId": group["ownerId"],
                 "contentIds": group["contentIds"],
-                "stripePriceId": group["stripePriceId"],
+                "stripePriceId": priceStripeObject.get("unit_amount"),
                 "keywords": group["keywords"],
             }
         )
@@ -143,7 +146,7 @@ def groupId(groupId):
             {str(index): keyword}
             for index, keyword in enumerate(group["keywords"])
         ],
-        "price": priceStripeObject.get("id"),
+        "price": priceStripeObject.get("unit_amount"),
     }
     return dumps(data), 200
 
