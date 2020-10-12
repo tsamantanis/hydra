@@ -143,7 +143,8 @@ def contentCreate(groupId, channelId):
         if postData.get("videos"):
             video = postData.get("videos")
             videoPath = app.config["VIDEO_PATH"]
-            createContent(video, groupId, postData, postFiles, videoPath)
+            for contentData in postData.get("videos"):
+                createContent(video, groupId, postData, postFiles, videoPath)
         if postData.get("pdfs"):
             pdf = postData.get("pdfs")
             pdfPath = app.config["PDF_PATH"]
