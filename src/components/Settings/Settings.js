@@ -147,7 +147,7 @@ class Settings extends Component {
                                     </div>
                                     <div className='userInput'>
                                         <label htmlFor='email'>Email Address</label>
-                                        <input type='email' name='email' id='email' value='name@address.com' pattern='/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/' required />
+                                        <input type='email' name='email' id='email' value='name@address.com' pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" required />
                                     </div>
                                 </div>
                                 <div className='right m-l-10'>

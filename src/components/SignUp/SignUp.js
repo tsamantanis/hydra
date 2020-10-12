@@ -59,7 +59,7 @@ class SignUp extends Component {
                             <label htmlFor='lastName'>Last Name</label>
                             <input type='text' name='lastName' placeholder='Last' required />
                             <label htmlFor='email'>Email Address</label>
-                            <input type='email' name='email' placeholder='name@address.com' pattern='/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/' required />
+                            <input type='email' name='email' placeholder='name@address.com' pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" required />
                             <label htmlFor='password'>Password</label>
                             <input type='password' minLength="8" name='password' placeholder='Enter a password' required />
                             <label htmlFor='password'>Confirm Password</label>
