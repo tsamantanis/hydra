@@ -75,6 +75,16 @@ class Main extends Component {
 
     loadPosts = (channel_id) => {
         // This will get all the posts for the selected channel_id
+        api({
+            method: 'GET',
+            url: '/groups/5f83e890d1bf28e13820a756/channels/' + channel_id
+        })
+        .then(function (response) {
+            console.log(response.data)
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
     }
 
     render () {

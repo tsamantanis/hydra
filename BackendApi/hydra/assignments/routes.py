@@ -128,6 +128,8 @@ def assignmentCreate(groupId):
         {
             "name": postData.get("name"),
             "dis": postData.get("dis"),
+            "category": "Assignments",
+            "groupId": groupId
         }
     )
     getId = insertAssignment.inserted_id
