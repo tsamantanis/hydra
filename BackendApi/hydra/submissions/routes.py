@@ -80,25 +80,34 @@ def contentId(groupId, assignmentId, submissionId):
                 ),
             )
             pdfFile.save(jsonSet["pdfUrl"])
-        if pdfData["scoredGrade"] is not None:
-            jsonSet["scoredGrade"] = pdfData["scoredGrade"]
-        if pdfData["pdfId"] is True:
-            db.Pdf.update({"_id": pdfData["pdfId"]}, {"$set": jsonSet})
+        if pdfFile["scoredGrade"] is not None:
+            jsonSet["scoredGrade"] = pdfFile["scoredGrade"]
+        if pdfFile["pdfId"] is True:
+            db.Pdf.update({"_id": pdfFile["pdfId"]}, {"$set": jsonSet})
         else:
             createdPdf = db.Pdf.insert(jsonSet)
-            assignment.pdfIds.append(createdPdf._id)
+            assignment.pdfIds.append(createdPdf["_id"])
         httpCode = 204
-    group = db.Group.find({"_id": ObjectId(groupId)})
-    assignment = db.Assignment.find({"_id": ObjectId(assignmentId)})
+    group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
+    assignment = db.Assignment.find_one_or_404(
+        {"_id": ObjectId(assignmentId)}
+    )
     pdfs = [
-        db.Pdf.find({"_id": ObjectId(pdfId)}) for pdfId in assignment.pdfIds
+        db.Pdf.find({"_id": ObjectId(pdfId)})
+        for pdfId in assignment["pdfIds"]
     ]
     data = {
-        "name": assignment.name,
-        "dis": assignment.dis,
-        "assignmentId": assignment._id,
+        "name": assignment["name"],
+        "dis": assignment["dis"],
+        "assignmentId": assignment["_id"],
         "pdfs": [
-            {str(index): {"pdfId": pdf._id, "url": pdf.url, "dis": pdf.dis}}
+            {
+                str(index): {
+                    "pdfId": pdf["_id"],
+                    "url": pdf["url"],
+                    "dis": pdf["dis"],
+                }
+            }
             for index, pdf in enumerate(pdfs)
         ],
     }

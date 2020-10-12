@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 channels = Blueprint("channels", __name__)
 
 
-@channels.route("/")
+@channels.route("")
 @login_required
 def showChannels(groupId):
     """
