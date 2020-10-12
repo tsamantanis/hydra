@@ -1,6 +1,8 @@
+"""Dependency and package imports."""
 from flask import Blueprint, jsonify, request
 from hydra import db, app
 from os import path
+from hydra.contents.utils import create_content
 from bson.json_util import dumps
 from bson.objectid import ObjectId
 
@@ -12,7 +14,7 @@ contents = Blueprint("contents", __name__)
 @contents.route("/", methods=["GET"])
 def contentAll(groupId):
     """Show contents for group id. Return as data to front end."""
-    group = db.Group.find({"_id": ObjectId(groupId)})
+    group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     contents = [
         db.Content.find_one_or_404({"_id": ObjectId(group["contentId"])})
         for contentId in group["contentIds"]
@@ -144,59 +146,25 @@ def contentCreate(groupId):
 
     Return success message for front end.
     """
-    postData = request.json
-    postFiles = request.files
-    content = db.Content.insert_one(
-        {
-            "name": postData.get("name"),
-            "dis": postData.get("dis"),
-            "videos": [],
-            "pdfs": [],
-        }
-    )
-    for videoData in postData.get("videos"):
-        jsonSet = {}
-        if videoData["dis"] is not None:
-            jsonSet["dis"] = videoData["dis"]
-        if videoData["url"] is not None:
-            jsonSet["url"] = videoData["url"]
-        elif postFiles.get(videoData["tempFileId"]) is not None:
-            videoFile = postFiles.get(videoData["tempFileId"])
-            jsonSet["url"] = path.join(
-                app.config["PDF_PATH"],
-                "{0}.{1}".format(
-                    {videoData["_id"]}, videoFile.filename.split(".")[-1]
-                ),
-            )
-            videoFile.save(jsonSet["url"])
+    try:
+        postData = request.json
+        postFiles = request.files
+        content = db.Content.insert_one(
+            {
+                "name": postData.get("name"),
+                "dis": postData.get("dis"),
+                "videos": [],
+                "pdfs": [],
+            }
+        )
+        if postData.get("videos"):
+            create_content("video", groupId, postData, postFiles)
+        if postData.get("pdfs"):
+            create_content("pdf", groupId, postData, postFiles)
         else:
-            createdVideo = db.Video.insert(jsonSet)
-            content.videoIds.append(createdVideo["_id"])
-
-    for pdfData in postData.get("pdfs"):
-        jsonSet = {}
-        if pdfData["dis"] is not None:
-            jsonSet["dis"] = pdfData["dis"]
-        if pdfData["url"] is not None:
-            jsonSet["url"] = pdfData["url"]
-        elif postFiles.get(pdfData["tempFileId"]) is not None:
-            pdfFile = postFiles.get(pdfData["tempFileId"])
-            jsonSet["url"] = path.join(
-                app.config["PDF_PATH"],
-                "{0}.{1}".format(
-                    {pdfData["_id"]}, pdfFile.filename.split(".")[-1]
-                ),
-            )
-            pdfFile.save(jsonSet["url"])
-        else:
-            createdPdf = db.Pdf.insert(jsonSet)
-            content.pdfIds.append(createdPdf["_id"])
-    group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
-    group.contentIds.append(content["_id"])
-    return (
-        jsonify({"msg": "Your files have been added!"}),
-        200,
-    )  # TODO: What do we want to return here?
+            return dumps(postData)
+    except:
+        return jsonify({"msg": "Unable to upload files"}), 200
 
 
 # TODO: Don't we allow for the deletion of these in the <contentId> route??
