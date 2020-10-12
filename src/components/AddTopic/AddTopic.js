@@ -25,7 +25,7 @@ class AddTopic extends Component {
     }
 
     componentDidMount() {
-        this.props.getChannels('Topics')
+        this.props.getChannels('content')
     }
 
     createTopic = () => {
@@ -56,7 +56,7 @@ class AddTopic extends Component {
             .then(function (response) {
                 console.log(response)
                 _this.toggle()
-                _this.props.getChannels('Topics')
+                _this.props.getChannels('content')
             })
             .catch(function (error) {
                 console.log(error)

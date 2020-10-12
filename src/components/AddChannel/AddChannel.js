@@ -25,7 +25,7 @@ class AddChannel extends Component {
     }
 
     componentDidMount() {
-        this.props.getChannels('Discussions')
+        this.props.getChannels('discussions')
     }
 
     createChannel = () => {
@@ -45,7 +45,7 @@ class AddChannel extends Component {
             })
             .then(function (response) {
                 _this.toggle()
-                _this.props.getChannels('Discussions')
+                _this.props.getChannels('discussions')
             })
             .catch(function (error) {
                 console.log(error)

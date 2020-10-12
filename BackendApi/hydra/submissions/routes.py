@@ -6,6 +6,7 @@ from flask_login import login_required, current_user
 from os import path
 from bson.objectid import ObjectId
 from bson.json_util import dumps
+from hydra.users.utils import loadUserToken
 
 submissions = Blueprint("submission", __name__)
 

@@ -23,11 +23,11 @@ class ChannelList extends Component {
             let assignments = []
             let discussions = []
             response && response.data && response.data.forEach((channel) => {
-                if (channel.category === "Topics") {
+                if (channel.category === "content") {
                     topics.push(channel)
-                } else if (channel.category === "Assignments") {
+                } else if (channel.category === "assignments") {
                     assignments.push(channel)
-                } else if (channel.category === "Discussions") {
+                } else if (channel.category === "discussions") {
                     discussions.push(channel)
                 }
             })

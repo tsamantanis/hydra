@@ -26,7 +26,7 @@ class AddAssignment extends Component {
     }
 
     componentDidMount() {
-        this.props.getChannels('Assignments')
+        this.props.getChannels('assignments')
     }
 
     createAssignment = () => {
@@ -51,7 +51,7 @@ class AddAssignment extends Component {
             .then(function (response) {
                 console.log(response)
                 _this.toggle()
-                _this.props.getChannels('Assignments')
+                _this.props.getChannels('assignments')
             })
             .catch(function (error) {
                 console.log(error)

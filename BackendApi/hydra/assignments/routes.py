@@ -1,15 +1,17 @@
 # from hydra import flask
 from os import path
-
+from flask_login import login_required
 from bson.json_util import dumps
 from bson.objectid import ObjectId
 from flask import Blueprint, jsonify, request, send_from_directory
 from hydra import app, db
+from hydra.users.utils import loadUserToken
 
 assignments = Blueprint("assignments", __name__)
 
+# base path /groups/<groupId>/channels/<channelId>/assignments
 
-# base path /groups/<groupId>/assignments
+
 @assignments.route("", methods=["GET"])
 def contentAll(groupId):
     """Show all assignments for particular group."""
@@ -133,10 +135,12 @@ def assignmentCreate(groupId):
         }
     )
     getId = insertAssignment.inserted_id
-    assignment = db.Assignment.find_one_or_404({"_id": ObjectId(getId)})
+    assignment = db.Assignment.find_one({"_id": ObjectId(getId)})
+    print(f"Assignment {assignment}")
 
     if postData.get("pdfs"):
         for pdfData in postData.get("pdfs"):
+            print(f"pdfs {postData.get('pdfs')}")
             jsonSet = {}
             if pdfData["dis"] is not None:
                 jsonSet["dis"] = pdfData["dis"]
@@ -151,11 +155,15 @@ def assignmentCreate(groupId):
                     ),
                 )
                 pdfFile.save(jsonSet["url"])
+                print("Pdf saved")
             else:
                 createdPdf = db.Pdf.insert(jsonSet)
-                assignment.pdfIds.append(createdPdf["_id"])
-    group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
+                print(f"Created PDF {createdPdf}")
+                assignment["pdfIds"].append(createdPdf["_id"])
+    group = db.Group.find_one({"_id": ObjectId(groupId)})
+    print(f"Group from EOF: {group}")
     group["assignmentIds"].append(assignment["_id"])
+    print(f"Group assignmentIds after append: {group['assignmentIds']}")
     return jsonify({"msg": "Your assignment has been created."}), 200
 
 
@@ -193,8 +201,9 @@ def pdfId(groupId, assignmentId, pdfId):
 
 
 @assignments.route("/<assignmentId>/pdfs/add", methods=["POST"])
-# @jwt_required
+@login_required
 def pdfAdd(groupId, assignmentId):
+    """Add pdfs to existing assignment."""
     jsonSet = {}
     assignment = db.Assignment.find_one_or_404(
         {"_id": ObjectId(assignmentId)}
@@ -217,3 +226,4 @@ def pdfAdd(groupId, assignmentId):
         )
         contentFile.save(jsonSet["url"])
     db.Pdf.update({"_id": ObjectId(pdf["_id"])}, {"$set": jsonSet})
+    return
