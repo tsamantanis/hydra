@@ -9,7 +9,7 @@ channels = Blueprint("channels", __name__)
 
 
 @channels.route("/")
-@login_required
+# @login_required
 def showChannels(groupId):
     """
     For channels in specified group, return channel information.
