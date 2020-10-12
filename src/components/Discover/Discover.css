@@ -28,8 +28,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    z-index: 3;
-    border-radius: 10px;
+    z-index: 1;
 }
 
 .Discover form label h4 {
@@ -37,14 +36,6 @@
 }
 
 .Discover form input[type=text] {
-    color: var(--darkAccent);
-    outline: none;
-}
-.Discover form input[type=text]::placeholder {
+    background-color: var(--light);
     color: var(--lightAccent);
-}
-
-.Discover form input[type=text]:focus {
-    color: var(--darkAccent);
-    outline: none;
 }
