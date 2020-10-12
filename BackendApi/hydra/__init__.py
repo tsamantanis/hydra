@@ -27,7 +27,6 @@ loginManager.init_app(app)
 # loginManager.login_view = "users.signIn"
 # socketio.init_app(app)
 
-from hydra.main.routes import main
 from hydra.users.routes import users
 from hydra.group.routes import groups
 from hydra.channels.routes import channels
@@ -35,13 +34,12 @@ from hydra.contents.routes import contents
 from hydra.assignments.routes import assignments
 from hydra.submissions.routes import submissions
 
-app.register_blueprint(main, url_prefix="/")
 app.register_blueprint(users, url_prefix="/users")
 app.register_blueprint(groups, url_prefix="/groups")
 app.register_blueprint(channels, url_prefix="/groups/<groupId>/channels")
 app.register_blueprint(contents, url_prefix="/groups/<groupId>/contents")
 app.register_blueprint(
-    assignments, url_prefix="/groups/<group_id>/assignments"
+    assignments, url_prefix="/groups/<groupId>/assignments"
 )
 app.register_blueprint(
     submissions,

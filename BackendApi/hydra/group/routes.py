@@ -10,8 +10,27 @@ groups = Blueprint("groups", __name__)
 
 
 @groups.route("/", methods=["GET"])
+def allGroups():
+    """Show all groups to users, enable search on client."""
+    groups = db.Group.find({})
+    groupData = []
+    for group in groups:
+        groupData.append(
+            {
+                "name": group["name"],
+                "dis": group["dis"],
+                "ownerId": group["ownerId"],
+                "contentIds": group["contentIds"],
+                "stripePriceId": group["stripePriceId"],
+                "keywords": group["keywords"],
+            }
+        )
+    return dumps(groupData), 200
+
+
+@groups.route("/yourgroups", methods=["GET"])
 @login_required
-def groupsAll():
+def userGroups():
     """Show all groups to current user's enrolled groups."""
     groups = []
     for groups in current_user.enrolledGroups:
@@ -64,6 +83,7 @@ def groupCreate():
             "ownerId": postData["ownerId"],
             "enrolledIds": [],
             "contentIds": [],
+            "assignmentIds": [],
             "dis": postData["dis"],
             "channelsIds": [],
             "keywords": postData["keywords"],

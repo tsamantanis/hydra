@@ -44,6 +44,7 @@ def createChannel(groupId):
 
 @channels.route("/delete/<channelId>", methods=["DELETE"])
 def deleteChannel(groupId, channelId):
+    """Delete channel from database."""
     channel = db.channels.find_one_or_404({"_id": ObjectId(channelId)})
     db.channels.delete_one(channel)
     return jsonify({"msg": "This channel has been deleted"})
@@ -55,9 +56,13 @@ def getChannel(groupId, channelId):
     """
     For channels in specified group, return channel information.
 
-    channel.id, channel.name, channel.description
+    channel.id, channel.name, channel.description, channel.category
     """
-    channel = db.channels.find_all(
-        {"groupId": groupId, "_id": ObjectId(channelId)}
-    )
-    return jsonify({channel})
+    channel = db.channels.find_one_or_404({"_id": ObjectId(channelId)})
+    channelData = {
+        "id": channel["_id"],
+        "name": channel["name"],
+        "dis": channel["dis"],
+        "category": channel["category"],
+    }
+    return dumps(channelData)
