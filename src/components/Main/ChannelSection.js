@@ -16,12 +16,22 @@ class ChannelSection extends Component {
 
     }
 
+    displayChannelSections() {
+        if (this.props.channelLabel === "Topics") {
+            return <AddTopic channelLabel={this.props.channelLabel} getChannels={this.props.getTopics} />
+        } else if (this.props.channelLabel === "Assignments") {
+            return <AddAssignment channelLabel={this.props.channelLabel} getChannels={this.props.getAssignments} />
+        } else if (this.props.channelLabel === "Discussions") {
+            return <AddChannel channelLabel={this.props.channelLabel} />
+        }
+    }
+
     render() {
         return (
             <div className='ChannelSection m-t-15 m-b-15'>
                 <div className='ChannelTitle'>
                     <h5 className="m-b-15">{this.props.channelLabel}</h5>
-                    {this.props.channelLabel !== "Assignments" ? <AddTopic channelLabel={this.props.channelLabel} getChannels={this.props.getChannels} /> : <AddAssignment />}
+                    {this.displayChannelSections()}
                 </div>
                 { this.props.channels && this.props.channels.map((channel) => {
                     return(
