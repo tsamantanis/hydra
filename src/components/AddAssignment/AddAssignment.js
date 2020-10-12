@@ -26,19 +26,21 @@ class AddAssignment extends Component {
     }
 
     createAssignment = () => {
-        const name = document.querySelector('input[name=name]').value
-        const dis = document.querySelector('input[name=description]').value
-        this.createChannel(name, dis);
-    }
-
-    createChannel = (name, dis) => {
-        if (name && dis) {
+        const name = document.getElementById('name').value
+        const dis = document.getElementById('description').value
+        const maxGrade = document.getElementById('totalPoints').value
+        const dueDate = document.getElementById('dueDate').value
+        const startDate = document.getElementById('startDate').value
+        if (name && dis && maxGrade && dueDate && startDate) {
             api({
                 method: 'POST',
-                url: '/groups/1/channels/create',
+                url: '/groups/5f83e890d1bf28e13820a756/assignments/create',
                 data: {
                     "name": name,
-                    "dis": dis
+                    "dis": dis,
+                    "maxGrade": maxGrade,
+                    "dueDate": dueDate,
+                    "startDate": startDate
                 },
             })
             .then(function (response) {
@@ -51,6 +53,12 @@ class AddAssignment extends Component {
             console.log('Please enter a name.')
         } else if (!dis) {
             console.log('Please enter a description.')
+        } else if (!maxGrade) {
+            console.log('Please enter the total points.')
+        } else if (!dueDate) {
+            console.log('Please enter a due date.')
+        } else if (!startDate) {
+            console.log('Please enter a start date.')
         }
     }
 
