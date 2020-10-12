@@ -140,15 +140,57 @@ def contentCreate(groupId, channelId):
             }
         )
         print(f"Inserted content: {content}")
-        if postData.get("videos"):
-            video = postData.get("videos")
-            videoPath = app.config["VIDEO_PATH"]
-            for contentData in postData.get("videos"):
-                createContent(video, groupId, postData, postFiles, videoPath)
-        if postData.get("pdfs"):
-            pdf = postData.get("pdfs")
-            pdfPath = app.config["PDF_PATH"]
-            createContent(pdf, groupId, postData, postFiles, pdfPath)
+        for videoData in postData.get("videos"):
+            jsonSet = {}
+            if videoData["dis"] is not None:
+                jsonSet["dis"] = videoData["dis"]
+            if videoData["url"] is not None:
+                jsonSet["url"] = videoData["url"]
+            elif postFiles.get(videoData["tempFileId"]) is not None:
+                videoFile = postFiles.get(videoData["tempFileId"])
+                path = app.config["VIDEO_PATH"]
+                jsonSet["url"] = path.join(
+                    path,
+                    "{0}.{1}".format(
+                        {videoData["_id"]},
+                        videoFile.filename.split(".")[-1],
+                    ),
+                )
+                videoFile.save(jsonSet["url"])
+            else:
+                createdContent = db.Video.insert(jsonSet)
+                group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
+                group["contentIds"].append(createdContent["_id"])
+                return (
+                    jsonify({"msg": "Your files have been added!"}),
+                    200,
+                )  # TODO: What do we want to return here?
+
+        for pdfData in postData.get("pdfs"):
+            jsonSet = {}
+            if pdfData["dis"] is not None:
+                jsonSet["dis"] = pdfData["dis"]
+            if pdfData["url"] is not None:
+                jsonSet["url"] = pdfData["url"]
+            elif postFiles.get(pdfData["tempFileId"]) is not None:
+                path = app.config["PDF_PATH"]
+                pdfFile = postFiles.get(pdfData["tempFileId"])
+                jsonSet["url"] = path.join(
+                    path,
+                    "{0}.{1}".format(
+                        {pdfData["_id"]},
+                        pdfFile.filename.split(".")[-1],
+                    ),
+                )
+                pdfFile.save(jsonSet["url"])
+            else:
+                createdContent = db.Pdf.insert(jsonSet)
+                group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
+                group["contentIds"].append(createdContent["_id"])
+                return (
+                    jsonify({"msg": "Your files have been added!"}),
+                    200,
+                )  # TODO: What do we want to return here?
         else:
             createdContent = db.Content.find_one_or_404(
                 {"name": postData.get("name")}
@@ -170,15 +212,15 @@ def pdfId(groupId, contentId, pdfId):
         jsonSet = {}
         pdf = db.Pdf.find({"_id": ObjectId(pdfId)})
         if request.json.get("tempFileId") is not None:
-            contentFile = request.files.get(request.json.get("tempFileId"))
+            videoFile = request.files.get(request.json.get("tempFileId"))
             jsonSet["url"] = path.join(
                 app.config["PDF_PATH"],
                 "{0}.{1}".format(
                     {pdf["_id"]},
-                    contentFile.filename.split(".")[-1],
+                    videoFile.filename.split(".")[-1],
                 ),
             )
-            contentFile.save(jsonSet["url"])
+            videoFile.save(jsonSet["url"])
         elif request.json.get("url") is not None:
             jsonSet["url"] = request.json.get("url")
         if request.json.get("dis") is not None:
@@ -201,15 +243,15 @@ def videoId(groupId, contentId, videoId):
         jsonSet = {}
         video = db.Video.find({"_id": ObjectId(videoId)})
         if request.json.get("tempFileId") is not None:
-            contentFile = request.files.get(request.json.get("tempFileId"))
+            videoFile = request.files.get(request.json.get("tempFileId"))
             jsonSet["url"] = path.join(
                 app.config["VIDEO_PATH"],
                 "{0}.{1}".format(
                     {video["_id"]},
-                    contentFile.filename.split(".")[-1],
+                    videoFile.filename.split(".")[-1],
                 ),
             )
-            contentFile.save(jsonSet["url"])
+            videoFile.save(jsonSet["url"])
         elif request.json.get("url") is not None:
             jsonSet["url"] = request.json.get("url")
         if request.json.get("dis") is not None:
@@ -238,15 +280,15 @@ def videoAdd(groupId, contentId):
     if request.json.get("url") is not None:
         jsonSet["url"] = request.json.get("url")
     elif postFiles.get(request.json.get("tempFileId")) is not None:
-        contentFile = postFiles.get(request.json.get("tempFileId"))
+        videoFile = postFiles.get(request.json.get("tempFileId"))
         jsonSet["url"] = path.join(
             app.config["VIDEO_PATH"],
             "{0}.{1}".format(
                 {video["_id"]},
-                contentFile.filename.split(".")[-1],
+                videoFile.filename.split(".")[-1],
             ),
         )
-        contentFile.save(jsonSet["url"])
+        videoFile.save(jsonSet["url"])
     db.Video.update({"_id": ObjectId(video["_id"])}, {"$set": jsonSet})
     return jsonify({"msg": "Your video has been added!"}), 200
 
@@ -264,14 +306,14 @@ def pdfAdd(groupId, contentId):
     if request.json.get("url") is not None:
         jsonSet["url"] = request.json.get("url")
     elif postFiles.get(request.json.get("tempFileId")) is not None:
-        contentFile = postFiles.get(request.json.get("tempFileId"))
+        videoFile = postFiles.get(request.json.get("tempFileId"))
         jsonSet["url"] = path.join(
             app.config["VIDEO_PATH"],
             "{0}.{1}".format(
                 {pdf["_id"]},
-                contentFile.filename.split(".")[-1],
+                videoFile.filename.split(".")[-1],
             ),
         )
-        contentFile.save(jsonSet["url"])
+        videoFile.save(jsonSet["url"])
     db.Pdf.update({"_id": ObjectId(pdf["_id"])}, {"$set": jsonSet})
     return jsonify({"msg": "Your document has been added!"}), 200
