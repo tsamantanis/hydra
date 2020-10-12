@@ -169,7 +169,7 @@ def pdfId(groupId, contentId, pdfId):
         if request.json.get('tempFileId') != None:
             contentFile = request.files.get(request.json.get('tempFileId'))
             jsonSet["url"] = path.join(
-                path,
+                app.config["PDF_PATH"],
                 "{0}.{1}".format(
                     {pdf["_id"]},
                     contentFile.filename.split(".")[-1],
@@ -198,7 +198,7 @@ def videoId(groupId, contentId, videoId):
         if request.json.get('tempFileId') != None:
             contentFile = request.files.get(request.json.get('tempFileId'))
             jsonSet["url"] = path.join(
-                path,
+                app.config["VIDEO_PATH"],
                 "{0}.{1}".format(
                     {video["_id"]},
                     contentFile.filename.split(".")[-1],
@@ -231,7 +231,7 @@ def videoAdd(groupId, contentId):
     elif postFiles.get(request.json.get("tempFileId")) is not None:
         contentFile = postFiles.get(request.json.get("tempFileId"))
         jsonSet["url"] = path.join(
-            path,
+            app.config["VIDEO_PATH"],
             "{0}.{1}".format(
                 {video["_id"]},
                 contentFile.filename.split(".")[-1],
@@ -257,7 +257,7 @@ def pdfAdd(groupId, contentId):
     elif postFiles.get(request.json.get("tempFileId")) is not None:
         contentFile = postFiles.get(request.json.get("tempFileId"))
         jsonSet["url"] = path.join(
-            path,
+            app.config["VIDEO_PATH"],
             "{0}.{1}".format(
                 {pdf["_id"]},
                 contentFile.filename.split(".")[-1],
