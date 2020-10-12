@@ -13,7 +13,7 @@ assignments = Blueprint("assignments", __name__)
 
 
 @assignments.route("", methods=["GET"])
-def contentAll(groupId):
+def contentAll(groupId, channelId):
     """Show all assignments for particular group."""
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     assignments = [
@@ -38,8 +38,8 @@ def contentAll(groupId):
 # TODO: More testing on this when we can upload files to FE
 
 
-@assignments.route("/<assignmentId>", methods=["GET", "PATCH"])
-def contentId(groupId, assignmentId):
+@assignments.route("/<assignmentId>", methods=["GET", "PATCH", "DELETE"])
+def contentId(groupId, channelId, assignmentId):
     """Access assignment details, patch and delete."""
     httpCode = 200
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
@@ -49,22 +49,31 @@ def contentId(groupId, assignmentId):
         {"_id": ObjectId(assignmentId)}
     )
     if assignment is None:
-        return "Assignment Not Found", 404
+        return jsonify({"msg": "Assignment Not Found"}), 404
+    if request.method == "GET":
+        data = {
+            "assignmentId": assignmentId,
+            "name": assignment["name"],
+            "dis": assignment["dis"],
+            "maxGrade": assignment["maxGrade"],
+            "startDate": assignment["startDate"],
+            "dueDate": assignment["dueDate"],
+        }
+        return dumps(data), 200
     if request.method == "DELETE":
         for pdfId in assignment["pdfIds"]:
             db.Pdf.deleteOne({"_id": ObjectId(pdfId)})
         db.Assignment.deleteOne({"_id": ObjectId(assignment["_id"])})
-        httpCode = 204
-        return "Assignment Deleted", httpCode
-    if request.method == "PATCH":
+        return jsonify({"msg": "Assignment Deleted"}), 204
+    elif request.method == "PATCH":
         patchData = request.json
         patchFiles = request.files
         if patchData.get("pdfs"):
             for pdfData in patchData.get("pdfs"):
                 jsonSet = {}
-                if pdfData["dis"] is not None:
+                if pdfData["dis"]:
                     jsonSet["dis"] = pdfData["dis"]
-                if pdfData["url"] is not None:
+                if pdfData["url"]:
                     jsonSet["url"] = pdfData["url"]
                 elif patchFiles.get(pdfData["_id"]) is not None:
                     pdfFile = patchFiles.get(pdfData["_id"])
@@ -79,7 +88,7 @@ def contentId(groupId, assignmentId):
                     db.Pdf.update({"_id": pdfData.pdfId}, {"$set": jsonSet})
                 else:
                     createdPdf = db.Pdf.insert(jsonSet)
-                    assignment.pdfIds.append(createdPdf["_id"])
+                    assignment["pdfIds"].append(createdPdf["_id"])
                 httpCode = 204
             group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
             assignment = db.Assignment.find_one_or_404(
@@ -112,7 +121,7 @@ def contentId(groupId, assignmentId):
 
 
 @assignments.route("/create", methods=["POST"])
-def assignmentCreate(groupId):
+def assignmentCreate(groupId, channelId):
     """Create assignment and add to database. Return success message."""
     postData = request.json
     postFiles = request.files
@@ -120,9 +129,9 @@ def assignmentCreate(groupId):
         {
             "name": postData.get("name"),
             "dis": postData.get("dis"),
-            "maxGrade": postData.get('maxGrade'),
-            "dueDate": postData.get('dueDate'),
-            "startDate": postData.get('startDate'),
+            "maxGrade": postData.get("maxGrade"),
+            "dueDate": postData.get("dueDate"),
+            "startDate": postData.get("startDate"),
             "pdfs": [],
         }
     )
@@ -131,7 +140,7 @@ def assignmentCreate(groupId):
             "name": postData.get("name"),
             "dis": postData.get("dis"),
             "category": "Assignments",
-            "groupId": groupId
+            "groupId": groupId,
         }
     )
     getId = insertAssignment.inserted_id
@@ -170,8 +179,7 @@ def assignmentCreate(groupId):
 @assignments.route(
     "/<assignmentId>/pdfs/<pdfId>", methods=["DELETE", "PATCH", "GET"]
 )
-# @jwt_required
-def pdfId(groupId, assignmentId, pdfId):
+def pdfId(groupId, channelId, assignmentId, pdfId):
     if request.method == "DELETE":
         db.Pdf.deleteOne({"_id": ObjectId(pdfId)})
         return "PDF Deleted", 204
@@ -202,7 +210,7 @@ def pdfId(groupId, assignmentId, pdfId):
 
 @assignments.route("/<assignmentId>/pdfs/add", methods=["POST"])
 @login_required
-def pdfAdd(groupId, assignmentId):
+def pdfAdd(groupId, channelId, assignmentId):
     """Add pdfs to existing assignment."""
     jsonSet = {}
     assignment = db.Assignment.find_one_or_404(
