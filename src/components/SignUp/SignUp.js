@@ -26,7 +26,7 @@ class SignUp extends Component {
             })
             .then(function (response) {
                 console.log(response)
-                window.location.href='/'
+                window.location.href='/discover'
             })
             .catch(function (error) {
                 console.log(error)

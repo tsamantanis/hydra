@@ -3,7 +3,8 @@ import os
 from flask_pymongo import PyMongo
 from flask import Flask
 from flask_cors import CORS
-from flask_jwt_extended import JWTManager
+from flask_login import LoginManager
+
 
 # from flask_socketio import SocketIO
 from hydra.config import Config
@@ -14,7 +15,7 @@ app.config.from_object(Config)
 
 mongo = PyMongo(app)
 db = mongo.db
-jwt = JWTManager()
+loginManager = LoginManager()
 # socketio = SocketIO()
 
 # use sk_test_51AQPwCHlrGbOVNVCu63XWCFDErvBRpBjUzQP825hGTcPvye0Eg0Lf4kOJW4mvEaHw7lSVxIpCOQRh887RGB74RRB00y5XZrF75
@@ -22,8 +23,8 @@ jwt = JWTManager()
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
 CORS(app)
-
-jwt.init_app(app)
+loginManager.init_app(app)
+loginManager.login_view = "signin"
 # socketio.init_app(app)
 
 from hydra.main.routes import main

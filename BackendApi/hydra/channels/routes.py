@@ -1,60 +1,53 @@
 """Package and dependency imports."""
 from flask import Blueprint, jsonify, request
 from hydra import db
-from flask_jwt_extended import (
-    jwt_required,
-    create_access_token,
-    get_jwt_identity,
-    get_raw_jwt,
-)
+from flask_login import current_user, login_required
+from bson.json_util import dumps
 
 channels = Blueprint("channels", __name__)
 
-# TODO: test with Postman when bug is figured out.
 
-
-@channels.route("/")
-# @jwt_required
+@channels.route("/groups/<groupId>/channels")
+@login_required
 def showChannels(groupId):
     """
     For channels in specified group, return channel information.
 
     channel.id, channel.name, channel.description
     """
-    channels = db.channels.find_all({"groupId": groupId})
-    return jsonify({channels})
+    channels = list(db.channels.find({"groupId": groupId}))
+    return dumps(channels)
 
 
-@channels.route("/create", methods=["POST", "PUT"])
-# @jwt_required
+@channels.route("/groups/<groupId>/channels/create", methods=["POST", "PUT"])
+@login_required
 def createChannel(groupId):
     """Create channel document in database."""
-    print("In function")
+
+    # TODO: Ensure that we're adding channelid to the group object
+    # TODO: Add category to channel object (Assignments, lectures, chat)
     name = request.json.get("name")
-    print(f"Name: {name}")
     dis = request.json.get("dis")
-    print(f"Description: {dis}")
     newChannel = {"name": name, "dis": dis}
-    print(f"New Channel: {newChannel}")
     insertedChannel = db.channels.insert_one(newChannel)
-    print(f"Inserted Channel: {insertedChannel}")
-    return jsonify({"msg": "This has been successful"})
+    return jsonify({"msg": "{{name}} has been added"})
 
 
-@channels.route("/delete", methods=["POST"])
-@jwt_required
+@channels.route("/channels/<groupId>/delete", methods=["POST"])
+@login_required
 def deleteChannel(groupId):
     pass
 
+
 @channels.route("/<channelId>")
-# @jwt_required
+@login_required
 def getChannel(groupId, channelId):
     """
     For channels in specified group, return channel information.
 
     channel.id, channel.name, channel.description
     """
-    channel = db.channels.find_all({"groupId": groupId,
-        "_id": ObjectId(channelId)
-    })
+    channel = db.channels.find_all(
+        {"groupId": groupId, "_id": ObjectId(channelId)}
+    )
     return jsonify({channel})
