@@ -26,7 +26,7 @@ class Discover extends Component {
         const _this = this
         api({
             method: 'GET',
-            url: '/groups',
+            url: '/groups/',
         })
         .then(function (response) {
             for (const group of response.data) {
