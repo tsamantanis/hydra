@@ -1,8 +1,9 @@
-"""Create user class for utility, may delete later."""
+"""Create user class for flask_login, may delete later."""
+from flask_login import UserMixin
 
 
-class User:
-    """Create User class."""
+class User(UserMixin):
+    """Create User class, inherits from flask-login's user mixin."""
 
     def __init__(self, id, firstName, lastName, email, password):
         """Initialize properties of users."""
@@ -16,10 +17,13 @@ class User:
         self.is_admin = False
         self.is_root = False
         self.stripeId = None
-        self.bio = None
         self.profilePhotoUrl = (
             None  # TODO: Set this to be a default profile image.
         )
+
+    def isAuthenticated(self):
+        """Set isAuthenticated to true for all signed in users."""
+        return True
 
     def setIsAdmin(self):
         """Set isAdmin to true under certain conditions."""
