@@ -26,7 +26,9 @@ class ChannelList extends Component {
         })
         .then((response) => {
             console.log(response.data)
-            this.setState({topics: response.data})
+            if (response.data.category === 'Topics') {
+                this.setState({topics: response.data})
+            }
         })
         .catch((error) => {
             console.log(error)
@@ -37,7 +39,7 @@ class ChannelList extends Component {
         const _this = this
         api({
             method: 'GET',
-            url: '/groups/5f83e890d1bf28e13820a756/assignments'
+            url: '/groups/5f83e890d1bf28e13820a756/channels'
         })
         .then((response) => {
             this.setState({assignments: response.data})
