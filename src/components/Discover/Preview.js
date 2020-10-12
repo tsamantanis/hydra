@@ -22,7 +22,7 @@ class Preview extends Component {
         return (
             <div className='Preview'>
                 <img src={backArrow} alt='go back to Discover page' className='backButton alt' onClick={this.goToDiscover} />
-                <img src={preview} alt='preview image' className='previewImage' />
+                <img src={preview} alt='preview' className='previewImage' />
                 <div className='previewText'>
                     <h1>Build apps with Python, Flask, and Angular</h1>
                     <p className='big'>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur imperdiet sapien id lorem iaculis sollicitudin. Morbi sit amet interdum leo, in blandit sapien. Vivamus a scelerisque ligula. Sed tellus nibh, eleifend eu ex non, consequat pretium est. Nulla venenatis ex vel nisl tempor volutpat.</p>
