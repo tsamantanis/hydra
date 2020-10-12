@@ -87,7 +87,7 @@ console.log(this.state.groups);
                     :
                     null
                 }
-                <img src={school} alt='school' className={filteredGroups ? 'school hidden m-t-auto' : 'school m-t-auto'} />
+                <img src={school} alt='school' className={filteredGroups ? 'school hidden m-t-auto' : 'school m-t-auto animate fadeIn one'} />
             </div>
         )
     }
