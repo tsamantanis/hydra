@@ -13,7 +13,7 @@ from flask_jwt_extended import (
 submissions = Blueprint("Submission", __name__)
 
 # base path /groups/<groupId>/assignments/<assignmentId>/submissions
-@groupBlueprint.route("/", methods=["GET"])
+@submissions.route("/", methods=["GET"])
 # @jwt_required
 def contentAll(groupId, assignmentId):
     group = db.Group.find({"_id": ObjectId(groupId)})
@@ -36,7 +36,7 @@ def contentAll(groupId, assignmentId):
     ]
     return flask.jsonify(data), 200
 
-@groupBlueprint.route("/<submissionId>", methods=["GET", "PATCH"])
+@submissions.route("/<submissionId>", methods=["GET", "PATCH"])
 # @jwt_required
 def contentId(groupId, assignmentId, submissionId):
     httpCode = 200
@@ -100,7 +100,7 @@ def contentId(groupId, assignmentId, submissionId):
     }
     return flask.jsonify(data), httpCode
 
-@groupBlueprint.route("/create", methods=["POST"])
+@submissions.route("/create", methods=["POST"])
 # @jwt_required
 def assignmentCreate(groupId):
     postData = request.json
@@ -132,7 +132,7 @@ def assignmentCreate(groupId):
     group.assignmentIds.append(assignment._id)
     return "", 200
 
-@groupBlueprint.route("/<assignmentId>/pdfs/<pdfId>", methods=["DELETE"])
+@submissions.route("/<assignmentId>/pdfs/<pdfId>", methods=["DELETE"])
 # @jwt_required
 def pdfRemove(groupId, assignmentId, pdfId):
     assignment = db.Assignment.find({"_id": ObjectId(assignmentId)})
