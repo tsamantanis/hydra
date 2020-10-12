@@ -21,7 +21,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        console.log(authToken)
+        // console.log(authToken)
     }
 
     toggleCommunity = () => {
