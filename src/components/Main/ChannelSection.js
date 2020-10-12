@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import './ChannelGroup.css'
+import './ChannelSection.css'
 
 import AddChannel from '../AddChannel/AddChannel'
 import AddAssignment from '../AddAssignment/AddAssignment'
-class ChannelGroup extends Component {
+class ChannelSection extends Component {
 
     displayChannel(channelName) {
         alert(channelName)
@@ -11,7 +11,7 @@ class ChannelGroup extends Component {
 
     render() {
         return (
-            <div className='ChannelGroup m-t-15 m-b-15'>
+            <div className='ChannelSection m-t-15 m-b-15'>
                 <div className='ChannelTitle'>
                     <h5 className="m-b-15">{this.props.channelLabel}</h5>
                     {this.props.channelLabel !== "Assignments" ? <AddChannel channelLabel={this.props.channelLabel} getChannels={this.props.getChannels} /> : <AddAssignment />}
@@ -27,4 +27,4 @@ class ChannelGroup extends Component {
     }
 }
 
-export default ChannelGroup
+export default ChannelSection

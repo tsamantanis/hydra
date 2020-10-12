@@ -92,13 +92,13 @@
     width: 100%;
 }
 
-.Main .Channels .ChannelGroup h5 {
+.Main .Channels .ChannelSection h5 {
     font-size: 23px;
     font-weight: bold;
     height: 23px;
 }
 
-.Main .Channels .ChannelGroup h6 {
+.Main .Channels .ChannelSection h6 {
     font-size: 20px;
     font-weight: bold;
 }

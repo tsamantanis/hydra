@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import api from '../../api'
 
-import ChannelGroup from './ChannelGroup'
+import ChannelSection from './ChannelSection'
 
 class ChannelList extends Component {
     constructor(props) {
@@ -55,12 +55,12 @@ class ChannelList extends Component {
     render() {
         return (
             <>
-                <ChannelGroup
+                <ChannelSection
                     channelLabel='Lectures'
                     channelNames={this.state.channels}
                     getChannels={this.getChannels}
                 />
-                <ChannelGroup
+                <ChannelSection
                     channelLabel='Assignments'
                     channelNames={this.state.assignments}
                     getChannels={this.getAssignments}

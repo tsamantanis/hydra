@@ -1,16 +1,16 @@
-.ChannelGroup {
+.ChannelSection {
     width: 100%;
     padding: 10px 20px;
 }
 
-.ChannelGroup .ChannelTitle {
+.ChannelSection .ChannelTitle {
     align-items: flex-start;
     flex-direction: row;
     display: flex;
     justify-content: space-between;
 }
 
-.ChannelGroup .ChannelTitle h3 {
+.ChannelSection .ChannelTitle h3 {
     font-size: 29px;
     font-weight: bold;
     margin-bottom: 0;
@@ -18,7 +18,7 @@
     line-height: 24px;
 }
 
-.ChannelGroup .ChannelTitle a {
+.ChannelSection .ChannelTitle a {
     color: var(--light);
     font-weight: bold;
     font-size: 20px;
@@ -27,7 +27,7 @@
     transition: 0.3s ease;
 }
 
-.ChannelGroup .ChannelTitle a:hover {
+.ChannelSection .ChannelTitle a:hover {
     color: var(--accent);
     border-radius: 100%;
     cursor: pointer;
@@ -35,7 +35,7 @@
     transition: 0.3s ease;
 }
 
-.ChannelGroup .ChannelItem h6 {
+.ChannelSection .ChannelItem h6 {
     align-items:center;
     display:flex;
     height:30px;
@@ -43,7 +43,7 @@
     width:100%;
 }
 
-.ChannelGroup .ChannelItem:hover {
+.ChannelSection .ChannelItem:hover {
     background-color: var(--accent);
     border-radius: 5px;
     cursor: pointer;
