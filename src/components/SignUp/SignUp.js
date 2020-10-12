@@ -25,7 +25,7 @@ class SignUp extends Component {
                 },
             })
             .then((response) => {
-                // localStorage.setItem('token', response.data.authToken);
+                localStorage.setItem('token', response.data.authToken);
 
                 window.location.href='/discover'
             })
