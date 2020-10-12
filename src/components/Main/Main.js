@@ -20,6 +20,10 @@ class Main extends Component {
         };
     }
 
+    componentDidMount() {
+        console.log(authToken)
+    }
+
     toggleCommunity = () => {
         this.setState({showCommunity: !this.state.showCommunity})
     }
