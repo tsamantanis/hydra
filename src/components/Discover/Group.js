@@ -10,7 +10,7 @@ import pythonImage from '../../assets/python-flask-angular.jpg'
 class Group extends Component {
     render () {
         return (
-            <Link to="/discover/preview" className="text-decoration-none col-3">
+            <Link to={"/discover/preview/" + this.props.groupId} className="text-decoration-none col-3">
                 <div className='Group m-t-40'>
                     <img src={pythonImage} alt='class image' />
                     <svg className="m-t-n25" width="330" height="28" viewBox="0 0 290 20" fill="none" xmlns="http://www.w3.org/2000/svg">

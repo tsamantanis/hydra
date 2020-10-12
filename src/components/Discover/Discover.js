@@ -70,8 +70,10 @@ class Discover extends Component {
                     {filteredGroups.map(group => {
                         return(
                             <Group
+                                groupId={group._id}
                                 groupName={group.name}
-                                groupPrice="68"
+                                groupPrice={group.price}
+                                groupDis={group.dis}
                             />
                         )
                     })}

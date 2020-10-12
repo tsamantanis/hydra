@@ -31,7 +31,7 @@ class App extends Component {
           <Route exact path='/users/signin' component={SignIn} />
           <Route exact path='/users/passwordreset' component={PasswordReset} />
           <Route exact path='/discover' component={Discover} />
-          <Route exact path='/discover/preview' component={Preview} />
+          <Route exact path='/discover/preview/:id' component={Preview} />
           <Route exact path='/' component={Main} />
           {/* <Route path='/' component={RedirectToLogin} /> */}
         </Switch>
