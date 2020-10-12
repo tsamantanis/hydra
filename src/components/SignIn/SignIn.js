@@ -6,8 +6,6 @@ import '../../App.css'
 import './SignIn.css'
 import happiness from '../../assets/happiness.svg'
 
-// let authToken
-
 class SignIn extends Component {
     signIn () {
         const email = document.querySelector('input[name=email]').value
@@ -22,8 +20,6 @@ class SignIn extends Component {
                 },
             })
             .then(function (response) {
-                console.log(response.data.authToken)
-                // authToken = response.data.authToken
                 localStorage.setItem('token', response.data.authToken);
 
                 window.location.href='/'
