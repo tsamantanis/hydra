@@ -2,7 +2,7 @@
 from flask import Blueprint, jsonify, request
 from hydra import db, app
 from os import path
-from hydra.contents.utils import create_content
+from hydra.contents.utils import createContent
 from bson.json_util import dumps
 from bson.objectid import ObjectId
 
@@ -15,10 +15,12 @@ contents = Blueprint("contents", __name__)
 def contentAll(groupId):
     """Show contents for group id. Return as data to front end."""
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
+    print(f"Group: {group}")
     contents = [
         db.Content.find_one_or_404({"_id": ObjectId(group["contentId"])})
         for contentId in group["contentIds"]
     ]
+    print(f"Contents: {contents}")
     data = [
         {
             "contentId": content["_id"],
@@ -27,6 +29,7 @@ def contentAll(groupId):
         }
         for content in contents
     ]
+    print(f"Data: {data}")
     return dumps(data), 200
 
 
@@ -153,15 +156,20 @@ def contentCreate(groupId):
             {
                 "name": postData.get("name"),
                 "dis": postData.get("dis"),
-                "videos": [],
-                "pdfs": [],
+                "videoIds": [],
+                "pdfIds": [],
             }
         )
         if postData.get("videos"):
-            create_content("video", groupId, postData, postFiles)
+            createContent("video", groupId, postData, postFiles)
         if postData.get("pdfs"):
-            create_content("pdf", groupId, postData, postFiles)
+            createContent("pdf", groupId, postData, postFiles)
         else:
+            createdContent = db.Content.find_one_or_404(
+                {"name": postData.get("name")}
+            )
+            group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
+            group["contentIds"].append(createdContent["_id"])
             return dumps(postData)
     except:
         return jsonify({"msg": "Unable to upload files"}), 200

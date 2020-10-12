@@ -10,8 +10,9 @@ groups = Blueprint("groups", __name__)
 
 
 @groups.route("/", methods=["GET"])
-# @login_required
+@login_required
 def groupsAll():
+    """Show all groups to current user's enrolled groups."""
     groups = []
     for groups in current_user.enrolledGroups:
         groups = db.Group.find({})
@@ -61,14 +62,14 @@ def groupCreate():
     db.Group.insert_one(
         {
             "ownerId": postData["ownerId"],
-            "enrolledIds": {},
-            "contentIds": {},
+            "enrolledIds": [],
+            "contentIds": [],
             "dis": postData["dis"],
-            "channelsIds": {},
+            "channelsIds": [],
             "keywords": postData["keywords"],
             "name": postData["name"],
             "stripePriceId": priceStripeObject.get("id"),
-            "userIoc": {},
+            "userIoc": [],
         }
     )
     return jsonify({"msg": "Your group has been created"}), 200
@@ -124,6 +125,9 @@ def groupId(groupId):
         "price": priceStripeObject.get("id"),
     }
     return dumps(data), 200
+
+
+# TODO: more testing on these routes with frontend
 
 
 @groups.route("/<groupId>/join", methods=["POST"])

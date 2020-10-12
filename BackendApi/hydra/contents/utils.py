@@ -6,7 +6,7 @@ from bson.json_util import dumps
 from bson.objectid import ObjectId
 
 
-def create_content(content, groupId, postData, postFiles):
+def createContent(content, groupId, postData, postFiles):
     """
     Create content.
 
@@ -34,8 +34,13 @@ def create_content(content, groupId, postData, postFiles):
             elif "pdf" in content:
                 createdContent = db.Pdf.insert(jsonSet)
             group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
-            group.contentIds.append(createdContent["_id"])
+            group["contentIds"].append(createdContent["_id"])
             return (
                 jsonify({"msg": "Your files have been added!"}),
                 200,
             )  # TODO: What do we want to return here?
+
+
+def patchContent():
+    """Update content resource."""
+    pass
