@@ -44,9 +44,9 @@ class SignIn extends Component {
                         </legend>
                         <fieldset>
                             <label htmlFor='email'>Email Address</label>
-                            <input type='email' name='email' placeholder='name@address.com' />
+                            <input type='email' name='email' placeholder='name@address.com' pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" required />
                             <label htmlFor='password'>Password</label>
-                            <input type='password' name='password' placeholder='Enter your password' />
+                            <input type='password' name='password' placeholder='Enter your password' required />
                         </fieldset>
                         <div className="buttonGradientContainer m-b-10 m-t-30">
                             <button className="m-l-0" type='button' onClick={this.signIn}>Sign In</button>

@@ -70,11 +70,11 @@ class AddChannel extends Component {
                         <p className='big'>Channels are where your team communicates. They’re best when organized around a lecture or topic.</p>
                         <div className='userInput'>
                             <label htmlFor='channelName'>Channel Name</label>
-                            <input type='text' id='channelName' name='channelName' placeholder='# CS1.1 Object Oriented Programming'/>
+                            <input type='text' id='channelName' name='channelName' placeholder='# CS1.1 Object Oriented Programming' required />
                         </div>
                         <div className='userInput'>
                             <label htmlFor='description'>Description</label>
-                            <input type='text' id='description' name='description' placeholder='What is this channel about?' />
+                            <input type='text' id='description' name='description' placeholder='What is this channel about?' required />
                         </div>
                     </ModalBody>
                     <ModalFooter className='m-b-40'>

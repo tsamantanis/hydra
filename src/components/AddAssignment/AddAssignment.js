@@ -90,33 +90,33 @@ class AddAssignment extends Component {
                             <div className='left m-r-10'>
                                 <div className='userInput'>
                                     <label htmlFor='name'>Name</label>
-                                    <input type='text' id='name' name='name' placeholder='Homework 1'/>
+                                    <input type='text' id='name' name='name' placeholder='Homework 1' required/>
                                 </div>
                                 <div className='userInput'>
                                     <label htmlFor='attachments'>Attachments</label>
-                                    <input type='file' id='attachments' name='attachments' placeholder='Upload Files' />
+                                    <input type='file' id='attachments' name='attachments' placeholder='Upload Files' required/>
                                 </div>
                                 <div className='userInput'>
                                     <label htmlFor='startDate'>Start Date</label>
-                                    <input type='date' id='startDate' name='startDate' placeholder='10/11/2020' />
+                                    <input type='date' id='startDate' name='startDate' placeholder='10/11/2020' required/>
                                 </div>
                                 <div className='userInput'>
                                     <label htmlFor='totalPoints'>Total Points</label>
-                                    <input type='number' id='totalPoints' name='totalPoints' placeholder='100' />
+                                    <input type='number' id='totalPoints' name='totalPoints' placeholder='100' required/>
                                 </div>
                             </div>
                             <div className='right m-l-10'>
                                 <div className='userInput'>
                                     <label htmlFor='description'>Description</label>
-                                    <input type='text' id='description' name='description' placeholder='How to create a Hello World! page with Flask' />
+                                    <input type='text' id='description' name='description' placeholder='How to create a Hello World! page with Flask' required/>
                                 </div>
                                 <div className='userInput'>
                                     <label htmlFor='assignmentType'>Assignment Type</label>
-                                    <input type='text' id='assignmentType' name='assignmentType' placeholder='Required' />
+                                    <input type='text' id='assignmentType' name='assignmentType' placeholder='Required' required/>
                                 </div>
                                 <div className='userInput'>
                                     <label htmlFor='dueDate'>Due Date</label>
-                                    <input type='date' id='dueDate' name='dueDate' placeholder='10/13/2020' />
+                                    <input type='date' id='dueDate' name='dueDate' placeholder='10/13/2020' required/>
                                 </div>
                                 <button className='m-t-40' onClick={this.createAssignment}>Save</button>
                             </div>

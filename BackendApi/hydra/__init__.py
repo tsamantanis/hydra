@@ -33,10 +33,12 @@ from hydra.group.routes import groups
 from hydra.channels.routes import channels
 from hydra.contents.routes import contents
 from hydra.assignments.routes import assignments
+from hydra.submissions.routes import submissions
 
 app.register_blueprint(main, url_prefix="/")
 app.register_blueprint(users, url_prefix="/users")
 app.register_blueprint(groups, url_prefix="/groups")
 app.register_blueprint(channels, url_prefix="/groups/<group_id>/channels")
-# app.register_blueprint(contents, url_prefix="/groups/<group_id>/contents")
-# app.register_blueprint(assignments, url_prefix="/groups/<group_id>/assignments")
+app.register_blueprint(contents, url_prefix="/groups/<group_id>/contents")
+app.register_blueprint(assignments, url_prefix="/groups/<group_id>/assignments")
+app.register_blueprint(submissions, url_prefix="/groups/<group_id>/assignments/<assignmentsId>/submissions")

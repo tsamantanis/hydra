@@ -18,10 +18,14 @@ def contentAll(groupId):
             "assignmentId": assignment.id,
             "name": assignment.name,
             "dis": assignment.dis,
+            "maxGrade": assignment.maxGrade,
+            "startDate": assignment.startDate,
+            "dueDate": assignment.dueDate,
+            "type": assignment.type
         }
         for assignment in assignments
     ]
-    return flask.jsonify(data), ""
+    return flask.jsonify(data), 200
 
 
 @assignments.route("/<assignmentId>", methods=["GET", "PATCH"])
@@ -120,13 +124,9 @@ def assignmentCreate(groupId):
 def pdfRemove(groupId, assignmentId, pdfId):
     assignment = db.assignment.find({"_id": ObjectId(assignmentId)})
     assignment.pdfIds.remove(pdfId)
-    db.Pdf.deleteOne({"_id": ObjectId(pdfId)})
-    return "Assignment Deleted", 204
-
-
-@assignments.route("/assignmentId/videos/<videoId>", methods=["DELETE"])
-def pdfRemove(groupId, assignmentId, videoId):
-    assignment = db.Assignment.find({"_id": ObjectId(assignmentId)})
-    assignment.videoIds.remove(videoId)
-    db.Video.deleteOne({"_id": ObjectId(videoId)})
-    return "Assignment Deleted", 204
+    db.Pdf.deleteOne(
+            {
+                "_id": ObjectId(pdfId)
+            }
+        )
+    return 'Assignment Deleted', 204
