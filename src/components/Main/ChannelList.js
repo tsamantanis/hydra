@@ -17,6 +17,7 @@ class ChannelList extends Component {
 
     getChannels = () => {
         const _this = this
+        this.setState({channels: []})
         api({
             method: 'GET',
             url: '/groups/5f83e890d1bf28e13820a756/channels'
@@ -39,10 +40,12 @@ class ChannelList extends Component {
                 <ChannelGroup
                     channelLabel='Lectures'
                     channelNames={this.state.channels}
+                    getChannels={this.getChannels}
                 />
                 <ChannelGroup
                     channelLabel='Assignments'
                     channelNames={this.state.channels}
+                    getChannels={this.getChannels}
                 />
             </>
         )

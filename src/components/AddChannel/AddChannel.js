@@ -26,7 +26,8 @@ class AddChannel extends Component {
         });
     }
 
-    createChannel() {
+    createChannel = () => {
+        const _this = this
         const name = document.querySelector('input[name=channelName]').value
         const dis = document.querySelector('input[name=description]').value
         const category = document.querySelector('input[name=channelLabel]').value
@@ -41,7 +42,8 @@ class AddChannel extends Component {
                 },
             })
             .then(function (response) {
-                console.log(response)
+                _this.toggle()
+                _this.props.getChannels()
             })
             .catch(function (error) {
                 console.log(error)
