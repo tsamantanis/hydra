@@ -81,6 +81,7 @@ def contentId(groupId, contentId):
         "name": group["_id"],
         "dis": group["_id"],
         "contentId": group["ownerId"],
+        "channelId" : group["channelId"],
         "videos": [
             {
                 str(index): {
@@ -115,9 +116,6 @@ def contentCreate(groupId):
     try:
         postData = request.json
         postFiles = request.files
-        name = request.json.get("name")
-        dis = request.json.get("dis")
-        category = request.json.get("category")
 
         newChannel = {
             "name": postData.get("name"),
