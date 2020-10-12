@@ -32,18 +32,29 @@ class AddTopic extends Component {
         const _this = this
         const name = document.querySelector('input[name=channelName]').value
         const dis = document.querySelector('input[name=description]').value
-        const category = document.querySelector('input[name=channelLabel]').value
+        const url = document.querySelector('input[name=videoUrl]').value
+        // const file = document.querySelector('input[name=attachments]').value
+        // let fileDis = null
+        // let formData = null
+        // if (file) {
+        //     formData = new FormData(file)
+        //     fileDis = file.split(/(\\|\/)/g).pop().replace(/\.[^/.]+$/, "")
+        // }
         if (name && dis) {
             api({
                 method: 'POST',
-                url: '/groups/5f83e890d1bf28e13820a756/contents/create',
+                url: '/groups/5f83e890d1bf28e13820a756/channels/5f83fe24fc59206ae4188e03/contents/create',
                 data: {
                     "name": name,
                     "dis": dis,
-                    "category": category
+                    "videos": [{
+                        "url": url,
+                        "dis": url
+                    }]
                 },
             })
             .then(function (response) {
+                console.log(response)
                 _this.toggle()
                 _this.props.getChannels('Topics')
             })
@@ -83,9 +94,13 @@ class AddTopic extends Component {
                             <label htmlFor='description'>Description</label>
                             <input type='text' id='description' name='description' placeholder='What is this channel about?' required />
                         </div>
-                        <div className='userInput'>
+                        {/*<div className='userInput'>
                             <label htmlFor='attachments'>Attachments</label>
-                            <input type='file' id='attachments' name='attachments' placeholder='Upload files and video here' />
+                            <input type='file' id='attachments' name='attachments' placeholder='Upload pdfs and video here' />
+                        </div>*/}
+                        <div className='userInput'>
+                            <label htmlFor='videoUrl'>Video URL</label>
+                            <input type='url' pattern="https://.*" id='videoUrl' name='videoUrl' placeholder='https://youtube.com/video' />
                         </div>
                         <div className='buttonGradientContainerAlt m-b-40'>
                             <button onClick={this.createTopic}>Add</button>

@@ -16,7 +16,7 @@ class ChannelList extends Component {
     getChannels = (section) => {
         api({
             method: 'GET',
-            url: '/groups/5f848e95c86be6cef283dfee/channels/'
+            url: '/groups/5f848e95c86be6cef283dfee/channels'
         })
         .then((response) => {
             let topics = []

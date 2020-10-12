@@ -8,7 +8,8 @@ import os
 
 groups = Blueprint("groups", __name__)
 
-@groups.route("/", methods=["GET"])
+
+@groups.route("", methods=["GET"])
 def allGroups():
     """Show all groups to users, enable search on client."""
     groups = db.Group.find({})
