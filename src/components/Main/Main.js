@@ -10,14 +10,16 @@ import UserSection from './UserSection'
 import SearchBar from './SearchBar'
 import Post from './Post'
 import NavItem from './NavItem'
-
-import Settings from '../Settings/Settings';
+import Loading from '../Helpers/Loading'
+import Settings from '../Settings/Settings'
 
 class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showCommunity: true
+            showCommunity: true,
+            posts: [],
+            loadingPosts: false,
         };
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     }
@@ -73,22 +75,29 @@ class Main extends Component {
         })
     }
 
-    loadPosts = (channel_id) => {
-        // This will get all the posts for the selected channel_id
+    getPosts = (channel_id) => {
         api({
             method: 'GET',
             url: '/groups/5f83e890d1bf28e13820a756/channels/' + channel_id
         })
-        .then(function (response) {
-            console.log(response.data)
+        .then((response) => {
+            let posts = []
+            posts.push(response.data)
+            this.setState({posts, loadingPosts: false})
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log(error)
         })
     }
 
+    loadPosts = (channel_id) => {
+        // This will get all the posts for the selected channel_id
+        this.setState({loadingPosts: true}, () => {
+            this.getPosts(channel_id)
+        })
+    }
+
     render () {
-        let posts = ["Post", "Post", "Post"]
         return (
             <div className='Main'>
                 <div className='Nav'>
@@ -124,13 +133,17 @@ class Main extends Component {
                         : null }
                     </div>
                     <div className='Posts'>
-                        {posts.map((post) => {
-                            return(
-                                <Post
+                        {this.state.loadingPosts ?
+                            <Loading />
+                            :
+                            this.state.posts.map((post) => {
+                                return(
+                                    <Post
 
-                                />
-                            )
-                        })}
+                                    />
+                                )
+                            })
+                        }
                     </div>
                     <div className='CreatePost m-0'>
                         <svg onClick={this.createPost} className="sendIcon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
