@@ -14,19 +14,25 @@ class ChannelList extends Component {
     }
 
     getChannels = (section) => {
-        const _this = this
         api({
             method: 'GET',
-            url: '/groups/5f83e890d1bf28e13820a756/channels'
+            url: '/groups/5f848e95c86be6cef283dfee/channels'
         })
         .then((response) => {
-            console.log(section)
-            for (const channel of response.data) {
-                if (channel.category === section) {
-                    this.setState({section: [...this.state.section, channel.name]})
+            let topics = []
+            let assignments = []
+            let discussions = []
+            response && response.data && response.data.forEach((channel) => {
+                if (channel.category === "content") {
+                    topics.push(channel)
+                } else if (channel.category === "assignments") {
+                    assignments.push(channel)
+                } else if (channel.category === "discussions") {
+                    discussions.push(channel)
                 }
-            }
-            console.log(this.state.section)
+            })
+            this.setState({topics, assignments, discussions})
+            console.log(response);
         })
         .catch((error) => {
             console.log(error)
@@ -50,7 +56,7 @@ class ChannelList extends Component {
                 />
                 <ChannelSection
                     channelLabel='Discussions'
-                    channels={this.state.assignments}
+                    channels={this.state.discussions}
                     getChannels={this.getChannels.bind(this, 'Discussions')}
                     loadPosts={this.props.loadPosts}
                 />

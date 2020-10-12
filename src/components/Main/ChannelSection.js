@@ -36,7 +36,7 @@ class ChannelSection extends Component {
                 { this.props.channels && this.props.channels.map((channel) => {
                     return(
                         <div className='ChannelItem m-b-10' id={channel._id} key={channel.name}>
-                            <h6 className="m-auto" onClick={() => {this.displayChannel.bind(this, channel.name); this.props.loadPosts(channel._id)}}>{'#  ' + channel.name}</h6>
+                            <h6 className="m-auto" onClick={() => {this.displayChannel.bind(this, channel.name); this.props.loadPosts(channel._id.$oid)}}>{'#  ' + channel.name}</h6>
                         </div>
                 )})}
             </div>

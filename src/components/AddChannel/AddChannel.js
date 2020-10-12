@@ -25,7 +25,7 @@ class AddChannel extends Component {
     }
 
     componentDidMount() {
-        this.props.getChannels('Discussions')
+        this.props.getChannels('discussions')
     }
 
     createChannel = () => {
@@ -36,7 +36,7 @@ class AddChannel extends Component {
         if (name && dis) {
             api({
                 method: 'POST',
-                url: '/groups/5f83e890d1bf28e13820a756/channels/create',
+                url: '/groups/5f848e95c86be6cef283dfee/channels/create',
                 data: {
                     "name": name,
                     "dis": dis,
@@ -45,7 +45,7 @@ class AddChannel extends Component {
             })
             .then(function (response) {
                 _this.toggle()
-                _this.props.getChannels('Discussions')
+                _this.props.getChannels('discussions')
             })
             .catch(function (error) {
                 console.log(error)
