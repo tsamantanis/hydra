@@ -67,6 +67,15 @@
 .AddChannelModal .buttonGradientContainerAlt button {
     align-self: flex-end;
     border-radius: 7px;
+    font-size: 20px;
     height: 35px;
     width: 100px;
+}
+
+.AddChannelModal .buttonGradientContainerAlt button {
+    background-color: var(--accent);
+}
+
+.AddChannelModal .buttonGradientContainerAlt button:hover {
+    background-color: transparent;
 }

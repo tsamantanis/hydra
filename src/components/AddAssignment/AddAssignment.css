@@ -81,14 +81,20 @@
     margin-top: -5px;
 }
 
-.AddAssignmentModal .modal-body .assignmentImage .right button {
-    background-color: var(--accent);
+.AddAssignmentModal .modal-body .assignmentImage .buttonGradientContainerAlt,
+.AddAssignmentModal .modal-body .assignmentImage .buttonGradientContainerAlt button {
     border-radius: 7px;
-    font-family: 'Jaldi';
-    font-weight: bold;
     font-size: 20px;
     height: 35px;
     width: 100px;
+}
+
+.AddAssignmentModal .modal-body .assignmentImage .buttonGradientContainerAlt button {
+    background-color: var(--accent);
+}
+
+.AddAssignmentModal .modal-body .assignmentImage .buttonGradientContainerAlt button:hover {
+    background-color: transparent;
 }
 
 /* Modal Body AssignmentInfo */
@@ -132,4 +138,12 @@
     font-size: 20px;
     height: 35px;
     width: 100px;
+}
+
+.AddAssignmentModal .modal-body .assignmentInfo .right .buttonGradientContainerAlt button {
+    background-color: var(--accent);
+}
+
+.AddAssignmentModal .modal-body .assignmentInfo .right .buttonGradientContainerAlt button:hover {
+    background-color: transparent;
 }

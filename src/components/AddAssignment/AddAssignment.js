@@ -88,7 +88,7 @@ class AddAssignment extends Component {
                                     <small>PNG or JPG no bigger than 1000px wide and tall.</small>
                                 </div>
                             </div>
-                            <div className='right'>
+                            <div className='right buttonGradientContainerAlt'>
                                 <button type='button'>Upload</button>
                             </div>
                         </div>
