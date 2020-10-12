@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import './ChannelSection.css'
 
 import AddChannel from '../AddChannel/AddChannel'
+import AddTopic from '../AddTopic/AddTopic'
 import AddAssignment from '../AddAssignment/AddAssignment'
 class ChannelSection extends Component {
 
@@ -20,7 +21,7 @@ class ChannelSection extends Component {
             <div className='ChannelSection m-t-15 m-b-15'>
                 <div className='ChannelTitle'>
                     <h5 className="m-b-15">{this.props.channelLabel}</h5>
-                    {this.props.channelLabel !== "Assignments" ? <AddChannel channelLabel={this.props.channelLabel} getChannels={this.props.getChannels} /> : <AddAssignment />}
+                    {this.props.channelLabel !== "Assignments" ? <AddTopic channelLabel={this.props.channelLabel} getChannels={this.props.getChannels} /> : <AddAssignment />}
                 </div>
                 { this.props.channels && this.props.channels.map((channel) => {
                     return(
