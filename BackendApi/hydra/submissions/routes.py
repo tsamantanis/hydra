@@ -118,9 +118,9 @@ def assignmentCreate(groupId):
             pdfFile.save(jsonSet.url)
         else:
             createdPdf = db.Pdf.insert(jsonSet)
-            assignment.pdfIds.append(createdPdf._id)
+            assignment.pdfIds.append(createdPdf.inserted_id)
     group = db.Group.find({"_id": ObjectId(groupId)})
-    group.assignmentIds.append(assignment._id)
+    group.assignmentIds.append(assignment.inserted_id)
     return "", 200
 
 
