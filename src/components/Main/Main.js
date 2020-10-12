@@ -23,7 +23,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
-
+        this.getAllUsersGroups()
     }
 
     toggleCommunity = () => {
@@ -61,6 +61,16 @@ class Main extends Component {
 
     getAllUsersGroups = () => {
         // This will get all the groups of the current user so they can be displayed as NavItems
+        api({
+            method: 'GET',
+            url: '/groups/yourgroups'
+        })
+        .then(function (response) {
+            console.log(response.data)
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
     }
 
     loadPosts = (channel_id) => {
