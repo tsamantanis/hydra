@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom';
 
 import api from '../../api'
 
@@ -21,7 +22,9 @@ class Preview extends Component {
     render () {
         return (
             <div className='Preview'>
-                <img src={backArrow} alt='go back to Discover page' className='backButton alt' onClick={this.goToDiscover} />
+                <Link to="/discover" className="backButton alt">
+                    <img src={backArrow} alt='go back to Discover page' />
+                </Link>
                 <img src={preview} alt='preview' className='previewImage' />
                 <div className='previewText'>
                     <h1>Build apps with Python, Flask, and Angular</h1>

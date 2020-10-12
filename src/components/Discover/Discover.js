@@ -14,7 +14,8 @@ class Discover extends Component {
         super(props);
         this.state = {
             groups: [],
-            displayGroups: []
+            displayGroups: [],
+            loading: true,
         }
     }
 
@@ -30,7 +31,7 @@ class Discover extends Component {
         })
         .then(function (response) {
             for (const group of response.data) {
-                _this.setState({groups: [..._this.state.groups, group]})
+                _this.setState({groups: [..._this.state.groups, group], loading: false})
             }
         })
         .catch(function (error) {
@@ -58,6 +59,7 @@ class Discover extends Component {
 
     render () {
         return (
+
             <div className='Discover'>
                 <img src={ellipse} alt='ellipse' className='ellipse' />
                 <form>
