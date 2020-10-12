@@ -29,13 +29,15 @@ class AddChannel extends Component {
     createChannel() {
         const name = document.querySelector('input[name=channelName]').value
         const dis = document.querySelector('input[name=description]').value
+        const category = document.querySelector('input[name=channelLabel]').value
         if (name && dis) {
             api({
                 method: 'POST',
                 url: '/groups/5f83e890d1bf28e13820a756/channels/create',
                 data: {
                     "name": name,
-                    "dis": dis
+                    "dis": dis,
+                    "category": category
                 },
             })
             .then(function (response) {
@@ -69,6 +71,7 @@ class AddChannel extends Component {
                         <h2>Add Channel</h2>
                         <p className='big'>Channels are where your team communicates. They’re best when organized around a lecture or topic.</p>
                         <div className='userInput'>
+                            <input type='hidden' id='channelLabel' name='channelLabel' value={this.props.channelLabel} required />
                             <label htmlFor='channelName'>Channel Name</label>
                             <input type='text' id='channelName' name='channelName' placeholder='# CS1.1 Object Oriented Programming' required />
                         </div>
