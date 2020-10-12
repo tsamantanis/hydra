@@ -2,7 +2,7 @@
 from flask import Blueprint, jsonify, request
 from hydra import db, app
 from os import path
-from hydra.contents.utils import createContent, patchContent
+from hydra.contents.utils import createContent, patchContent, send_from_directory
 from bson.json_util import dumps
 from bson.objectid import ObjectId
 
@@ -184,7 +184,8 @@ def pdfId(groupId, contentId, pdfId):
             {"_id":  ObjectId(pdfId)}, {"$set": jsonSet}
         )
     return "Patch Made", 200
-
+    if request.method == "GET":
+        return send_from_directory(app.config["PDF_PATH"], "{0}.pdf".format(pdfId))
 
 @contents.route("/<contentId>/videos/<videoId>", methods=["DELETE", "PATCH"])
 # @jwt_required
@@ -213,7 +214,8 @@ def videoId(groupId, contentId, videoId):
             {"_id":  ObjectId(videoId)}, {"$set": jsonSet}
         )
     return "Patch Made", 200
-
+    if request.method == "GET":
+        return send_from_directory(app.config["VIDEO_PATH"], "{0}.mp4".format(videoId))
 
 
 @contents.route("/<contentId>/videos/add", methods=["POST"])

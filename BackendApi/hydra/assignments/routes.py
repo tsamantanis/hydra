@@ -3,7 +3,7 @@ from os import path
 
 from bson.json_util import dumps
 from bson.objectid import ObjectId
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, send_from_directory
 from hydra import app, db
 
 assignments = Blueprint("assignments", __name__)
