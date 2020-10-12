@@ -23,7 +23,7 @@ class Discover extends Component {
                         groupTitle="Build apps with Python, Flask, and Angular"
                         groupPrice="68"
                         />
-                    <Group
+                    {/* <Group
                         groupTitle="Build apps with Python, Flask, and Angular"
                         groupPrice="68"
                         />
@@ -62,7 +62,7 @@ class Discover extends Component {
                     <Group
                         groupTitle="Build apps with Python, Flask, and Angular"
                         groupPrice="68"
-                        />
+                        /> */}
                 </div>
                 <img src={school} alt='school' className='school' />
             </div>

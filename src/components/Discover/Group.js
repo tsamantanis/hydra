@@ -9,7 +9,7 @@ import group from '../../assets/group.svg'
 class Group extends Component {
 
     groupPreview() {
-        alert('Group preview')
+        window.location.href = '/discover/preview'
     }
 
     render () {

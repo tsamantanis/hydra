@@ -9,6 +9,7 @@ import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import PasswordReset from './components/PasswordReset/PasswordReset'
 import Discover from './components/Discover/Discover'
+import Preview from './components/Discover/Preview'
 
 class App extends Component {
     // constructor(props) {
@@ -30,6 +31,7 @@ class App extends Component {
           <Route exact path='/users/signin' component={SignIn} />
           <Route exact path='/users/passwordreset' component={PasswordReset} />
           <Route exact path='/discover' component={Discover} />
+          <Route exact path='/discover/preview' component={Preview} />
           <Route exact path='/' component={Main} />
           {/* <Route path='/' component={RedirectToLogin} /> */}
         </Switch>
