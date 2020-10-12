@@ -1,0 +1,40 @@
+.Discover {
+    align-items: center;
+    background-color: var(--light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Discover .ellipse {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 0;
+}
+
+.Discover .school {
+    bottom: 0;
+    left: 50%;
+    margin-left: -28%;
+    position: absolute;
+    width: 56%;
+    z-index: 1;
+}
+
+.Discover form {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    z-index: 3;
+}
+
+.Discover form label h4 {
+    color: var(--light);
+}
+
+.Discover form input[type=text] {
+    background-color: var(--light);
+    color: var(--lightAccent);
+}
