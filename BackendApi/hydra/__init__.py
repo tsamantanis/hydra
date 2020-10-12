@@ -43,5 +43,5 @@ app.register_blueprint(
 )
 app.register_blueprint(
     submissions,
-    url_prefix="/groups/<groupId>/assignments/<assignmentsId>/submissions",
+    url_prefix="/groups/<groupId>/assignments/<assignmentId>/submissions",
 )

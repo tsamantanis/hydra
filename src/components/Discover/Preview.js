@@ -26,10 +26,11 @@ class Preview extends Component {
             method: 'GET',
             url: '/groups/' + this.props.match.params.id,
         })
-        .then(function (response) {
-            this.state({group: response.data.group})
+        .then((response) => {
+            console.log(response);
+            this.setState({group: response.data})
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log(error)
         })
     }
@@ -39,7 +40,7 @@ class Preview extends Component {
     }
 
     render () {
-
+        console.log(this.state.group);
         return (
             <div className='Preview'>
                 <Link to="/discover" className="backButton alt">

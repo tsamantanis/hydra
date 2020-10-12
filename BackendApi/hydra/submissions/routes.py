@@ -1,5 +1,5 @@
 import flask
-from hydra import db
+from hydra import db, app
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from os import path
@@ -14,14 +14,22 @@ submissions = Blueprint("submission", __name__)
 @submissions.route("/", methods=["GET"])
 @login_required
 def contentAll(groupId, assignmentId):
-    group = db.Group.find({"_id": ObjectId(groupId)})
+    """
+    Return submission information.
+
+    Check groupId and AssignmentId to be sure assignment and group exist.
+    Loop through submissionIds in assignment to show submission data.
+    """
+    group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     if group is None:
         return jsonify({"msg": "Group Not Found"}), 404
-    assignment = db.Assignment.find({"_id": ObjectId(assignmentId)})
+    assignment = db.Assignment.find_one_or_404(
+        {"_id": ObjectId(assignmentId)}
+    )
     if assignment is None:
         return jsonify({"msg": "Assignment not found"}), 404
     submissions = [
-        db.Submission.find({"_id": ObjectId(submissionId)})
+        db.Submission.find_one_or_404({"_id": ObjectId(submissionId)})
         for submissionId in assignment["submissionIds"]
     ]
 
@@ -39,16 +47,20 @@ def contentAll(groupId, assignmentId):
 
 
 @submissions.route("/<submissionId>", methods=["GET", "PATCH"])
-# @jwt_required
+@login_required
 def contentId(groupId, assignmentId, submissionId):
     httpCode = 200
-    group = db.Group.find({"_id": ObjectId(groupId)})
+    group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     if group is None:
         return "Group Not Found", 404
-    assignment = db.Assignment.find({"_id": ObjectId(assignmentId)})
+    assignment = db.Assignment.find_one_or_404(
+        {"_id": ObjectId(assignmentId)}
+    )
     if assignment is None:
         return "Assignment Not Found", 404
-    submission = db.Submission.find({"_id": ObjectId(submissionId)})
+    submission = db.Submission.find_one_or_404(
+        {"_id": ObjectId(submissionId)}
+    )
     if submission is None:
         return "Submission Not Found", 404
     if request.method == "DELETE":
@@ -58,18 +70,18 @@ def contentId(groupId, assignmentId, submissionId):
     if request.method == "PATCH":
         patchData = request.json
         patchFiles = request.files
-
-        if patchFiles.get(patchData.tempFileId) != None:
-            pdfFile = patchFiles.get(patchData.tempFileId)
+        jsonSet = {}
+        if patchFiles.get(patchData["tempFileId"]) is not None:
+            pdfFile = patchFiles.get(patchData["tempFileId"])
             jsonSet.pdfUrl = path.join(
                 app.config["PDF_PATH"],
                 "{0}.{1}".format(
-                    {patchData.tempFileId}, pdfFile.filename.split(".")[-1]
+                    {patchData["tempFileId"]}, pdfFile.filename.split(".")[-1]
                 ),
             )
-            pdfFile.save(jsonSet.pdfUrl)
-        if pdfData.scoredGrade != None:
-            jsonSet.scoredGrade = pdfData.scoredGrade
+            pdfFile.save(jsonSet["pdfUrl"])
+        if pdfData["scoredGrade"] is not None:
+            jsonSet["scoredGrade"] = pdfData["scoredGrade"]
         if pdfData.pdfId == True:
             db.Pdf.update({"_id": pdfData.pdfId}, {"$set": jsonSet})
         else:
@@ -129,7 +141,7 @@ def assignmentCreate(groupId):
     return "", 200
 
 
-@submissions.route("/<assignmentId>/pdfs/<pdfId>", methods=["DELETE"])
+@submissions.route("/pdfs/<pdfId>", methods=["DELETE"])
 # @jwt_required
 def pdfRemove(groupId, assignmentId, pdfId):
     assignment = db.Assignment.find({"_id": ObjectId(assignmentId)})
