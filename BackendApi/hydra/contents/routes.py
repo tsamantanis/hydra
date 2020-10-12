@@ -220,10 +220,12 @@ def videoId(groupId, contentId, videoId):
 # @jwt_required
 def videoAdd(groupId, contentId):
     jsonSet = {}
+    content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
     postFiles = request.files
     if request.json.get("dis") is not None:
         jsonSet["dis"] = request.json.get("dis")
     video = db.Video.insert_one(jsonSet)
+    content["videos"].append(video.inserted_id)
     if request.json.get("url") is not None:
         jsonSet["url"] = request.json.get("url")
     elif postFiles.get(request.json.get("tempFileId")) is not None:
@@ -244,10 +246,12 @@ def videoAdd(groupId, contentId):
 # @jwt_required
 def pdfAdd(groupId, contentId):
     jsonSet = {}
+    content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
     postFiles = request.files
     if request.json.get("dis") is not None:
         jsonSet["dis"] = request.json.get("dis")
     pdf = db.Pdf.insert_one(jsonSet)
+    content["pdfs"].append(pdf.inserted_id)
     if request.json.get("url") is not None:
         jsonSet["url"] = request.json.get("url")
     elif postFiles.get(request.json.get("tempFileId")) is not None:

@@ -146,3 +146,27 @@ def assignmentCreate(groupId):
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     group["assignmentIds"].append(assignment["_id"])
     return jsonify({"msg": "Your assignment has been created."}), 200
+
+@assignments.route("/<assignmentId>/pdfs/add", methods=["POST"])
+# @jwt_required
+def pdfAdd(groupId, assignmentId):
+    jsonSet = {}
+    postFiles = request.files
+    if request.json.get("dis") is not None:
+        jsonSet["dis"] = request.json.get("dis")
+    pdf = db.Pdf.insert_one(jsonSet)
+    if request.json.get("url") is not None:
+        jsonSet["url"] = request.json.get("url")
+    elif postFiles.get(request.json.get("tempFileId")) is not None:
+        contentFile = postFiles.get(request.json.get("tempFileId"))
+        jsonSet["url"] = path.join(
+            path,
+            "{0}.{1}".format(
+                {pdf["_id"]},
+                contentFile.filename.split(".")[-1],
+            ),
+        )
+        contentFile.save(jsonSet["url"])
+    db.Pdf.update(
+            {"_id":  ObjectId(pdf["_id"])}, {"$set": jsonSet}
+        )
