@@ -38,13 +38,20 @@ class ChannelList extends Component {
 
     render() {
         return (
-            <ChannelGroup
-                channelLabel='Lectures'
-                channelNames={this.state.channels.map((channel) => {
-                    return ""
-                })}
-            />
-
+            <>
+                <ChannelGroup
+                    channelLabel='Lectures'
+                    channelNames={this.state.channels.map((channel) => {
+                        return ""
+                    })}
+                />
+                <ChannelGroup
+                    channelLabel='Assignments'
+                    channelNames={this.state.channels.map((channel) => {
+                        return ""
+                    })}
+                />
+            </>
         )
     }
 }
