@@ -147,14 +147,48 @@ def assignmentCreate(groupId):
     group["assignmentIds"].append(assignment["_id"])
     return jsonify({"msg": "Your assignment has been created."}), 200
 
+
+
+@assignments.route("/<assignmentId>/pdfs/<pdfId>", methods=["DELETE", "PATCH"])
+# @jwt_required
+def pdfId(groupId, assignmentId, pdfId):
+    if request.method == "DELETE":
+        db.Pdf.deleteOne({"_id": ObjectId(pdfId)})
+        return "PDF Deleted", 204
+    if request.method == "PATCH":
+        jsonSet = {}
+        pdf = db.Pdf.find({"_id": ObjectId(pdfId)})
+        if request.json.get('tempFileId') != None:
+            contentFile = request.files.get(request.json.get('tempFileId'))
+            jsonSet["url"] = path.join(
+                path,
+                "{0}.{1}".format(
+                    {pdf["_id"]},
+                    contentFile.filename.split(".")[-1],
+                ),
+            )
+            contentFile.save(jsonSet["url"])
+        elif request.json.get('url') != None:
+            jsonSet['url'] = request.json.get('url')
+        if request.json.get('dis') != None:
+            jsonSet['dis'] = request.json.get('dis')
+        db.Pdf.update(
+            {"_id":  ObjectId(pdfId)}, {"$set": jsonSet}
+        )
+    return "Patch Made", 200
+
+
+
 @assignments.route("/<assignmentId>/pdfs/add", methods=["POST"])
 # @jwt_required
 def pdfAdd(groupId, assignmentId):
     jsonSet = {}
+    assignment = db.Assignment.find_one_or_404({"_id": ObjectId(assignmentId)})
     postFiles = request.files
     if request.json.get("dis") is not None:
         jsonSet["dis"] = request.json.get("dis")
     pdf = db.Pdf.insert_one(jsonSet)
+    assignment["pdfs"].append(pdf.inserted_id)
     if request.json.get("url") is not None:
         jsonSet["url"] = request.json.get("url")
     elif postFiles.get(request.json.get("tempFileId")) is not None:
