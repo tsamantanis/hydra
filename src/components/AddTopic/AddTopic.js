@@ -68,8 +68,8 @@ class AddTopic extends Component {
                     <ModalHeader toggle={this.toggle}>
                     </ModalHeader>
                     <ModalBody>
-                        <h2>Add Channel</h2>
-                        <p className='big'>Channels are where your team communicates. They’re best when organized around a lecture or topic.</p>
+                        <h2>Add Topic</h2>
+                        <p className='big'>Topics are created to share resources and discussions about class material.</p>
                         <div className='userInput'>
                             <input type='hidden' id='channelLabel' name='channelLabel' value={this.props.channelLabel} required />
                             <label htmlFor='channelName'>Channel Name</label>
