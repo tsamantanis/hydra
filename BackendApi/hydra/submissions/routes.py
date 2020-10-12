@@ -1,36 +1,41 @@
 import flask
-from flask import Blueprint
+from hydra import db
+from flask import Blueprint, request, jsonify
+from flask_login import login_required, current_user
 from os import path
 from bson.objectid import ObjectId
+from bson.json_util import dumps
 
-submissions = Blueprint("Submission", __name__)
+submissions = Blueprint("submission", __name__)
 
 # base path /groups/<groupId>/assignments/<assignmentId>/submissions
+
+
 @submissions.route("/", methods=["GET"])
-# @jwt_required
+@login_required
 def contentAll(groupId, assignmentId):
     group = db.Group.find({"_id": ObjectId(groupId)})
     if group is None:
-        return "Group Not Found", 404
+        return jsonify({"msg": "Group Not Found"}), 404
     assignment = db.Assignment.find({"_id": ObjectId(assignmentId)})
     if assignment is None:
-        return "Assignment Not Found", 404
+        return jsonify({"msg": "Assignment not found"}), 404
     submissions = [
         db.Submission.find({"_id": ObjectId(submissionId)})
-        for submissionId in assignment.submissionIds
+        for submissionId in assignment["submissionIds"]
     ]
 
     data = [
         {
-            "submissionId": submission._id,
-            "userId": submission.userId,
-            "pdfUrl": submission.pdfUrl,
-            "scoredGrade": submission.scoredGrade,
-            "timestamp": submission.timestamp,
+            "submissionId": submission["_id"],
+            "userId": submission["userId"],
+            "pdfUrl": submission["pdfUrl"],
+            "scoredGrade": submission["scoredGrade"],
+            "timestamp": submission["timestamp"],
         }
         for submission in submissions
     ]
-    return flask.jsonify(data), 200
+    return dumps(data), 200
 
 
 @submissions.route("/<submissionId>", methods=["GET", "PATCH"])

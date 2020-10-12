@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
-import {Modal} from 'reactstrap';
-import {ModalHeader} from 'reactstrap';
-import {ModalBody} from 'reactstrap';
-import {ModalFooter} from 'reactstrap';
-
+import {Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+import axios from 'axios'
 import api from '../../api'
 
 import '../../App.css'
@@ -15,7 +12,7 @@ class Settings extends Component {
         this.state = {
             modal: false
         };
-
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
         this.toggle = this.toggle.bind(this);
     }
 
@@ -52,8 +49,8 @@ class Settings extends Component {
         const password = document.querySelector('input[name=password]').value
         if (firstName && lastName && email && password) {
             api({
-                method: 'POST',
-                url: '/users/user_id',
+                method: 'PUT',
+                url: '/users/' + localStorage.getItem('token').substring(7, localStorage.getItem('token').length),
                 data: {
                     "firstName": firstName,
                     "lastName": lastName,

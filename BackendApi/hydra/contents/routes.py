@@ -117,6 +117,7 @@ def contentCreate(groupId):
     Return success message for front end.
     """
     try:
+        print(request.headers.get("Authorization"))
         postData = request.json
         postFiles = request.files
 

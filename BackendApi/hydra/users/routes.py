@@ -33,32 +33,26 @@ def signUp():
     firstName = request.json.get("firstName")
     lastName = request.json.get("lastName")
     email = request.json.get("email")
-    password = sha256_crypt.hash(request.json.get("password"))
+    password = request.json.get("password")
+    passHash = sha256_crypt.hash(request.json.get("password"))
     signUpUser = db.users.insert_one(
         {
             "firstName": firstName,
             "lastName": lastName,
             "email": email,
-            "password": password,
+            "password": passHash,
             "authToken": None,
         }
     )
-    newUser = User(
-        signUpUser.inserted_id,
-        signUpUser.authToken,
-        firstName,
-        lastName,
-        email,
-        password,
-    )
+    authorizedUser = createToken(email, password)
     return (
         dumps(
             {
-                "userId": "newUser.id",
-                "authToken": None,
-                "firstName": newUser.firstName,
-                "lastName": newUser.lastName,
-                "email": newUser.email,
+                "userId": authorizedUser[1].id,
+                "authToken": authorizedUser[1].authToken,
+                "firstName": authorizedUser[1].firstName,
+                "lastName": authorizedUser[1].lastName,
+                "email": authorizedUser[1].email,
             }
         ),
         200,
@@ -141,10 +135,6 @@ def userPayments():
     Segment of payment info revealed to us through Stripe API for UI.
     """
     return stripe.paymentMethod.retrieve(f"{current_user.stripeId}")
-
-
-# TODO: update values based on client side input/form (stripe specific?)
-# Should we be hashing these values so that the plaintext isn't coming through?
 
 
 @users.route("/addpayment", methods=["POST"])

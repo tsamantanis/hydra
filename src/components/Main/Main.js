@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import axios from 'axios'
 import api from '../../api'
 import '../../App.css'
 import './Main.css'
@@ -18,6 +19,7 @@ class Main extends Component {
         this.state = {
             showCommunity: true
         };
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     }
 
     componentDidMount() {
@@ -66,6 +68,7 @@ class Main extends Component {
     }
 
     render () {
+        console.log(localStorage.getItem('token'));
         let posts = ["Post", "Post", "Post"]
         return (
             <div className='Main'>
