@@ -21,8 +21,10 @@ class ChannelList extends Component {
             url: '/groups/5f83e890d1bf28e13820a756/channels'
         })
         .then(function (response) {
-            for (const channel in response) {
-                this.state.channels.push(channel)
+            for (const channel of response.data) {
+                console.log(channel.name)
+                // THIS IS READING ALL THE CHANNEL NAMES. THE SETSTATE BELOW THROWS A TYPE ERROR
+                // this.setState({channels: [...this.state.channels, channel.name]})
             }
         })
         .catch(function (error) {
@@ -39,7 +41,7 @@ class ChannelList extends Component {
                     channelLabel='Lectures'
                     channelNames={this.state.channels.map((channel) => {
                         return (
-                            <h6>{channel.name}</h6>
+                            <h6>{channel}</h6>
                         )
                     })}
                 />
@@ -47,7 +49,7 @@ class ChannelList extends Component {
                     channelLabel='Assignments'
                     channelNames={this.state.channels.map((channel) => {
                         return (
-                            <h6>{channel.name}</h6>
+                            <h6>{channel}</h6>
                         )
                     })}
                 />
