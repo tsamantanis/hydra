@@ -1,0 +1,138 @@
+.AddAssignmentModal {
+    background-color: var(--light) !important;
+    height: 700px !important;
+    width: 700px !important;
+    margin-left: -100px !important;
+    display: flex;
+    flex-direction: column;
+    display: block;
+}
+
+/* Modal Header */
+
+.AddAssignmentModal .modal-header {
+    border: none;
+    padding: 0;
+}
+
+.AddAssignmentModal .modal-header button {
+    width: 28px;
+    position: absolute;
+    top: 15px;
+    right: 22px;
+    padding: 5px;
+}
+
+.AddAssignmentModal .modal-header button span {
+    margin: auto;
+    color: var(--darkAccent);
+    font-family: 'Jaldi', sans-serif;
+}
+
+.AddAssignmentModal .modal-header button span:hover {
+    color: var(--dark);
+}
+
+/* Modal Body */
+
+.AddAssignmentModal .modal-body {
+    padding: 30px 70px;
+}
+
+.AddAssignmentModal .modal-body h2 {
+    font-size: 32px;
+    font-weight: bold;
+    height: 32px;
+}
+
+.AddAssignmentModal .modal-body hr {
+    border: 1px solid var(--lightAccent)
+}
+
+/* Modal Body AssignmentImage */
+
+.AddAssignmentModal .modal-body .assignmentImage {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.AddAssignmentModal .modal-body .assignmentImage .left {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.AddAssignmentModal .modal-body .assignmentImage .left .assignmentIcon {
+    background-color: var(--accent);
+    border-radius: 10px;
+    height: 40px;
+    width: 40px;
+}
+
+.AddAssignmentModal .modal-body .assignmentImage .left .assignmentText {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: -5px;
+}
+
+.AddAssignmentModal .modal-body .assignmentImage .right button {
+    background-color: var(--accent);
+    border-radius: 7px;
+    font-family: 'Jaldi';
+    font-weight: bold;
+    font-size: 20px;
+    height: 35px;
+    width: 100px;
+}
+
+/* Modal Body AssignmentInfo */
+
+.AddAssignmentModal .modal-body .assignmentInfo {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.AddAssignmentModal .modal-body .assignmentInfo .left,
+.AddAssignmentModal .modal-body .assignmentInfo .right {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.AddAssignmentModal .modal-body .assignmentInfo .left .userInput,
+.AddAssignmentModal .modal-body .assignmentInfo .right .userInput {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.AddAssignmentModal .modal-body .assignmentInfo .left .userInput>input,
+.AddAssignmentModal .modal-body .assignmentInfo .right .userInput>input {
+    color: var(--dark);
+    width: 100%;
+}
+
+
+.AddAssignmentModal .modal-body .assignmentInfo .right>button {
+    align-self: flex-end;
+    background-color: var(--accent);
+    border-radius: 7px;
+    font-family: 'Jaldi';
+    font-weight: bold;
+    font-size: 20px;
+    height: 35px;
+    width: 100px;
+}
