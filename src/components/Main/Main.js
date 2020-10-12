@@ -4,7 +4,7 @@ import '../../App.css'
 import './Main.css'
 
 import ChannelList from './ChannelList'
-import UserGroup from './UserGroup'
+import UserSection from './UserSection'
 import SearchBar from './SearchBar'
 import Post from './Post'
 import NavItem from './NavItem'
@@ -117,7 +117,7 @@ class Main extends Component {
                             </a>
                         </div>
                         <hr className='m-t-30' />
-                        <UserGroup
+                        <UserSection
                             groupTitle="Instructors"
                             userItems={[
                                 {

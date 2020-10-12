@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 
-class UserGroup extends Component {
+class UserSection extends Component {
     render() {
         return(
-            <div className='UserGroup m-t-15 m-b-15 m-l-15'>
+            <div className='UserSection m-t-15 m-b-15 m-l-15'>
                 <h4 className="m-b-10">{this.props.groupTitle}</h4>
                 { this.props.userItems.map((item) => {
                     return (
@@ -25,4 +25,4 @@ class UserGroup extends Component {
     }
 }
 
-export default UserGroup
+export default UserSection

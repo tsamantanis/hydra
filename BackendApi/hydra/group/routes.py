@@ -30,7 +30,7 @@ def allGroups():
 
 @groups.route("/yourgroups", methods=["GET"])
 @login_required
-def userGroups():
+def UserSections():
     """Show all groups to current user's enrolled groups."""
     groups = []
     for groups in current_user.enrolledGroups:
@@ -194,12 +194,12 @@ def groupIdLeave(groupId):
     group = db.Group.find({"_id": ObjectId(groupId)})
     if group is None:
         return jsonify({"msg": "Group Not Found"}), 404
-    userGroupData = {}
+    UserSectionData = {}
     for group in current_user.enrolledGroups:
         if group.get(groupId) == group["_id"]:
-            userGroupData = group
+            UserSectionData = group
     priceSubscriptionObject = stripe.Subscription.delete(
-        userGroupData.get("stripeSubscriptionId")
+        UserSectionData.get("stripeSubscriptionId")
     )
     if priceSubscriptionObject.get("status") == "canceled":
         group.enrolledId.remove(current_user.id)
