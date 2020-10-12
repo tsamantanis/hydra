@@ -73,6 +73,8 @@ class Discover extends Component {
                                 <Group
                                     groupName={group.name}
                                     groupPrice="68"
+                                    groupPrice={group.price}
+                                    groupDis={group.dis}
                                     />
                             )
                         })}
