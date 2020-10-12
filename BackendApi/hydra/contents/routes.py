@@ -8,30 +8,29 @@ from bson.objectid import ObjectId
 
 contents = Blueprint("contents", __name__)
 
-# base path /groups/<groupId>/contents
+# base path /groups/<groupId>/channels/<channelId>/contents
 
 
 @contents.route("/", methods=["GET"])
-def contentAll(groupId):
+def contentAll(groupId, channelId):
     """Show contents for group id. Return as data to front end."""
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
-    print(f"Group: {group}")
-    contents = [
-        db.Content.find_one_or_404({"_id": ObjectId(group["contentId"])})
-        for contentId in group["contentIds"]
-    ]
+    contents = db.Contents.find({"channelId": channelId})
+    print(contents)
+    if group is None or contents is None:
+        return jsonify({"msg": "Invalid id provided, please try again."})
     print(f"Contents: {contents}")
     data = [
         {
             "contentId": content["_id"],
-            "channelId" : content["channelId"],
+            "channelId": content["channelId"],
             "name": content["name"],
             "dis": content["dis"],
         }
         for content in contents
     ]
     print(f"Data: {data}")
-    return jsonify(data), 200
+    return dumps(data), 200
 
 
 @contents.route("/<contentId>", methods=["GET", "PATCH", "DELETE"])
@@ -66,9 +65,7 @@ def contentId(groupId, contentId):
             jsonSet["dis"] = contentData["dis"]
         if contentData["url"] is not None:
             jsonSet["url"] = contentData["url"]
-        db.Content.update(
-                    {"_id": ObjectId(contentId)}, {"$set": jsonSet}
-                )
+        db.Content.update({"_id": ObjectId(contentId)}, {"$set": jsonSet})
         httpCode = 204
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
@@ -84,7 +81,7 @@ def contentId(groupId, contentId):
         "name": content["name"],
         "dis": content["dis"],
         "contentId": content["_id"],
-        "channelId" : content["channelId"],
+        "channelId": content["channelId"],
         "videos": [
             {
                 str(index): {
@@ -110,7 +107,7 @@ def contentId(groupId, contentId):
 
 
 @contents.route("/create", methods=["POST"])
-def contentCreate(groupId):
+def contentCreate(groupId, channelId):
     """
     Create content and store video or pdf url.
 
@@ -135,9 +132,10 @@ def contentCreate(groupId):
                 "dis": postData.get("dis"),
                 "videoIds": [],
                 "pdfIds": [],
-                "channelId" : insertedChannel.inserted_id
+                "channelId": insertedChannel.inserted_id,
             }
         )
+        print(f"Inserted content: {content}")
         if postData.get("videos"):
             video = postData.get("videos")
             videoPath = app.config["VIDEO_PATH"]
@@ -157,6 +155,7 @@ def contentCreate(groupId):
         print(e)
         return jsonify({"msg": "Unable to upload files"}), 200
 
+
 @contents.route("/<contentId>/pdfs/<pdfId>", methods=["DELETE", "PATCH"])
 # @jwt_required
 def pdfId(groupId, contentId, pdfId):
@@ -166,8 +165,8 @@ def pdfId(groupId, contentId, pdfId):
     if request.method == "PATCH":
         jsonSet = {}
         pdf = db.Pdf.find({"_id": ObjectId(pdfId)})
-        if request.json.get('tempFileId') != None:
-            contentFile = request.files.get(request.json.get('tempFileId'))
+        if request.json.get("tempFileId") != None:
+            contentFile = request.files.get(request.json.get("tempFileId"))
             jsonSet["url"] = path.join(
                 path,
                 "{0}.{1}".format(
@@ -176,13 +175,11 @@ def pdfId(groupId, contentId, pdfId):
                 ),
             )
             contentFile.save(jsonSet["url"])
-        elif request.json.get('url') != None:
-            jsonSet['url'] = request.json.get('url')
-        if request.json.get('dis') != None:
-            jsonSet['dis'] = request.json.get('dis')
-        db.Pdf.update(
-            {"_id":  ObjectId(pdfId)}, {"$set": jsonSet}
-        )
+        elif request.json.get("url") != None:
+            jsonSet["url"] = request.json.get("url")
+        if request.json.get("dis") != None:
+            jsonSet["dis"] = request.json.get("dis")
+        db.Pdf.update({"_id": ObjectId(pdfId)}, {"$set": jsonSet})
     return "Patch Made", 200
 
 
@@ -195,8 +192,8 @@ def videoId(groupId, contentId, videoId):
     if request.method == "PATCH":
         jsonSet = {}
         video = db.Video.find({"_id": ObjectId(videoId)})
-        if request.json.get('tempFileId') != None:
-            contentFile = request.files.get(request.json.get('tempFileId'))
+        if request.json.get("tempFileId") != None:
+            contentFile = request.files.get(request.json.get("tempFileId"))
             jsonSet["url"] = path.join(
                 path,
                 "{0}.{1}".format(
@@ -205,15 +202,12 @@ def videoId(groupId, contentId, videoId):
                 ),
             )
             contentFile.save(jsonSet["url"])
-        elif request.json.get('url') != None:
-            jsonSet['url'] = request.json.get('url')
-        if request.json.get('dis') != None:
-            jsonSet['dis'] = request.json.get('dis')
-        db.Video.update(
-            {"_id":  ObjectId(videoId)}, {"$set": jsonSet}
-        )
+        elif request.json.get("url") != None:
+            jsonSet["url"] = request.json.get("url")
+        if request.json.get("dis") != None:
+            jsonSet["dis"] = request.json.get("dis")
+        db.Video.update({"_id": ObjectId(videoId)}, {"$set": jsonSet})
     return "Patch Made", 200
-
 
 
 @contents.route("/<contentId>/videos/add", methods=["POST"])
@@ -238,9 +232,8 @@ def videoAdd(groupId, contentId):
             ),
         )
         contentFile.save(jsonSet["url"])
-    db.Video.update(
-            {"_id":  ObjectId(video["_id"])}, {"$set": jsonSet}
-        )
+    db.Video.update({"_id": ObjectId(video["_id"])}, {"$set": jsonSet})
+
 
 @contents.route("/<contentId>/pdfs/add", methods=["POST"])
 # @jwt_required
@@ -264,7 +257,4 @@ def pdfAdd(groupId, contentId):
             ),
         )
         contentFile.save(jsonSet["url"])
-    db.Pdf.update(
-            {"_id":  ObjectId(pdf["_id"])}, {"$set": jsonSet}
-        )
-
+    db.Pdf.update({"_id": ObjectId(pdf["_id"])}, {"$set": jsonSet})
