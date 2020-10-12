@@ -42,6 +42,7 @@ def contentId(groupId, contentId):
     For each different method, return JSON data
     corresponding to action taken.
     """
+
     httpCode = 200
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     if group is None:
@@ -161,9 +162,11 @@ def contentCreate(groupId):
             }
         )
         if postData.get("videos"):
-            createContent("video", groupId, postData, postFiles)
+            videoPath = app.config["VIDEO_PATH"]
+            createContent("video", groupId, postData, postFiles, videoPath)
         if postData.get("pdfs"):
-            createContent("pdf", groupId, postData, postFiles)
+            pdfPath = app.config["PDF_PATH"]
+            createContent("pdf", groupId, postData, postFiles, pdfPath)
         else:
             createdContent = db.Content.find_one_or_404(
                 {"name": postData.get("name")}

@@ -8,7 +8,7 @@ channels = Blueprint("channels", __name__)
 
 
 @channels.route("/groups/<groupId>/channels")
-@login_required
+# @login_required
 def showChannels(groupId):
     """
     For channels in specified group, return channel information.
@@ -20,7 +20,7 @@ def showChannels(groupId):
 
 
 @channels.route("/groups/<groupId>/channels/create", methods=["POST", "PUT"])
-@login_required
+# @login_required
 def createChannel(groupId):
     """Create channel document in database."""
 
@@ -40,7 +40,7 @@ def deleteChannel(groupId):
 
 
 @channels.route("/<channelId>")
-@login_required
+# @login_required
 def getChannel(groupId, channelId):
     """
     For channels in specified group, return channel information.

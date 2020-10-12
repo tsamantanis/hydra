@@ -6,7 +6,7 @@ from bson.json_util import dumps
 from bson.objectid import ObjectId
 
 
-def createContent(content, groupId, postData, postFiles):
+def createContent(content, groupId, postData, postFiles, path):
     """
     Create content.
 
@@ -21,7 +21,7 @@ def createContent(content, groupId, postData, postFiles):
         elif postFiles.get(contentData["tempFileId"]) is not None:
             contentFile = postFiles.get(contentData["tempFileId"])
             jsonSet["url"] = path.join(
-                app.config["PDF_PATH"],
+                path,
                 "{0}.{1}".format(
                     {contentData["_id"]},
                     contentFile.filename.split(".")[-1],
@@ -41,6 +41,25 @@ def createContent(content, groupId, postData, postFiles):
             )  # TODO: What do we want to return here?
 
 
-def patchContent():
+def patchContent(content, patchData, patchFiles, path):
     """Update content resource."""
-    pass
+    for contentData in patchData.get(content):
+        jsonSet = {}
+        if contentData["dis"] is not None:
+            jsonSet["dis"] = contentData["dis"]
+        if contentData["url"] is not None:
+            jsonSet["url"] = contentData["url"]
+        elif patchFiles.get(contentData["_id"]) is not None:
+            contentFile = patchFiles.get(contentData["_id"])
+            jsonSet["url"] = path.join(
+                app.config["VIDEO_PATH"],
+                "{0}.{1}".format(
+                    {videoData["_id"]}, videoFile.filename.split(".")[-1]
+                ),
+            )
+            videoFile.save(jsonSet["url"])
+        if videoData["videoId"]:
+            db.Video.update({"_id": videoData["videoId"]}, {"$set": jsonSet})
+        else:
+            createdVideo = db.Video.insert(jsonSet)
+            content.videoIds.append(createdVideo["_id"])
