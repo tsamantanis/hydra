@@ -1,9 +1,10 @@
 # from hydra import flask
-from flask import Blueprint, request, jsonify
 from os import path
-from bson.objectid import ObjectId
+
 from bson.json_util import dumps
-from hydra import db, app
+from bson.objectid import ObjectId
+from flask import Blueprint, jsonify, request
+from hydra import app, db
 
 assignments = Blueprint("assignments", __name__)
 
@@ -46,13 +47,13 @@ def contentId(groupId, assignmentId):
         {"_id": ObjectId(assignmentId)}
     )
     if assignment is None:
-        return jsonify({"msg": "Assignment Not Found"}), 404
+        return "Assignment Not Found", 404
     if request.method == "DELETE":
         for pdfId in assignment["pdfIds"]:
             db.Pdf.deleteOne({"_id": ObjectId(pdfId)})
         db.Assignment.deleteOne({"_id": ObjectId(assignment["_id"])})
         httpCode = 204
-        return jsonify({"msg": "Assignment Deleted"}), httpCode
+        return "Assignment Deleted", httpCode
     if request.method == "PATCH":
         patchData = request.json
         patchFiles = request.files
