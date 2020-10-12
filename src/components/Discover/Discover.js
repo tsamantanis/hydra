@@ -21,8 +21,8 @@ class Discover extends Component {
     searchGroups() {
         console.log('searching')
         const search = document.getElementById('discoverClasses').value
-        if (value.length < 0) {
-            const groups this.getGroups()
+        if (search.length < 0) {
+            const groups = this.getGroups()
             const displayGroups = groups.filter(group => {
                 return group.name.includes(search) || group.keywords.includes(search) || group.dis.includes(search)
             })
