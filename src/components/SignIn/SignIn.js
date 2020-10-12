@@ -20,8 +20,7 @@ class SignIn extends Component {
                 },
             })
             .then(function (response) {
-                console.log(response)
-                console.log(response.authToken)
+                console.log(response.data.authToken)
                 window.location.href='/'
             })
             .catch(function (error) {
