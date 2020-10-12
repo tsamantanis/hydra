@@ -13,24 +13,24 @@ class Discover extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            groups: []
+            groups: [],
+            displayGroups: []
         }
     }
 
     componentDidMount() {
-        this.getGroups()
+        this.getGroups.apply(this)
     }
 
     getGroups = () => {
+        const _this = this
         api({
             method: 'GET',
             url: '/groups',
         })
         .then(function (response) {
             for (const group of response.data) {
-                console.log(group)
-                // THIS IS GETTING ALL THE GROUP. THE SETSTATE BELOW THROWS A TYPE ERROR
-                // this.setState({groups: [...this.state.groups, group]})
+                _this.setState({groups: [..._this.state.groups, group]})
             }
         })
         .catch(function (error) {
@@ -38,16 +38,16 @@ class Discover extends Component {
         })
     }
 
-    searchGroups() {
+    searchGroups = () => {
+        this.setState({displayGroups: []})
         const search = document.getElementById('discoverClasses').value
-        console.log(search)
-        // UNCOMMENT THIS WHEN STATE IS WORKING
-        // if (search.length > 0) {
-        //     const displayGroups = this.state.groups.filter(group => {
-        //         return group.name.includes(search) || group.keywords.includes(search) || group.dis.includes(search)
-        //     })
-        //     console.log(displayGroups)
-        // }
+        if (search.length > 0) {
+            this.state.groups.forEach(group => {
+                if (group.name.includes(search) || group.keywords.includes(search) || group.dis.includes(search)) {
+                    this.setState({displayGroups: [...this.state.displayGroups, group]})
+                }
+            })
+        }
     }
 
     render () {
@@ -56,53 +56,17 @@ class Discover extends Component {
                 <img src={ellipse} alt='ellipse' className='ellipse' />
                 <form>
                     <label htmlFor='discoverClasses'><h4 className='m-0'>Discover Classes</h4></label>
-                    <input type='text' name='discoverClasses' id='discoverClasses' placeholder='Search from a list of thousands of classes' onKeyUp={this.searchGroups} />
+                    <input type='text' name='discoverClasses' id='discoverClasses' placeholder='Search from a list of thousands of classes' onKeyUp={this.searchGroups.bind(this)} />
                 </form>
                 <div className='searchResults'>
-                    <Group
-                        groupTitle="Build apps with Python, Flask, and Angular"
-                        groupPrice="68"
-                        />
-                    {/* <Group
-                        groupTitle="Build apps with Python, Flask, and Angular"
-                        groupPrice="68"
-                        />
-                    <Group
-                        groupTitle="Build apps with Python, Flask, and Angular"
-                        groupPrice="68"
-                        />
-                    <Group
-                        groupTitle="Build apps with Python, Flask, and Angular"
-                        groupPrice="68"
-                        />
-                    <Group
-                        groupTitle="Build apps with Python, Flask, and Angular"
-                        groupPrice="68"
-                        />
-                    <Group
-                        groupTitle="Build apps with Python, Flask, and Angular"
-                        groupPrice="68"
-                        />
-                    <Group
-                        groupTitle="Build apps with Python, Flask, and Angular"
-                        groupPrice="68"
-                        />
-                    <Group
-                        groupTitle="Build apps with Python, Flask, and Angular"
-                        groupPrice="68"
-                        />
-                    <Group
-                        groupTitle="Build apps with Python, Flask, and Angular"
-                        groupPrice="68"
-                        />
-                    <Group
-                        groupTitle="Build apps with Python, Flask, and Angular"
-                        groupPrice="68"
-                        />
-                    <Group
-                        groupTitle="Build apps with Python, Flask, and Angular"
-                        groupPrice="68"
-                        /> */}
+                    {this.state.displayGroups.map(group => {
+                        return(
+                            <Group
+                                groupName={group.name}
+                                groupPrice="68"
+                            />
+                        )
+                    })}
                 </div>
                 <img src={school} alt='school' className='school' />
             </div>
