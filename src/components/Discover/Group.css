@@ -1,19 +1,22 @@
 .Group {
     background-color: var(--light);
     border-radius: 10px;
-    box-shadow: 0px 0px 10px var(--dark);
-    height: 350px !important;
-    width: 290px;
+    box-shadow: 4px 4px 22px rgba(0, 0, 0, 0.25);
+    /* height: 350px !important;
+    width: 290px; */
     z-index: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    overflow: hidden;
 }
 
 .Group img {
     border-radius: 10px;
     cursor: pointer;
+    object-fit: cover;
+    max-width: 115%;
 }
 
 .Group .groupInfo {

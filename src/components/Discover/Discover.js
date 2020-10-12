@@ -64,7 +64,7 @@ class Discover extends Component {
                     <label htmlFor='discoverClasses'><h4 className='m-0'>Discover Classes</h4></label>
                     <input type='text' name='discoverClasses' id='discoverClasses' placeholder='Search from a list of thousands of classes' onKeyUp={this.searchGroups.bind(this)} onKeyPress={this.preventSubmit} />
                 </form>
-                <div className='searchResults'>
+                <div className='searchResults row'>
                     {this.state.displayGroups.map(group => {
                         return(
                             <Group

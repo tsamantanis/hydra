@@ -10,6 +10,7 @@ html, body, #root {
     flex-direction: column;
     justify-content: center;
     height: auto;
+    overflow-y: scroll;
 }
 
 .Discover .ellipse {
