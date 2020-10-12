@@ -1,0 +1,81 @@
+.AddTopicModal {
+    background-color: var(--light) !important;
+    height: 480px !important;
+}
+
+/* Modal Header */
+
+.AddTopicModal .modal-header {
+    border: none;
+    padding: 0;
+}
+
+.AddTopicModal .modal-header button {
+    width: 28px;
+    position: absolute;
+    top: 15px;
+    right: 22px;
+    padding: 5px;
+}
+
+.AddTopicModal .modal-header button span {
+    margin: auto;
+    color: var(--darkAccent);
+    font-family: 'Jaldi', sans-serif;
+}
+
+.AddTopicModal .modal-header button span:hover {
+    color: var(--dark);
+}
+
+/* Modal Body */
+
+.AddTopicModal .modal-body {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 30px;
+    width: 100%;
+}
+
+.AddTopicModal .modal-body p {
+    text-transform: none;
+}
+
+.AddTopicModal .modal-body .userInput {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.AddTopicModal .modal-body .userInput label {
+    color: var(--darkAccent);
+    font-family: 'Jaldi', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    height: 16px;
+}
+
+.AddTopicModal .modal-body input {
+    width: 100%;
+}
+
+.AddTopicModal .buttonGradientContainerAlt,
+.AddTopicModal .buttonGradientContainerAlt button {
+    align-self: flex-end;
+    border-radius: 7px;
+    font-size: 20px;
+    height: 35px;
+    width: 100px;
+}
+
+.AddTopicModal .buttonGradientContainerAlt button {
+    background-color: var(--accent);
+}
+
+.AddTopicModal .buttonGradientContainerAlt button:hover {
+    background-color: transparent;
+}
