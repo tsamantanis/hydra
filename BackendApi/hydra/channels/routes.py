@@ -14,7 +14,7 @@ channels = Blueprint("channels", __name__)
 # TODO: test with Postman when bug is figured out.
 
 
-@channels.route("/groups/<groupId>/channels")
+@channels.route("/")
 # @jwt_required
 def showChannels(groupId):
     """
@@ -26,7 +26,7 @@ def showChannels(groupId):
     return dumps(channels)
 
 
-@channels.route("/groups/<groupId>/channels/create", methods=["POST", "PUT"])
+@channels.route("/create", methods=["POST", "PUT"])
 # @jwt_required
 def createChannel(groupId):
     """Create channel document in database."""
@@ -42,7 +42,20 @@ def createChannel(groupId):
     return jsonify({"msg": "This has been successful"})
 
 
-@channels.route("/channels/<groupId>/delete", methods=["POST"])
+@channels.route("/delete", methods=["POST"])
 @jwt_required
 def deleteChannel(groupId):
     pass
+
+@channels.route("/<channelId>")
+# @jwt_required
+def getChannel(groupId, channelId):
+    """
+    For channels in specified group, return channel information.
+
+    channel.id, channel.name, channel.description
+    """
+    channel = db.channels.find_all({"groupId": groupId,
+        "_id": ObjectId(channelId)
+    })
+    return jsonify({channel})
