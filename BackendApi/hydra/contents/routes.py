@@ -115,12 +115,25 @@ def contentCreate(groupId):
     try:
         postData = request.json
         postFiles = request.files
+        name = request.json.get("name")
+        dis = request.json.get("dis")
+        category = request.json.get("category")
+
+        newChannel = {
+            "name": postData.get("name"),
+            "dis": postData.get("dis"),
+            "category": "content",
+            "groupId": groupId,
+        }
+        insertedChannel = db.channels.insert_one(newChannel)
+
         content = db.Content.insert_one(
             {
                 "name": postData.get("name"),
                 "dis": postData.get("dis"),
                 "videoIds": [],
                 "pdfIds": [],
+                "channelId" : insertedChannel.inserted_id
             }
         )
         if postData.get("videos"):
