@@ -50,7 +50,7 @@
 
 /* Main Settings */
 .Main .Nav .Settings {
-    color: white;
+    color: var(--darkAccent);
     border: 2px solid transparent;
     border-radius: 10px;
     padding: 10px;
