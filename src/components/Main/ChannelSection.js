@@ -6,7 +6,13 @@ import AddAssignment from '../AddAssignment/AddAssignment'
 class ChannelSection extends Component {
 
     displayChannel(channelName) {
-        alert(channelName)
+        const allChannels = document.querySelectorAll('.ChannelItem')
+        for (const channel of allChannels) {
+            channel.classList.remove('activeChannel')
+        }
+        const currentChannel = document.getElementById(channelName)
+        currentChannel.classList.add('activeChannel')
+
     }
 
     render() {
@@ -18,7 +24,7 @@ class ChannelSection extends Component {
                 </div>
                 { this.props.channelNames.map((channelName) => {
                     return(
-                        <div className='ChannelItem m-b-10'>
+                        <div className='ChannelItem m-b-10' id={channelName}>
                             <h6 className="m-auto" onClick={this.displayChannel.bind(this, channelName)}>{'#  ' + channelName}</h6>
                         </div>
                 )})}

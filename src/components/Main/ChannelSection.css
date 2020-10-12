@@ -43,7 +43,8 @@
     width:100%;
 }
 
-.ChannelSection .ChannelItem:hover {
+.ChannelSection .ChannelItem:hover,
+.ChannelSection>.activeChannel {
     background-color: var(--accent);
     border-radius: 5px;
     cursor: pointer;
