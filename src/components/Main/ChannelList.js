@@ -7,17 +7,18 @@ class ChannelList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            channels: [],
-            assignments: []
+            topics: [],
+            assignments: [],
+            discussions: []
         }
     }
 
     componentDidMount() {
-        this.getChannels();
+        this.getTopics();
         this.getAssignments();
     }
 
-    getChannels = () => {
+    getTopics = () => {
         const _this = this
         api({
             method: 'GET',
@@ -25,7 +26,7 @@ class ChannelList extends Component {
         })
         .then((response) => {
             console.log(response.data);
-            this.setState({channels: response.data})
+            this.setState({topics: response.data})
         })
         .catch((error) => {
             console.log(error)
@@ -52,13 +53,19 @@ class ChannelList extends Component {
         return (
             <>
                 <ChannelSection
-                    channelLabel='Lectures'
+                    channelLabel='Topics'
                     channels={this.state.channels}
-                    getChannels={this.getChannels}
+                    getChannels={this.getTopics}
                     loadPosts={this.props.loadPosts}
                 />
                 <ChannelSection
                     channelLabel='Assignments'
+                    channels={this.state.assignments}
+                    getChannels={this.getAssignments}
+                    loadPosts={this.props.loadPosts}
+                />
+                <ChannelSection
+                    channelLabel='Discussions'
                     channels={this.state.assignments}
                     getChannels={this.getAssignments}
                     loadPosts={this.props.loadPosts}
