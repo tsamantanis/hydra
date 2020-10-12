@@ -118,7 +118,16 @@ def assignmentCreate(groupId):
         {
             "name": postData.get("name"),
             "dis": postData.get("dis"),
+            "maxGrade": postData.get('maxGrade'),
+            "dueDate": postData.get('dueDate'),
+            "startDate": postData.get('startDate'),
             "pdfs": [],
+        }
+    )
+    db.channels.insert_one(
+        {
+            "name": postData.get("name"),
+            "dis": postData.get("dis"),
         }
     )
     getId = insertAssignment.inserted_id

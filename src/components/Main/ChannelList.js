@@ -17,7 +17,7 @@ class ChannelList extends Component {
         const _this = this
         api({
             method: 'GET',
-            url: '/groups/5f83e890d1bf28e13820a756/channels'
+            url: '/groups/5f848e95c86be6cef283dfee/channels/'
         })
         .then((response) => {
             console.log(section)

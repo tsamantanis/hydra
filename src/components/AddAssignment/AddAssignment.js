@@ -39,7 +39,7 @@ class AddAssignment extends Component {
         if (name && dis && maxGrade && dueDate && startDate) {
             api({
                 method: 'POST',
-                url: '/groups/5f83e890d1bf28e13820a756/assignments/create',
+                url: '/groups/5f848e95c86be6cef283dfee/assignments/create',
                 data: {
                     "name": name,
                     "dis": dis,
@@ -108,7 +108,7 @@ class AddAssignment extends Component {
                                 </div>
                                 <div className='userInput'>
                                     <label htmlFor='attachments'>Attachments</label>
-                                    <input type='file' id='attachments' name='attachments' placeholder='Upload Files' required/>
+                                    <input type='file' accept="application/pdf" id='attachments' name='attachments' placeholder='Upload Files' required/>
                                 </div>
                                 <div className='userInput'>
                                     <label htmlFor='startDate'>Start Date</label>
