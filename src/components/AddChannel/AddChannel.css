@@ -63,18 +63,10 @@
     width: 100%;
 }
 
-/* Modal Footer */
-
-.AddChannelModal .modal-footer {
-    border: none;
-    padding: 10px 30px;
-}
-
-.AddChannelModal .modal-footer button {
-    background-color: var(--accent);
-    border: none;
+.AddChannelModal .buttonGradientContainerAlt,
+.AddChannelModal button {
+    align-self: flex-end;
     border-radius: 7px;
-    color: var(--light);
     height: 35px;
     width: 100px;
 }

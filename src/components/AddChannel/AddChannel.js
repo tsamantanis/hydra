@@ -1,9 +1,7 @@
 import React, {Component} from 'react'
-import {Button} from 'reactstrap';
 import {Modal} from 'reactstrap';
 import {ModalHeader} from 'reactstrap';
 import {ModalBody} from 'reactstrap';
-import {ModalFooter} from 'reactstrap';
 
 import api from '../../api'
 
@@ -81,10 +79,10 @@ class AddChannel extends Component {
                             <label htmlFor='description'>Description</label>
                             <input type='text' id='description' name='description' placeholder='What is this channel about?' required />
                         </div>
+                        <div className='buttonGradientContainerAlt m-b-40'>
+                            <button onClick={this.createChannel}>Add</button>
+                        </div>
                     </ModalBody>
-                    <ModalFooter className='m-b-40'>
-                        <Button onClick={this.createChannel}>Add</Button>
-                    </ModalFooter>
                 </Modal>
         )
     }
