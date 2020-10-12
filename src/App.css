@@ -295,6 +295,12 @@ form fieldset label {
 .m-l-n20 {
     margin-left: -20px;
 }
+.m-t-auto {
+    margin-top: auto;
+}
+.m-b-auto {
+    margin-bottom: auto;
+}
 
 /* Split View */
 
