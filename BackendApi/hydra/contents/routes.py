@@ -31,7 +31,7 @@ def contentAll(groupId):
         for content in contents
     ]
     print(f"Data: {data}")
-    return dumps(data), 200
+    return jsonify(data), 200
 
 
 @contents.route("/<contentId>", methods=["GET", "PATCH", "DELETE"])
