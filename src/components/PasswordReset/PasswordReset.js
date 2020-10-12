@@ -38,7 +38,7 @@ class PasswordReset extends Component {
                         </legend>
                         <fieldset>
                             <label htmlFor='email'>Email Address</label>
-                            <input type='email' name='email' placeholder='name@address.com' />
+                            <input type='email' name='email' placeholder='name@address.com' required />
                         </fieldset>
                         <button type='submit' onClick={this.sendResetToken}>Reset Password</button>
                     </form>
