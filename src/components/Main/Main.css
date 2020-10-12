@@ -26,23 +26,6 @@
     padding: 18px 0;
 }
 
-.Main .Nav .NavItem {
-    background-color: var(--accent);
-    border: 3px solid transparent;
-    border-radius: 10px;
-    height: 60px;
-    width: 60px;
-}
-
-.Main .Nav .NavItem:hover {
-    border: 3px solid var(--lightAccent);
-    border-radius: 10px;
-    cursor: pointer;
-    height: 60px;
-    transition: 0.3s ease;
-    width: 60px;
-}
-
 .Main .Nav .AddClass {
     background-color: var(--light);
     color: var(--accent);

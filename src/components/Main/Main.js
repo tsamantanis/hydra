@@ -7,6 +7,7 @@ import ChannelList from './ChannelList'
 import UserGroup from './UserGroup'
 import SearchBar from './SearchBar'
 import Post from './Post'
+import NavItem from './NavItem'
 
 import Settings from '../Settings/Settings';
 
@@ -62,8 +63,8 @@ class Main extends Component {
         return (
             <div className='Main'>
                 <div className='Nav'>
-                    <div className='NavItem m-b-20' />
-                    <div className='NavItem m-b-20' />
+                    <NavItem />
+                    <NavItem />
                     <div className="AddClass" onClick={this.goToDiscover}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
                             <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>

@@ -1,0 +1,16 @@
+.NavItem {
+    background-color: var(--accent);
+    border: 3px solid transparent;
+    border-radius: 10px;
+    height: 60px;
+    width: 60px;
+}
+
+.NavItem:hover {
+    border: 3px solid var(--lightAccent);
+    border-radius: 10px;
+    cursor: pointer;
+    height: 60px;
+    transition: 0.3s ease;
+    width: 60px;
+}
