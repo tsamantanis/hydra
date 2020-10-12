@@ -22,7 +22,8 @@ class User(UserMixin):
             None  # TODO: Set this to be a default profile image.
         )
 
-    def isAuthenticated(self):
+    # is_authenticated cannot be camel-cased for Flask-login
+    def is_authenticated(self):
         """Set isAuthenticated to true for all signed in users."""
         return True
 

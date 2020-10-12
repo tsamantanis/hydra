@@ -18,11 +18,11 @@ class ChannelSection extends Component {
 
     displayChannelSections() {
         if (this.props.channelLabel === "Topics") {
-            return <AddTopic channelLabel={this.props.channelLabel} getChannels={this.props.getTopics} />
+            return <AddTopic channelLabel={this.props.channelLabel} getChannels={this.props.getChannels} />
         } else if (this.props.channelLabel === "Assignments") {
-            return <AddAssignment channelLabel={this.props.channelLabel} getChannels={this.props.getAssignments} />
+            return <AddAssignment channelLabel={this.props.channelLabel} getChannels={this.props.getChannels} />
         } else if (this.props.channelLabel === "Discussions") {
-            return <AddChannel channelLabel={this.props.channelLabel} />
+            return <AddChannel channelLabel={this.props.channelLabel} getChannels={this.props.getChannels} />
         }
     }
 

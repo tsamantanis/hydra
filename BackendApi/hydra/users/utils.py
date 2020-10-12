@@ -30,18 +30,25 @@ def loadUserToken(request):
         return jsonify({"msg": "Missing authoriation token."}), 405
 
     elif token is not None:
-        credential = s.loads(token)
+        credential = token
         user = db.users.find_one_or_404({"authToken": credential})
-        return user
+        authenticatedUser = User(
+            user["_id"],
+            credential,
+            user["firstName"],
+            user["lastName"],
+            user["email"],
+            user["password"],
+        )
+        return authenticatedUser
 
 
 def createToken(email, password):
     """Create token for client side authentication and tracking."""
-    s = Serializer(os.getenv("SECRET_KEY"))
     user_entry = db.users.find_one_or_404({"email": email})
     if user_entry is not None:
         if sha256_crypt.verify(password, user_entry["password"]):
-            token = s.dumps({"email": email, "password": password})
+            token = f"Bearer {user_entry['_id']}"
             authorizedUser = db.users.update_one(
                 {"_id": ObjectId(user_entry["_id"])},
                 {"$set": {"authToken": token}},
