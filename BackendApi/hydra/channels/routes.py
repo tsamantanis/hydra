@@ -43,6 +43,7 @@ def createChannel(groupId):
 
 
 @channels.route("/delete/<channelId>", methods=["DELETE"])
+@login_required
 def deleteChannel(groupId, channelId):
     """Delete channel from database."""
     channel = db.channels.find_one_or_404({"_id": ObjectId(channelId)})
@@ -51,7 +52,7 @@ def deleteChannel(groupId, channelId):
 
 
 @channels.route("/<channelId>")
-# @login_required
+@login_required
 def getChannel(groupId, channelId):
     """
     For channels in specified group, return channel information.
