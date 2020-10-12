@@ -59,11 +59,11 @@ class SignUp extends Component {
                             <label htmlFor='lastName'>Last Name</label>
                             <input type='text' name='lastName' placeholder='Last' required />
                             <label htmlFor='email'>Email Address</label>
-                            <input type='email' name='email' placeholder='name@address.com' required />
+                            <input type='email' name='email' placeholder='name@address.com' pattern='/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/' required />
                             <label htmlFor='password'>Password</label>
-                            <input type='password' name='password' placeholder='Enter a password' required />
+                            <input type='password' minLength="8" name='password' placeholder='Enter a password' required />
                             <label htmlFor='password'>Confirm Password</label>
-                            <input type='password' name='confirmPassword' placeholder='Confirm the password' required />
+                            <input type='password' minLength="8" name='confirmPassword' placeholder='Confirm the password' required />
                         </fieldset>
                         <div className="buttonGradientContainer m-b-10 m-t-30">
                             <button className="m-l-0" type='button' onClick={this.signUp}>Sign Up</button>
