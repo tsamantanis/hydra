@@ -10,7 +10,7 @@ assignments = Blueprint("assignments", __name__)
 
 
 # base path /groups/<groupId>/assignments
-@assignments.route("/", methods=["GET"])
+@assignments.route("", methods=["GET"])
 def contentAll(groupId):
     """Show all assignments for particular group."""
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
@@ -148,8 +148,9 @@ def assignmentCreate(groupId):
     return jsonify({"msg": "Your assignment has been created."}), 200
 
 
-
-@assignments.route("/<assignmentId>/pdfs/<pdfId>", methods=["DELETE", "PATCH", "GET"])
+@assignments.route(
+    "/<assignmentId>/pdfs/<pdfId>", methods=["DELETE", "PATCH", "GET"]
+)
 # @jwt_required
 def pdfId(groupId, assignmentId, pdfId):
     if request.method == "DELETE":
@@ -158,8 +159,8 @@ def pdfId(groupId, assignmentId, pdfId):
     if request.method == "PATCH":
         jsonSet = {}
         pdf = db.Pdf.find({"_id": ObjectId(pdfId)})
-        if request.json.get('tempFileId') != None:
-            contentFile = request.files.get(request.json.get('tempFileId'))
+        if request.json.get("tempFileId") != None:
+            contentFile = request.files.get(request.json.get("tempFileId"))
             jsonSet["url"] = path.join(
                 app.config["PDF_PATH"],
                 "{0}.{1}".format(
@@ -168,22 +169,25 @@ def pdfId(groupId, assignmentId, pdfId):
                 ),
             )
             contentFile.save(jsonSet["url"])
-        elif request.json.get('url') != None:
-            jsonSet['url'] = request.json.get('url')
-        if request.json.get('dis') != None:
-            jsonSet['dis'] = request.json.get('dis')
-        db.Pdf.update(
-            {"_id":  ObjectId(pdfId)}, {"$set": jsonSet}
-        )
+        elif request.json.get("url") != None:
+            jsonSet["url"] = request.json.get("url")
+        if request.json.get("dis") != None:
+            jsonSet["dis"] = request.json.get("dis")
+        db.Pdf.update({"_id": ObjectId(pdfId)}, {"$set": jsonSet})
         return "Patch Made", 200
     if request.method == "GET":
-        return send_from_directory(app.config["PDF_PATH"], "{0}.pdf".format(pdfId))
+        return send_from_directory(
+            app.config["PDF_PATH"], "{0}.pdf".format(pdfId)
+        )
+
 
 @assignments.route("/<assignmentId>/pdfs/add", methods=["POST"])
 # @jwt_required
 def pdfAdd(groupId, assignmentId):
     jsonSet = {}
-    assignment = db.Assignment.find_one_or_404({"_id": ObjectId(assignmentId)})
+    assignment = db.Assignment.find_one_or_404(
+        {"_id": ObjectId(assignmentId)}
+    )
     postFiles = request.files
     if request.json.get("dis") is not None:
         jsonSet["dis"] = request.json.get("dis")
@@ -201,6 +205,4 @@ def pdfAdd(groupId, assignmentId):
             ),
         )
         contentFile.save(jsonSet["url"])
-    db.Pdf.update(
-            {"_id":  ObjectId(pdf["_id"])}, {"$set": jsonSet}
-        )
+    db.Pdf.update({"_id": ObjectId(pdf["_id"])}, {"$set": jsonSet})

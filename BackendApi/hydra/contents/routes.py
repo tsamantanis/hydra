@@ -14,7 +14,7 @@ contents = Blueprint("contents", __name__)
 # base path /groups/<groupId>/channels/<channelId>/contents
 
 
-@contents.route("/", methods=["GET"])
+@contents.route("", methods=["GET"])
 def contentAll(groupId, channelId):
     """Show contents for group id. Return as data to front end."""
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
