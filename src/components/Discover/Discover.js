@@ -51,14 +51,14 @@ class Discover extends Component {
     }
 
     render () {
-        let filteredGroups = this.state.groups.filter((group) => {
+        let filteredGroups = this.state.searchTerm.length > 0 && this.state.groups.filter((group) => {
             let searchable = group.name + group.keywords.toString().replace(',', '') + group.dis;
             let searchTerms = this.state.searchTerm.toLowerCase().trim().split(' ');
             return searchTerms.every((term) => {
                 return searchable.toLowerCase().includes(term);
             })
         })
-
+console.log(this.state.groups);
         return (
             <div className='Discover'>
                 <img src={ellipse} alt='ellipse' className='ellipse' />
@@ -68,7 +68,7 @@ class Discover extends Component {
                 </form>
                 <div className='searchResults'>
                     <div className='resultGroups'>
-                        {filteredGroups.map(group => {
+                        {filteredGroups && filteredGroups.map(group => {
                             return(
                                 <Group
                                     groupName={group.name}
