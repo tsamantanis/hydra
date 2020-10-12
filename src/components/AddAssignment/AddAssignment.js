@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {Button} from 'reactstrap';
 import {Modal} from 'reactstrap';
 import {ModalHeader} from 'reactstrap';
 import {ModalBody} from 'reactstrap';

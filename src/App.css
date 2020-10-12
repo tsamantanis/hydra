@@ -111,6 +111,10 @@ button, input[type=submit] {
     transition: 0.4s ease;
 }
 
+.alt {
+    background-color: var(--accent);
+}
+
 button:hover, input[type=submit]:hover {
     background: transparent;
     transition: 0.4s ease;
@@ -326,5 +330,15 @@ form fieldset label {
     background-image: -webkit-linear-gradient(#5EFC8D 0%, #0CBCD3 43.23, #1CA0DE 56.77, #268FE4 65.1, #4E47FF 100%);
     background-image: -o-linear-gradient(#5EFC8D 0%, #0CBCD3 43.23, #1CA0DE 56.77, #268FE4 65.1, #4E47FF 100%);
     background-image: linear-gradient(135deg, #5EFC8D 0%, #0CBCD3 43.23%, #1CA0DE 56.77%, #268FE4 65.1%, #4E47FF 100%);
+    transition: 0.4s ease-in ease-out;
+}
+
+.buttonGradientContainerAlt {
+    height: 40px;
+    width: 350px;
+    border-radius: 10px;
+    background-image: -webkit-linear-gradient(#5EFC8D 0%, #0CBCD3 50%, #1CA0DE 100%);
+    background-image: -o-linear-gradient(#5EFC8D 0%, #0CBCD3 50%, #1CA0DE 100%);
+    background-image: linear-gradient(135deg, #5EFC8D 0%, #0CBCD3 50%, #1CA0DE 100%);
     transition: 0.4s ease-in ease-out;
 }

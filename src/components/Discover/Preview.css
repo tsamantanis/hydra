@@ -1,0 +1,95 @@
+.Preview {
+    align-items: flex-start;
+    background-color: var(--light);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+.Preview>.alt {
+    border-radius: 100%;
+    cursor: pointer;
+    height: 50px;
+    left: 25px;
+    padding: 10px 7px 10px 5px;
+    position: absolute;
+    top: 25px;
+    width: 50px;
+}
+
+.Preview>.alt:hover,
+.Preview>.alt:focus {
+    background-image: -webkit-linear-gradient(#5EFC8D 0%, #0CBCD3 50%, #1CA0DE 100%);
+    background-image: -o-linear-gradient(#5EFC8D 0%, #0CBCD3 50%, #1CA0DE 100%);
+    background-image: linear-gradient(135deg, #5EFC8D 0%, #0CBCD3 50%, #1CA0DE 100%);
+    transition: 0.4s ease-in ease-out;
+}
+
+.Preview .previewImage {
+    height: 90%;
+    margin: auto 0;
+}
+
+.Preview .previewText {
+    align-items: flex-start;
+    display: flex;
+    flex-basis: 55%;
+    flex-direction: column;
+    height: 60%;
+    justify-content: space-between;
+    margin: auto 0;
+    padding-right: 100px;
+}
+
+.Preview .previewText h1 {
+    color: var(--darkAccent);
+}
+
+.Preview .previewText>.big {
+    font-weight: normal !important;
+    text-transform: none;
+}
+
+.Preview .previewText ul {
+    color: var(--darkAccent);
+    padding: 20px;
+}
+
+.Preview .previewText ul li h6 {
+    color: var(--darkAccent);
+}
+
+.Preview .previewText .previewDatePrice {
+    align-items: baseline;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.Preview .previewText .previewDatePrice>.big {
+    text-transform: none;
+}
+
+.Preview .previewText .previewDatePrice .big .date {
+    color: var(--accent);
+    font-size: 20px;
+}
+
+.Preview .previewText .previewDatePrice h4 {
+    color: var(--accent);
+}
+
+.Preview .previewText .buttonGradientContainerAlt {
+    align-self: flex-end;
+    height: 40px;
+    width: 200px;
+}
+
+.Preview .previewText .buttonGradientContainerAlt button {
+    border-radius: 10px;
+    height: 40px;
+    width: 200px;
+}

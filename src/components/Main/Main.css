@@ -81,7 +81,47 @@
     background-color: var(--accent);
 }
 
+/* Main Channels */
+
+.Main .Channels {
+    align-items: flex-start;
+    background-color: var(--darkAccent);
+    color: var(--light);
+    flex-basis: 17%;
+}
+
+.Main .Channels-lg {
+    align-items: flex-start;
+    background-color: var(--darkAccent);
+    color: var(--light);
+    flex-basis: 23% !important;
+}
+
+.Main .Channels h1 {
+    font-size: 36px;
+    height: 36px;
+    padding: 18px;
+}
+
+.Main .Channels hr {
+    border: 1px solid var(--accent);
+    height: 0;
+    width: 100%;
+}
+
+.Main .Channels .ChannelGroup h5 {
+    font-size: 23px;
+    font-weight: bold;
+    height: 23px;
+}
+
+.Main .Channels .ChannelGroup h6 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
 /* Header Toolbar */
+
 .Main .HeaderToolbar {
     background-color: var(--darkAccent);
     border-bottom: 2px solid var(--accent);
@@ -110,45 +150,6 @@
     cursor: pointer;
     text-decoration: none;
     transition: 0.3s ease;
-}
-
-/* Main Channels */
-
-.Main .Channels {
-    align-items: flex-start;
-    background-color: var(--darkAccent);
-    color: var(--light);
-    flex-basis: 17%;
-}
-
-.Main .Channels-lg {
-    align-items: flex-start;
-    background-color: var(--darkAccent);
-    color: var(--light);
-    flex-basis: 23% !important;
-}
-
-.Main .Channels h1 {
-    font-size: 36px;
-    height: 36px;
-    padding: 5%;
-}
-
-.Main .Channels hr {
-    border: 1px solid var(--accent);
-    height: 0;
-    width: 100%;
-}
-
-.Main .Channels .ChannelGroup h5 {
-    font-size: 23px;
-    font-weight: bold;
-    height: 23px;
-}
-
-.Main .Channels .ChannelGroup h6 {
-    font-size: 20px;
-    font-weight: bold;
 }
 
 /* Main Feed */
