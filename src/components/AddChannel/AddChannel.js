@@ -24,10 +24,6 @@ class AddChannel extends Component {
         });
     }
 
-    componentDidMount() {
-        this.props.getChannels('Discussions')
-    }
-
     createChannel = () => {
         const _this = this
         const name = document.querySelector('input[name=channelName]').value
