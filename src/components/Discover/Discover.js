@@ -15,7 +15,7 @@ class Discover extends Component {
                 <img src={school} alt='school' className='school' />
                 <form>
                     <label htmlFor='discoverClasses'><h4 className='m-0'>Discover Classes</h4></label>
-                    <input type='text' name='discoverClasses' id='discoverClasses' placeholder='Search from a list of thousands of classes' required />
+                    <input type='text' name='discoverClasses' id='discoverClasses' placeholder='Search from a list of thousands of classes' />
                 </form>
             </div>
         )

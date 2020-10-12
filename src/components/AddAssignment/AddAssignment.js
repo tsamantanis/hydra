@@ -14,7 +14,7 @@ class AddAssignment extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            modal: true
+            modal: false
         };
 
         this.toggle = this.toggle.bind(this);
@@ -26,9 +26,13 @@ class AddAssignment extends Component {
         });
     }
 
-    createChannel() {
-        const name = document.querySelector('input[name=channelName]').value
+    createAssignment = () => {
+        const name = document.querySelector('input[name=name]').value
         const dis = document.querySelector('input[name=description]').value
+        this.createChannel(name, dis);
+    }
+
+    createChannel = (name, dis) => {
         if (name && dis) {
             api({
                 method: 'POST',
@@ -53,15 +57,15 @@ class AddAssignment extends Component {
 
     render () {
         return (
-            // !this.state.modal ?
-            //     <a className="float-right" onClick={this.toggle}>
-            //         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-plus-circle">
-            //             <circle cx="12" cy="12" r="10" />
-            //             <line x1="12" y1="8" x2="12" y2="16" />
-            //             <line x1="8" y1="12" x2="16" y2="12" />
-            //         </svg>
-            //     </a>
-            //     :
+            !this.state.modal ?
+                <a className="float-right" onClick={this.toggle}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-plus-circle">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="16" />
+                        <line x1="8" y1="12" x2="16" y2="12" />
+                    </svg>
+                </a>
+                :
                 <Modal isOpen={this.state.modal} toggle={this.toggle} contentClassName='AddAssignmentModal'>
                     <ModalHeader toggle={this.toggle}>
                     </ModalHeader>
@@ -90,15 +94,15 @@ class AddAssignment extends Component {
                                 </div>
                                 <div className='userInput'>
                                     <label htmlFor='attachments'>Attachments</label>
-                                    <input type='text' id='attachments' name='attachments' placeholder='Upload Files' />
+                                    <input type='file' id='attachments' name='attachments' placeholder='Upload Files' />
                                 </div>
                                 <div className='userInput'>
                                     <label htmlFor='startDate'>Start Date</label>
-                                    <input type='text' id='startDate' name='startDate' placeholder='10/11/2020' />
+                                    <input type='date' id='startDate' name='startDate' placeholder='10/11/2020' />
                                 </div>
                                 <div className='userInput'>
                                     <label htmlFor='totalPoints'>Total Points</label>
-                                    <input type='text' id='totalPoints' name='totalPoints' placeholder='100' />
+                                    <input type='number' id='totalPoints' name='totalPoints' placeholder='100' />
                                 </div>
                             </div>
                             <div className='right m-l-10'>
@@ -112,7 +116,7 @@ class AddAssignment extends Component {
                                 </div>
                                 <div className='userInput'>
                                     <label htmlFor='dueDate'>Due Date</label>
-                                    <input type='text' id='dueDate' name='dueDate' placeholder='10/13/2020' />
+                                    <input type='date' id='dueDate' name='dueDate' placeholder='10/13/2020' />
                                 </div>
                                 <button className='m-t-40' onClick={this.createAssignment}>Save</button>
                             </div>

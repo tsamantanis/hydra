@@ -1,6 +1,8 @@
 """Package and dependency imports."""
 from flask import Blueprint, jsonify, request
 from hydra import db
+from flask_login import current_user
+from bson.json_util import dumps
 
 channels = Blueprint("channels", __name__)
 
@@ -12,8 +14,8 @@ def showChannels(groupId):
 
     channel.id, channel.name, channel.description
     """
-    channels = db.channels.find_all({"groupId": groupId})
-    return jsonify({channels})
+    channels = list(db.channels.find({"groupId": groupId}))
+    return dumps(channels)
 
 
 @channels.route("/groups/<groupId>/channels/create", methods=["POST", "PUT"])

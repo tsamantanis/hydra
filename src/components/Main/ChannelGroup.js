@@ -2,14 +2,14 @@ import React, {Component} from 'react'
 import './ChannelGroup.css'
 
 import AddChannel from '../AddChannel/AddChannel'
-
+import AddAssignment from '../AddAssignment/AddAssignment'
 class ChannelGroup extends Component {
     render() {
         return (
             <div className='ChannelGroup m-t-15 m-b-15'>
                 <div className='ChannelTitle'>
                     <h5 className="m-b-15">{this.props.channelLabel}</h5>
-                    <AddChannel />
+                    {this.props.channelLabel !== "Assignments" ? <AddChannel /> : <AddAssignment />}
                 </div>
                 { this.props.channelNames.map((channelName) => {
                     return(
