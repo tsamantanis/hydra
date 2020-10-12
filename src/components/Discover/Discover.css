@@ -1,71 +1,39 @@
-.Discover {
-    align-items: center;
-    background-color: var(--light);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    height: auto;
+.discover {
+    min-width: 100vw;
+    min-height: 100vh;
     overflow-y: scroll;
+    padding-top: 30vh;
 }
 
-.Discover .ellipse {
-    height: 100%;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 0;
+.row {
+    align-items: center;
+    justify-content: center;
 }
-
-.Discover .school {
-    bottom: 0;
-    margin-bottom: 0;
-    left: 50%;
-    margin-left: -28%;
-    position: absolute;
-    width: 56%;
-    z-index: 1;
-}
-
-.Discover .discoverForm {
-    margin-top: 40px;
-    margin-bottom: -40px;
+.search {
     z-index: 2;
-    height: 360px;
+    align-self: center;
 }
 
-.Discover .discoverForm label h4 {
+.search label h4 {
     color: var(--light);
 }
 
-.Discover .discoverForm>.discoverClasses {
-    background-color: var(--light);
-    color: var(--dark);
-    height: 40px !important;
+.mt-auto {
+    margin-top: 50vw !important;
 }
 
-.Discover .searchResults {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    z-index: 2;
-    width: 100%;
-    padding: 0 50px;
+.school {
+    bottom: 0;
+    margin-bottom: 0;
+    left: 50%;
+    margin-left: -22%;
+    position: absolute;
+    width: 50%;
+    z-index: 0;
+    transition: 0.4s ease;
 }
 
-.Discover .searchResults .resultGroups {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    /* justify-content: space-between; */
-    width: 80%;
-}
-
-.Discover .searchResults .resultGroups>a {
-    height: 431.6px !important;
-    margin: 20px 40px;
-    padding: 0;
-    width: 290px !important;
+.hidden {
+    opacity: 0;
+    transition: 0.4s ease;
 }
