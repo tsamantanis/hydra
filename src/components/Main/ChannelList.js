@@ -12,19 +12,18 @@ class ChannelList extends Component {
     }
 
     componentDidMount() {
-        this.getChannels();
+        this.getChannels()
     }
 
     getChannels = () => {
+        const _this = this
         api({
             method: 'GET',
             url: '/groups/5f83e890d1bf28e13820a756/channels'
         })
         .then(function (response) {
             for (const channel of response.data) {
-                console.log(channel.name)
-                // THIS IS READING ALL THE CHANNEL NAMES. THE SETSTATE BELOW THROWS A TYPE ERROR
-                // this.setState({channels: [...this.state.channels, channel.name]})
+                _this.setState({channels: [..._this.state.channels, channel.name]})
             }
         })
         .catch(function (error) {
@@ -39,19 +38,11 @@ class ChannelList extends Component {
             <>
                 <ChannelGroup
                     channelLabel='Lectures'
-                    channelNames={this.state.channels.map((channel) => {
-                        return (
-                            <h6>{channel}</h6>
-                        )
-                    })}
+                    channelNames={this.state.channels}
                 />
                 <ChannelGroup
                     channelLabel='Assignments'
-                    channelNames={this.state.channels.map((channel) => {
-                        return (
-                            <h6>{channel}</h6>
-                        )
-                    })}
+                    channelNames={this.state.channels}
                 />
             </>
         )
