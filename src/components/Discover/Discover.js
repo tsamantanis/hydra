@@ -38,7 +38,7 @@ class Discover extends Component {
         })
     }
 
-    searchGroups = () => {
+    searchGroups = (event) => {
         this.setState({displayGroups: []})
         const search = document.getElementById('discoverClasses').value
         if (search.length > 0) {
@@ -50,13 +50,19 @@ class Discover extends Component {
         }
     }
 
+    preventSubmit(event) {
+        if (event.which === 13) {
+            event.preventDefault()
+        }
+    }
+
     render () {
         return (
             <div className='Discover'>
                 <img src={ellipse} alt='ellipse' className='ellipse' />
                 <form>
                     <label htmlFor='discoverClasses'><h4 className='m-0'>Discover Classes</h4></label>
-                    <input type='text' name='discoverClasses' id='discoverClasses' placeholder='Search from a list of thousands of classes' onKeyUp={this.searchGroups.bind(this)} />
+                    <input type='text' name='discoverClasses' id='discoverClasses' placeholder='Search from a list of thousands of classes' onKeyUp={this.searchGroups.bind(this)} onKeyPress={this.preventSubmit} />
                 </form>
                 <div className='searchResults'>
                     {this.state.displayGroups.map(group => {
