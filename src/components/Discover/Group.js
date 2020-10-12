@@ -5,12 +5,12 @@ import api from '../../api'
 
 import '../../App.css'
 import './Group.css'
-import pythonImage from '../../assets/python-flask-angular.jpg'
+import pythonImage from '../../assets/python-flask.jpg'
 
 class Group extends Component {
     render () {
         return (
-            <Link to={"/discover/preview/" + this.props.groupId} className="text-decoration-none col-3 m-l-20 m-r-20 animate fadeIn one">
+            <Link to={"/discover/preview/" + this.props.groupId} className="text-decoration-none col-4 animate fadeIn one">
                 <div className='Group m-t-40'>
                     <img src={pythonImage} alt='class image' />
                     <svg className="m-t-n25" width="330" height="28" viewBox="0 0 290 20" fill="none" xmlns="http://www.w3.org/2000/svg">
