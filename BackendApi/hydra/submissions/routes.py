@@ -1,3 +1,4 @@
+"""Dependency and package import."""
 import flask
 from hydra import db, app
 from flask import Blueprint, request, jsonify
@@ -62,11 +63,10 @@ def contentId(groupId, assignmentId, submissionId):
         {"_id": ObjectId(submissionId)}
     )
     if submission is None:
-        return "Submission Not Found", 404
+        return jsonify({"msg": "Submission Not Found"}), 404
     if request.method == "DELETE":
         db.Submission.deleteOne({"_id": ObjectId(submission["_id"])})
-        httpCode = 204
-        return "Assignment Deleted", httpCode
+        return jsonify({"msg": "Submission successfully deleted."}), 204
     if request.method == "PATCH":
         patchData = request.json
         patchFiles = request.files
@@ -82,8 +82,8 @@ def contentId(groupId, assignmentId, submissionId):
             pdfFile.save(jsonSet["pdfUrl"])
         if pdfData["scoredGrade"] is not None:
             jsonSet["scoredGrade"] = pdfData["scoredGrade"]
-        if pdfData.pdfId == True:
-            db.Pdf.update({"_id": pdfData.pdfId}, {"$set": jsonSet})
+        if pdfData["pdfId"] is True:
+            db.Pdf.update({"_id": pdfData["pdfId"]}, {"$set": jsonSet})
         else:
             createdPdf = db.Pdf.insert(jsonSet)
             assignment.pdfIds.append(createdPdf._id)
