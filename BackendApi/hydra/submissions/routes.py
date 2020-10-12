@@ -50,6 +50,7 @@ def contentAll(groupId, assignmentId):
 @submissions.route("/<submissionId>", methods=["GET", "PATCH"])
 @login_required
 def contentId(groupId, assignmentId, submissionId):
+    """Return submission details."""
     httpCode = 200
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     if group is None:
@@ -111,15 +112,16 @@ def contentId(groupId, assignmentId, submissionId):
             for index, pdf in enumerate(pdfs)
         ],
     }
-    return flask.jsonify(data), httpCode
+    return dumps(data), httpCode
 
 
 @submissions.route("/create", methods=["POST"])
-# @jwt_required
-def assignmentCreate(groupId):
+@login_required
+def submissionCreate(groupId):
+    """Create new assignment submission."""
     postData = request.json
     postFiles = request.files
-    assignment = db.Assignment.insert_one(
+    assignment = db.Submission.insert_one(
         {
             "name": postData.get("name"),
             "dis": postData.get("dis"),
@@ -129,19 +131,19 @@ def assignmentCreate(groupId):
 
     for pdfData in postData.get("pdfs"):
         jsonSet = {}
-        if pdfData.dis != None:
-            jsonSet.dis = pdfData.dis
-        if pdfData.url != None:
-            jsonSet.url = pdfData.url
-        elif postFiles.get(pdfData.tempFileId) != None:
-            pdfFile = postFiles.get(pdfData.tempFileId)
-            jsonSet.url = path.join(
+        if pdfData["dis"] is not None:
+            jsonSet["dis"] = pdfData["dis"]
+        if pdfData["url"] is not None:
+            jsonSet["url"] = pdfData["url"]
+        elif postFiles.get(pdfData["tempFileId"]) is not None:
+            pdfFile = postFiles.get(pdfData["tempFileId"])
+            jsonSet["url"] = path.join(
                 app.config["PDF_PATH"],
                 "{0}.{1}".format(
-                    {pdfData._id}, pdfFile.filename.split(".")[-1]
+                    {pdfData["_id"]}, pdfFile.filename.split(".")[-1]
                 ),
             )
-            pdfFile.save(jsonSet.url)
+            pdfFile.save(jsonSet["url"])
         else:
             createdPdf = db.Pdf.insert(jsonSet)
             assignment.pdfIds.append(createdPdf.inserted_id)
@@ -151,9 +153,10 @@ def assignmentCreate(groupId):
 
 
 @submissions.route("/pdfs/<pdfId>", methods=["DELETE"])
-# @jwt_required
+@login_required
 def pdfRemove(groupId, assignmentId, pdfId):
+    """Delete pdf submission file."""
     assignment = db.Assignment.find({"_id": ObjectId(assignmentId)})
     assignment.pdfIds.remove(pdfId)
     db.Pdf.deleteOne({"_id": ObjectId(pdfId)})
-    return "Assignment Deleted", 204
+    return jsonify({"msg": "Assignment Deleted"}), 204
