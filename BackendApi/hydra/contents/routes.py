@@ -2,7 +2,7 @@
 from flask import Blueprint, jsonify, request
 from hydra import db, app
 from os import path
-from hydra.contents.utils import createContent
+from hydra.contents.utils import createContent, patchContent
 from bson.json_util import dumps
 from bson.objectid import ObjectId
 
@@ -42,7 +42,6 @@ def contentId(groupId, contentId):
     For each different method, return JSON data
     corresponding to action taken.
     """
-
     httpCode = 200
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     if group is None:
@@ -61,49 +60,12 @@ def contentId(groupId, contentId):
     if request.method == "PATCH":
         patchData = request.json
         patchFiles = request.files
-        for videoData in patchData.get("videos"):
-            jsonSet = {}
-            if videoData["dis"] is not None:
-                jsonSet["dis"] = videoData["dis"]
-            if videoData["url"] is not None:
-                jsonSet["url"] = videoData["url"]
-            elif patchFiles.get(videoData["_id"]) is not None:
-                videoFile = patchFiles.get(videoData["_id"])
-                jsonSet["url"] = path.join(
-                    app.config["VIDEO_PATH"],
-                    "{0}.{1}".format(
-                        {videoData["_id"]}, videoFile.filename.split(".")[-1]
-                    ),
-                )
-                videoFile.save(jsonSet["url"])
-            if videoData["videoId"]:
-                db.Video.update(
-                    {"_id": videoData["videoId"]}, {"$set": jsonSet}
-                )
-            else:
-                createdVideo = db.Video.insert(jsonSet)
-                content.videoIds.append(createdVideo["_id"])
-
-        for pdfData in patchData.get("pdfs"):
-            jsonSet = {}
-            if pdfData["dis"] is not None:
-                jsonSet["dis"] = pdfData["dis"]
-            if pdfData["url"] is not None:
-                jsonSet["url"] = pdfData["url"]
-            elif patchFiles.get(pdfData["_id"]) is not None:
-                pdfFile = patchFiles.get(pdfData["_id"])
-                jsonSet["url"] = path.join(
-                    app.config["PDF_PATH"],
-                    "{0}.{1}".format(
-                        {pdfData["_id"]}, pdfFile.filename.split(".")[-1]
-                    ),
-                )
-                pdfFile.save(jsonSet.url)
-            if pdfData["pdfId"] is True:
-                db.Pdf.update({"_id": pdfData["pdfId"]}, {"$set": jsonSet})
-            else:
-                createdPdf = db.Pdf.insert(jsonSet)
-                content.pdfIds.append(createdPdf["_id"])
+        if patchData.get("videos"):
+            videoPath = app.config("VIDEO_PATH")
+            patchContent("video", patchData, patchFiles, path)
+        if patchData.get("pdfs"):
+            pdfPath = app.config("PDF_PATH")
+            patchContent("pdf", patchData, patchFiles, path)
         httpCode = 204
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})

@@ -52,14 +52,26 @@ def patchContent(content, patchData, patchFiles, path):
         elif patchFiles.get(contentData["_id"]) is not None:
             contentFile = patchFiles.get(contentData["_id"])
             jsonSet["url"] = path.join(
-                app.config["VIDEO_PATH"],
+                path,
                 "{0}.{1}".format(
-                    {videoData["_id"]}, videoFile.filename.split(".")[-1]
+                    {contentData["_id"]}, contentFile.filename.split(".")[-1]
                 ),
             )
-            videoFile.save(jsonSet["url"])
-        if videoData["videoId"]:
-            db.Video.update({"_id": videoData["videoId"]}, {"$set": jsonSet})
-        else:
-            createdVideo = db.Video.insert(jsonSet)
-            content.videoIds.append(createdVideo["_id"])
+            contentFile.save(jsonSet["url"])
+        if "video" in content:
+            if contentData["videoId"]:
+                db.Video.update(
+                    {"_id": contentData["videoId"]}, {"$set": jsonSet}
+                )
+            else:
+                createdVideo = db.Video.insert(jsonSet)
+                content.videoIds.append(createdVideo["_id"])
+        elif "pdf" in content:
+            if contentData["pdfId"]:
+                db.Pdf.update(
+                    {"_id": contentData["pdfId"]}, {"$set": jsonSet}
+                )
+            else:
+                createdPdf = db.Pdf.insert(jsonSet)
+                content.pdfIds.append(createdPdf["_id"])
+    return jsonify({"msg": "Your content has been updated"}), 200
