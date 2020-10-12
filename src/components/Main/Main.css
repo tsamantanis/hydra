@@ -339,3 +339,16 @@
     font-weight: bold;
     height: 16px;
 }
+
+.Main .CreatePost svg {
+    margin-top: -15px;
+    bottom: -90px;
+    right: -330px;
+    position: relative;
+    color: var(--accent);
+}
+
+.Main .CreatePost svg:hover {
+    cursor: pointer;
+    bottom: -89px;
+}
