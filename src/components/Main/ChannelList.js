@@ -13,39 +13,35 @@ class ChannelList extends Component {
     }
 
     componentDidMount() {
-        this.getChannels()
+        this.getChannels();
+        this.getAssignments();
     }
 
     getChannels = () => {
         const _this = this
-        this.setState({channels: []})
         api({
             method: 'GET',
             url: '/groups/5f83e890d1bf28e13820a756/channels'
         })
-        .then(function (response) {
-            for (const channel of response.data) {
-                _this.setState({channels: [..._this.state.channels, channel.name]})
-            }
+        .then((response) => {
+            console.log(response.data);
+            this.setState({channels: response.data})
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log(error)
         })
     }
 
     getAssignments = () => {
         const _this = this
-        this.setState({assignments: []})
         api({
             method: 'GET',
             url: '/groups/5f83e890d1bf28e13820a756/assignments'
         })
-        .then(function (response) {
-            for (const assignment of response.data) {
-                _this.setState({assignments: [..._this.state.assignments, assignment.name]})
-            }
+        .then((response) => {
+            this.setState({assignments: response.data})
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log(error)
         })
     }
@@ -57,13 +53,15 @@ class ChannelList extends Component {
             <>
                 <ChannelSection
                     channelLabel='Lectures'
-                    channelNames={this.state.channels}
+                    channels={this.state.channels}
                     getChannels={this.getChannels}
+                    loadPosts={this.props.loadPosts}
                 />
                 <ChannelSection
                     channelLabel='Assignments'
-                    channelNames={this.state.assignments}
+                    channels={this.state.assignments}
                     getChannels={this.getAssignments}
+                    loadPosts={this.props.loadPosts}
                 />
             </>
         )

@@ -22,10 +22,10 @@ class ChannelSection extends Component {
                     <h5 className="m-b-15">{this.props.channelLabel}</h5>
                     {this.props.channelLabel !== "Assignments" ? <AddChannel channelLabel={this.props.channelLabel} getChannels={this.props.getChannels} /> : <AddAssignment />}
                 </div>
-                { this.props.channelNames.map((channelName) => {
+                { this.props.channels && this.props.channels.map((channel) => {
                     return(
-                        <div className='ChannelItem m-b-10' id={channelName}>
-                            <h6 className="m-auto" onClick={this.displayChannel.bind(this, channelName)}>{'#  ' + channelName}</h6>
+                        <div className='ChannelItem m-b-10' id={channel._id} key={channel.name}>
+                            <h6 className="m-auto" onClick={() => {this.displayChannel.bind(this, channel.name); this.props.loadPosts(channel._id)}}>{'#  ' + channel.name}</h6>
                         </div>
                 )})}
             </div>

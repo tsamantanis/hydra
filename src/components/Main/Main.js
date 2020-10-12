@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import api from '../../api'
 import '../../App.css'
 import './Main.css'
@@ -52,12 +53,12 @@ class Main extends Component {
         }
     }
 
-    goToDiscover() {
-        window.location.href = '/discover'
+    getAllUsersGroups = () => {
+        // This will get all the groups of the current user so they can be displayed as NavItems
     }
 
-    getAllUsersGroups() {
-        // This will get all the groups of the current user so they can be displayed as NavItems
+    loadPosts = (channel_id) => {
+        // This will get all the posts for the selected channel_id 
     }
 
     render () {
@@ -67,17 +68,19 @@ class Main extends Component {
                 <div className='Nav'>
                     <NavItem />
                     <NavItem />
-                    <div className="AddClass" onClick={this.goToDiscover}>
+                    <Link to="/discover" className="AddClass">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
                             <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
-                    </div>
+                    </Link>
                     <Settings />
                 </div>
                 <div className={this.state.showCommunity ? 'Channels' : 'Channels Channels-lg'}>
                     <h1>Class Name</h1>
                     <hr className='m-t-30' />
-                    <ChannelList />
+                    <ChannelList
+                        loadPosts={this.loadPosts}
+                    />
                 </div>
                 <div className={this.state.showCommunity ? 'Feed' : 'Feed Feed-lg'}>
                     <div className='HeaderToolbar'>
