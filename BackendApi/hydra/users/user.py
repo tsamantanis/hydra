@@ -5,9 +5,10 @@ from flask_login import UserMixin
 class User(UserMixin):
     """Create User class, inherits from flask-login's user mixin."""
 
-    def __init__(self, id, firstName, lastName, email, password):
+    def __init__(self, id, authToken, firstName, lastName, email, password):
         """Initialize properties of users."""
         self.id = str(id)
+        self.authToken = authToken
         self.firstName = firstName
         self.lastName = lastName
         self.email = email

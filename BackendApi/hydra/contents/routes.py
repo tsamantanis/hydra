@@ -62,10 +62,10 @@ def contentId(groupId, contentId):
         patchFiles = request.files
         if patchData.get("videos"):
             videoPath = app.config("VIDEO_PATH")
-            patchContent("video", patchData, patchFiles, path)
+            patchContent("video", patchData, patchFiles, videoPath)
         if patchData.get("pdfs"):
             pdfPath = app.config("PDF_PATH")
-            patchContent("pdf", patchData, patchFiles, path)
+            patchContent("pdf", patchData, patchFiles, pdfPath)
         httpCode = 204
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
@@ -124,11 +124,13 @@ def contentCreate(groupId):
             }
         )
         if postData.get("videos"):
+            video = postData.get("videos")
             videoPath = app.config["VIDEO_PATH"]
-            createContent("video", groupId, postData, postFiles, videoPath)
+            createContent(video, groupId, postData, postFiles, videoPath)
         if postData.get("pdfs"):
+            pdf = postData.get("pdfs")
             pdfPath = app.config["PDF_PATH"]
-            createContent("pdf", groupId, postData, postFiles, pdfPath)
+            createContent(pdf, groupId, postData, postFiles, pdfPath)
         else:
             createdContent = db.Content.find_one_or_404(
                 {"name": postData.get("name")}
@@ -136,23 +138,6 @@ def contentCreate(groupId):
             group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
             group["contentIds"].append(createdContent["_id"])
             return dumps(postData)
-    except:
+    except Exception as e:
+        print(e)
         return jsonify({"msg": "Unable to upload files"}), 200
-
-
-# TODO: Don't we allow for the deletion of these in the <contentId> route??
-
-# @contents.route("/pdfs/<pdfId>", methods=["DELETE"])
-# def pdfRemove(groupId, contentId, pdfId):
-#     content = db.Content.find({"_id": ObjectId(contentId)})
-#     content.pdfIds.remove(pdfId)
-#     db.Pdf.deleteOne({"_id": ObjectId(pdfId)})
-#     return "Content Deleted", 204
-#
-#
-# @contents.route("/<contentId>/videos/<videoId>", methods=["DELETE"])
-# def pdfRemove(groupId, contentId, videoId):
-#     content = db.Content.find({"_id": ObjectId(contentId)})
-#     content.videoIds.remove(videoId)
-#     db.Video.deleteOne({"_id": ObjectId(videoId)})
-#     return "Content Deleted", 204

@@ -6,7 +6,7 @@ from flask import (
     jsonify,
 )
 from flask_login import login_required, login_user, logout_user, current_user
-from hydra.users.utils import loadUser
+from hydra.users.utils import createToken, loadUserToken
 from hydra.users.user import User
 from hydra import db
 from passlib.hash import sha256_crypt
@@ -40,13 +40,29 @@ def signUp():
             "lastName": lastName,
             "email": email,
             "password": password,
+            "authToken": None,
         }
     )
     newUser = User(
-        signUpUser.inserted_id, firstName, lastName, email, password
+        signUpUser.inserted_id,
+        signUpUser.authToken,
+        firstName,
+        lastName,
+        email,
+        password,
     )
-
-    return dumps(newUser.id), 200
+    return (
+        dumps(
+            {
+                "userId": "newUser.id",
+                "authToken": None,
+                "firstName": newUser.firstName,
+                "lastName": newUser.lastName,
+                "email": newUser.email,
+            }
+        ),
+        200,
+    )
 
 
 @users.route("/signin", methods=["POST"])
@@ -54,23 +70,20 @@ def signIn():
     """Sign in user."""
     email = request.json.get("email")
     password = request.json.get("password")
-    user = db.users.find_one_or_404({"email": email})
-    if not user:
-        return (
-            jsonify({"msg": "There is no user associated with that email."}),
-            400,
-        )
-    if not sha256_crypt.verify(password, user["password"]):
-        return jsonify({"msg": "Incorrect password entered."}), 400
-    signInUser = User(
-        user["_id"],
-        user["firstName"],
-        user["lastName"],
-        user["email"],
-        user["password"],
+    authorizedUser = createToken(email, password)
+    login_user(authorizedUser[1])
+    return (
+        dumps(
+            {
+                "userId": authorizedUser[1].id,
+                "authToken": authorizedUser[1].authToken,
+                "firstName": authorizedUser[1].firstName,
+                "lastName": authorizedUser[1].lastName,
+                "email": authorizedUser[1].email,
+            }
+        ),
+        200,
     )
-    login_user(signInUser)
-    return dumps(signInUser.id), 200
 
 
 @users.route("/signout")
