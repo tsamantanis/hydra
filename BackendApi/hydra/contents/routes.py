@@ -2,7 +2,10 @@
 from flask import Blueprint, jsonify, request
 from hydra import db, app
 from os import path
-from hydra.contents.utils import createContent, patchContent, send_from_directory
+from hydra.contents.utils import (
+    createContent,
+    patchContent,
+)
 from bson.json_util import dumps
 from bson.objectid import ObjectId
 
@@ -34,7 +37,7 @@ def contentAll(groupId, channelId):
 
 
 @contents.route("/<contentId>", methods=["GET", "PATCH", "DELETE"])
-def contentId(groupId, contentId):
+def contentId(groupId, channelId, contentId):
     """
     Access content by id.
 
@@ -60,15 +63,16 @@ def contentId(groupId, contentId):
     if request.method == "PATCH":
         patchData = request.json
         patchFiles = request.files
-        jsonSet = {}
-        if contentData["dis"] is not None:
-            jsonSet["dis"] = contentData["dis"]
-        if contentData["url"] is not None:
-            jsonSet["url"] = contentData["url"]
-        db.Content.update({"_id": ObjectId(contentId)}, {"$set": jsonSet})
-        httpCode = 204
-    group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
-    content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
+        if patchData.get("pdfs"):
+            pdf = patchData.get("pdfs")
+            path = app.config["PDF_PATH"]
+            patchContent(pdf, patchData, patchFiles, path)
+        elif patchData.get("videos"):
+            video = patchData.get("videos")
+            path = app.config["VIDEO_PATH"]
+            patchContent(video, patchData, patchFiles, path)
+        group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
+        content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
     videos = [
         db.Video.find_one_or_404({"_id": ObjectId(videoId)})
         for videoId in content["videoIds"]
@@ -103,7 +107,7 @@ def contentId(groupId, contentId):
             for index, pdf in enumerate(pdfs)
         ],
     }
-    return dumps(data), httpCode
+    return dumps(data), 200
 
 
 @contents.route("/create", methods=["POST"])
@@ -157,7 +161,6 @@ def contentCreate(groupId, channelId):
 
 
 @contents.route("/<contentId>/pdfs/<pdfId>", methods=["DELETE", "PATCH"])
-# @jwt_required
 def pdfId(groupId, contentId, pdfId):
     if request.method == "DELETE":
         db.Pdf.deleteOne({"_id": ObjectId(pdfId)})
@@ -165,7 +168,7 @@ def pdfId(groupId, contentId, pdfId):
     if request.method == "PATCH":
         jsonSet = {}
         pdf = db.Pdf.find({"_id": ObjectId(pdfId)})
-        if request.json.get("tempFileId") != None:
+        if request.json.get("tempFileId") is not None:
             contentFile = request.files.get(request.json.get("tempFileId"))
             jsonSet["url"] = path.join(
                 app.config["PDF_PATH"],
@@ -175,14 +178,17 @@ def pdfId(groupId, contentId, pdfId):
                 ),
             )
             contentFile.save(jsonSet["url"])
-        elif request.json.get("url") != None:
+        elif request.json.get("url") is not None:
             jsonSet["url"] = request.json.get("url")
-        if request.json.get("dis") != None:
+        if request.json.get("dis") is not None:
             jsonSet["dis"] = request.json.get("dis")
-        db.Pdf.update({"_id": ObjectId(pdfId)}, {"$set": jsonSet})
+        db.Pdf.update_one({"_id": ObjectId(pdfId)}, {"$set": jsonSet})
     return "Patch Made", 200
     if request.method == "GET":
-        return send_from_directory(app.config["PDF_PATH"], "{0}.pdf".format(pdfId))
+        return send_from_directory(
+            app.config["PDF_PATH"], "{0}.pdf".format(pdfId)
+        )
+
 
 @contents.route("/<contentId>/videos/<videoId>", methods=["DELETE", "PATCH"])
 # @jwt_required
@@ -193,7 +199,7 @@ def videoId(groupId, contentId, videoId):
     if request.method == "PATCH":
         jsonSet = {}
         video = db.Video.find({"_id": ObjectId(videoId)})
-        if request.json.get("tempFileId") != None:
+        if request.json.get("tempFileId") is not None:
             contentFile = request.files.get(request.json.get("tempFileId"))
             jsonSet["url"] = path.join(
                 app.config["VIDEO_PATH"],
@@ -203,18 +209,24 @@ def videoId(groupId, contentId, videoId):
                 ),
             )
             contentFile.save(jsonSet["url"])
-        elif request.json.get("url") != None:
+        elif request.json.get("url") is not None:
             jsonSet["url"] = request.json.get("url")
-        if request.json.get("dis") != None:
+        if request.json.get("dis") is not None:
             jsonSet["dis"] = request.json.get("dis")
         db.Video.update({"_id": ObjectId(videoId)}, {"$set": jsonSet})
     return "Patch Made", 200
     if request.method == "GET":
-        return send_from_directory(app.config["VIDEO_PATH"], "{0}.mp4".format(videoId))
+        return send_from_directory(
+            app.config["VIDEO_PATH"], "{0}.mp4".format(videoId)
+        )
+
+
+# TODO: Test more when file upload is supported on the front end
+
 
 @contents.route("/<contentId>/videos/add", methods=["POST"])
-# @jwt_required
 def videoAdd(groupId, contentId):
+    """Add singular video to channel content."""
     jsonSet = {}
     content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
     postFiles = request.files
@@ -235,11 +247,12 @@ def videoAdd(groupId, contentId):
         )
         contentFile.save(jsonSet["url"])
     db.Video.update({"_id": ObjectId(video["_id"])}, {"$set": jsonSet})
+    return jsonify({"msg": "Your video has been added!"}), 200
 
 
 @contents.route("/<contentId>/pdfs/add", methods=["POST"])
-# @jwt_required
 def pdfAdd(groupId, contentId):
+    """Add single pdf document to channel content."""
     jsonSet = {}
     content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
     postFiles = request.files
@@ -260,3 +273,4 @@ def pdfAdd(groupId, contentId):
         )
         contentFile.save(jsonSet["url"])
     db.Pdf.update({"_id": ObjectId(pdf["_id"])}, {"$set": jsonSet})
+    return jsonify({"msg": "Your document has been added!"}), 200
