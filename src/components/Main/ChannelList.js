@@ -18,7 +18,7 @@ class ChannelList extends Component {
     getChannels = () => {
         api({
             method: 'GET',
-            url: '/groups/1/channels'
+            url: '/groups/5f83e890d1bf28e13820a756/channels'
         })
         .then(function (response) {
             console.log(response)
@@ -26,12 +26,6 @@ class ChannelList extends Component {
         .catch(function (error) {
             console.log(error)
         })
-        // api.get('/groups/1/channels').then(function (response) {
-        //     console.log(response)
-        // })
-        // .catch(function (error) {
-        //     console.log(error)
-        // })
     }
 
 
@@ -42,13 +36,17 @@ class ChannelList extends Component {
                 <ChannelGroup
                     channelLabel='Lectures'
                     channelNames={this.state.channels.map((channel) => {
-                        return ""
+                        return (
+                            <h6>{channel.name}</h6>
+                        )
                     })}
                 />
                 <ChannelGroup
                     channelLabel='Assignments'
                     channelNames={this.state.channels.map((channel) => {
-                        return ""
+                        return (
+                            <h6>{channel.name}</h6>
+                        )
                     })}
                 />
             </>
