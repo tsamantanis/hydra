@@ -5,17 +5,12 @@ from flask import (
     url_for,
     jsonify,
 )
-from flask_jwt_extended import (
-    jwt_required,
-    create_access_token,
-    get_jwt_identity,
-    get_raw_jwt,
-)
-
-from hydra.users.utils import userLoaderCallback, sendResetEmail
+from flask_login import login_required, login_user, logout_user, current_user
+from hydra.users.utils import loadUser
 from hydra.users.user import User
-from hydra import db, jwt
+from hydra import db
 from passlib.hash import sha256_crypt
+from bson.json_util import dumps
 import stripe
 
 users = Blueprint("users", __name__)
@@ -27,14 +22,7 @@ users = Blueprint("users", __name__)
 # improve on later
 
 
-@jwt.token_in_blacklist_loader
-def checkIfTokenInBlacklist(decryptedToken):
-    """Check if token is in blacklist. Return blacklisted token."""
-    jti = decryptedToken["jti"]
-    return jti in db.blacklist.find_all({"decrypt": jti})
-
-
-# TODO: re-implement password hashing after debugging
+#  TODO: do we need to return user to front end after sign up?
 
 
 @users.route("/signup", methods=["GET", "POST"])
@@ -46,15 +34,19 @@ def signUp():
     lastName = request.json.get("lastName")
     email = request.json.get("email")
     password = sha256_crypt.hash(request.json.get("password"))
-    newUser = User(123, firstName, lastName, email, password)
-    insertUser = {
-        "firstName": newUser.firstName,
-        "lastName": newUser.lastName,
-        "email": newUser.email,
-        "password": newUser.password,
-    }
-    signUpUser = db.users.insert_one(insertUser)
-    return jsonify({"msg": "Sign Up successful."}), 200
+    signUpUser = db.users.insert_one(
+        {
+            "firstName": firstName,
+            "lastName": lastName,
+            "email": email,
+            "password": password,
+        }
+    )
+    newUser = User(
+        signUpUser.inserted_id, firstName, lastName, email, password
+    )
+
+    return dumps(newUser.id), 200
 
 
 @users.route("/signin", methods=["POST"])
@@ -70,74 +62,72 @@ def signIn():
         )
     if not sha256_crypt.verify(password, user["password"]):
         return jsonify({"msg": "Incorrect password entered."}), 400
-    userIdToString = str(user["_id"])
-    accessToken = create_access_token(identity=userIdToString)
-    return jsonify({"accessToken": accessToken}), 200
+    signInUser = User(
+        user["_id"],
+        user["firstName"],
+        user["lastName"],
+        user["email"],
+        user["password"],
+    )
+    login_user(signInUser)
+    return dumps(signInUser.id), 200
 
 
-# Revoke current user token, logging them out.
 @users.route("/signout")
-@jwt_required
+@login_required
 def signOut():
     """Allow user to sign out."""
-    jti = get_raw_jwt()["jti"]
-    db.blacklist.insert_one(jti)
+    if current_user.is_authenticated:
+        logout_user()
     return jsonify({"msg": "Successfully logged out."}), 200
 
 
 # TODO: further testing on this route
 @users.route("/<user_id>", methods=["GET", "PUT", "POST"])
-@jwt_required
+@login_required
 def userProfile(user_id):
     """Provide data for user profile, editable by the user."""
-    print("In user profile end")
-    currentUser = get_jwt_identity()
-    print(f"Current user after calling get identity {currentUser}")
-    currentUser = userLoaderCallback(user_id)
-    print(f"Current user after calling user loader cb {currentUser}")
     if request.method == "GET":
         return jsonify(
-            email=currentUser.email,
-            firstName=currentUser.firstName,
-            lastName=currentUser.lastName,
-            bio=currentUser.bio,
+            email=current_user.email,
+            firstName=current_user.firstName,
+            lastName=current_user.lastName,
         )
     if request.method == "PUT":
-        jsonSet = {}
-        if request.json.get("bio") != None:
-            jsonSet["firstName"] = request.json.get("firstName")
-        if request.json.get("bio") != None:
-            jsonSet["lastName"] = request.json.get("lastName")
-        if request.json.get("bio") != None:
-            jsonSet["email"] = request.json.get("email")
-        if request.json.get("bio") != None:
-            jsonSet["password"] = request.json.get("password")
-        if request.json.get("bio") != None:
-            jsonSet["bio"] = request.json.get("bio")
-
-        db.User.update(
-                    { '_id': currentUser['_id'] },
-                    { '$set':
-                        jsonSet
-                    }
-                )
-        return 'User Updated', 200
+        newFirstName = request.json.get("firstName")
+        newLastName = request.json.get("lastName")
+        newEmail = request.json.get("email")
+        updated_user = db.users.update(
+            {"_id": current_user.id},
+            {
+                "$set": {
+                    "firstName": newFirstName,
+                    "lastName": newLastName,
+                    "email": newEmail,
+                }
+            },
+        )
+        return jsonify(
+            {
+                "firstName": newFirstName,
+                "lastName": newLastName,
+                "email": newEmail,
+            }
+        )
     if request.method == "POST":
         # TODO: handle image uploading
         pass
 
 
 @users.route("/payments")
-@jwt_required
+@login_required
 def userPayments():
     """
     Return user payment methods stored through Stripe.
 
     Segment of payment info revealed to us through Stripe API for UI.
     """
-    currentUser = get_jwt_identity()
-    userLoaderCallback(currentUser)
-    return stripe.paymentMethod.retrieve(f"{currentUser.stripeId}")
+    return stripe.paymentMethod.retrieve(f"{current_user.stripeId}")
 
 
 # TODO: update values based on client side input/form (stripe specific?)
@@ -145,45 +135,44 @@ def userPayments():
 
 
 @users.route("/addpayment", methods=["POST"])
-@jwt_required
+@login_required
 def userAddPayment():
     """Allow user to add payment method for subscription."""
-    currentUser = get_jwt_identity()
-    userLoaderCallback(currentUser)
-    number = request.json.get("number")
-    expMonth = request.json.get("country")
-    cardNumber = request.json.get("line1")
-    expMonth = request.json.get("line2")
     cardNumber = request.json.get("cardNumber")
     expMonth = request.json.get("expMonth")
+    expYear = request.json.get("expYear")
+    cvc = request.json.get("cvc")
+    addressCity = request.json.get("city")
+    addressCountry = request.json.get("country")
+    addressLineOne = request.json.get("lineOne")
+    addressLineTwo = request.json.get("lineTwo", None)
+    postalCode = request.json.get("postalCode")
+    state = request.json.get("state")
     stripe.PaymentMethod.create(
         type="card",
         card={
-            "number": request.json.get("number"),
-            "exp_month": request.json.get("exp_month"),
-            "exp_year": request.json.get("exp_year"),
-            "cvc": request.json.get("cvc"),
+            "number": {{cardNumber}},
+            "exp_month": {{expMonth}},
+            "exp_year": {{expYear}},
+            "cvc": {{cvc}},
         },
         billing_details={
             "address": {
-                "city": request.json.get("city"),
-                "country": request.json.get("country"),
-                "line1": request.json.get("address").get('line1'),
-                "line2": request.json.get("address").get('line2'),
-                "postal_code": request.json.get("address").get('postal_code'),
-                "state": request.json.get("address").get('state')
+                "city": {{addressCity}},
+                "country": {{addressCountry}},
+                "line1": {{addressLineOne}},
+                "line2": {{addressLineTwo}},
+                "postal_code": {{postalCode}},
+                "state": {{state}},
             },
-            "name": request.json.get("name"),
+            "email": {{current_user.email}},
+            "name": {{current_user.name}},
         },
     )
     return stripe.paymentMethod, 200
 
 
 # User requests reset token
-
-# TODO: More testing on this route. I
-# Literally do not understand why I'm getting an error
-# from sign in on this route. fix tomorrow.
 
 
 @users.route("/passwordreset/sendtoken", methods=["POST"])
