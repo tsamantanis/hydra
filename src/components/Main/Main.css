@@ -21,7 +21,7 @@
 
 .Main .Nav {
     align-items: center;
-    background-color: var(--dark);
+    background: var(--gradient-desat);
     flex-basis: 8%;
     padding: 18px 0;
 }
@@ -68,16 +68,18 @@
 
 .Main .Channels {
     align-items: flex-start;
-    background-color: var(--darkAccent);
-    color: var(--light);
+    background-color: white;
+    color: var(--darkAccent);
     flex-basis: 17%;
+    border: 2px solid var(--accent-desat);
 }
 
 .Main .Channels-lg {
     align-items: flex-start;
-    background-color: var(--darkAccent);
-    color: var(--light);
+    background-color: white;
+    color: var(--darkAccent);
     flex-basis: 23% !important;
+    border: 2px solid var(--accent-desat);
 }
 
 .Main .Channels h1 {
@@ -87,7 +89,7 @@
 }
 
 .Main .Channels hr {
-    border: 1px solid var(--accent);
+    border: 1px solid var(--accent-desat);
     height: 0;
     width: 100%;
 }
@@ -106,8 +108,8 @@
 /* Header Toolbar */
 
 .Main .HeaderToolbar {
-    background-color: var(--darkAccent);
-    border-bottom: 2px solid var(--accent);
+    background-color: white;
+    border-bottom: 2px solid var(--accent-desat);
     align-items: flex-start;
     flex-direction: row;
     display: flex;
@@ -119,7 +121,7 @@
 
 .Main .HeaderToolbar a {
     display: flex;
-    color: var(--light);
+    color: var(--darkAccent);
     font-weight: bold;
     font-size: 10px;
     text-decoration: none;
@@ -142,21 +144,21 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: var(--light);
+    background-color: white;
     flex-basis: 55%;
 }
 
 .Main .Feed-lg {
     align-items: center;
-    background-color: var(--light);
+    background-color: white;
     flex-basis: 74% !important;
 }
 
 /* Header Feed Toolbar */
 
 .Main .Feed .HeaderToolbar {
-    background-color: var(--darkAccent);
-    border-bottom: 2px solid var(--accent);
+    background-color: white;
+    border-bottom: 2px solid var(--accent-desat);
     align-items: flex-start;
     flex-direction: row;
     flex-basis: 11.6%;
@@ -168,7 +170,7 @@
 
 .Main .Feed .HeaderToolbar a {
     display: flex;
-    color: var(--light);
+    color: var(--darkAccent);
     font-weight: bold;
     font-size: 10px;
     text-decoration: none;
@@ -215,7 +217,7 @@
 
 .Main .CreatePost {
     align-items: center;
-    background-color: var(--light);
+    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -225,7 +227,7 @@
 
 .Main .CreatePost .NewPostMessage {
     background: transparent;
-    border: 2px solid var(--accent);
+    border: 2px solid var(--accent-desat);
     border-radius: 10px;
     box-shadow: 0 0 3px 0 var(--dark);
     color: var(--darkAccent);
@@ -251,9 +253,10 @@
 
 .Main .Users {
     align-items: flex-start;
-    background-color: var(--darkAccent);
-    color: var(--light);
+    background-color: white;
+    color: var(--darkAccent);
     flex-basis: 20%;
+    border: 2px solid var(--accent-desat);
 }
 
 .Main .Users h1 {
@@ -263,7 +266,8 @@
 }
 
 .Main .Users hr {
-    border: 1px solid var(--accent);
+    margin-top: 29px;
+    border: 1px solid var(--accent-desat);
     height: 0;
     width: 100%;
 }
@@ -330,7 +334,7 @@
 }
 
 .Main .Users .UserItem .User .UserStatus {
-    color: var(--lightAccent);
+    color: var(--primary-desat);
 }
 
 .Main .Users .UserItem .User .UserStatus p {
