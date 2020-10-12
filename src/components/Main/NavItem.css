@@ -7,7 +7,7 @@
 }
 
 .NavItem:hover {
-    border: 3px solid var(--lightAccent);
+    border: 3px solid white;
     border-radius: 10px;
     cursor: pointer;
     height: 60px;

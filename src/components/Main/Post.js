@@ -24,7 +24,7 @@ class Post extends Component {
                 </div>
                 <div className='PostContent'>
                     <div className='PostMessage m-b-10'>
-                        <p>{item.message}</p>
+                        <p className="small">{item.message}</p>
                     </div>
                     <div className='PostImage m-b-20' />
                 </div>

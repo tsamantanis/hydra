@@ -5,6 +5,10 @@
   --lightAccent: #C7D8E3;
   --dark: #2C4251;
   --darkAccent: #3D6988;
+  --primary-desat: rgba(78, 71, 255, 0.2);
+  --accent-desat: rgba(28, 160, 222, 0.3);
+  --gradient-desat: linear-gradient(180deg, rgba(94, 252, 141, 0.3) 0%, rgba(12, 188, 211, 0.3) 43.23%, rgba(28, 160, 222, 0.3) 56.77%, rgba(38, 143, 228, 0.3) 65.1%, rgba(78, 71, 255, 0.3) 100%);
+
   overflow-x: hidden;
   overflow-y: hidden;
 }

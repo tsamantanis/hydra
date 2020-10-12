@@ -1,6 +1,6 @@
 .SearchBar {
     align-items: center;
-    background-color: var(--darkAccent);
+    background-color: white;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -10,7 +10,7 @@
 
 .Feed-lg .SearchBar {
     align-items: center;
-    background-color: var(--darkAccent);
+    background-color: white;
     display: flex;
     flex-direction: column;
     height: auto;
@@ -19,24 +19,24 @@
 }
 
 .SearchBar form {
-    height: 40px;
+    height: 42px;
     width: 100%;
 }
 
 .SearchBar form input[type=text] {
-    background-color: var(--darkAccent);
-    border: 2px solid var(--light);
-    color: var(--light);
+    background-color: white;
+    border: 2px solid var(--accent-desat);
+    color: var(--darkAccent);
     height: 40px;
     width: 80%;
 }
 
 .SearchBar form input[type=text]::placeholder {
-    color: var(--light);
+    color: var(--darkAccent);
 }
 
 .SearchBar form input[type=text]:hover {
-    background-color: white;
+    background-color: rgba(28, 160, 222, 0.1);
     border: 2px solid var(--accent);
     color: var(--darkAccent);
     outline: none;
