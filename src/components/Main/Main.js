@@ -28,10 +28,10 @@ class Main extends Component {
         if (message) {
             api({
                 method: 'POST',
-                url: '/groups/1/channels/1',
+                url: '/groups/5f83e890d1bf28e13820a756/contents/create',
                 data: {
-                    "user_id": 1,
-                    "message": message
+                    "name": "New Post",
+                    "dis": message
                 },
             })
             .then(function (response) {
@@ -45,12 +45,10 @@ class Main extends Component {
         }
     }
 
-    submitOnEnter(event) {
+    postOnEnter(event) {
         if (event.which === 13 && !event.shiftKey) {
-            event.target.form.dispatchEvent(new Event("submit", {cancelable: true}))
-            event.preventDefault()
-        } else if (event.which === 13) {
             this.createPost()
+            event.preventDefault()
         }
     }
 
@@ -106,7 +104,7 @@ class Main extends Component {
                         })}
                     </div>
                     <div className='CreatePost m-0'>
-                        <textarea className="NewPostMessage" id="NewPostMessage" placeholder='Message class_name' rows="3" onKeyPress={this.submitOnEnter} />
+                        <textarea className="NewPostMessage" id="NewPostMessage" placeholder='Message class_name' rows="3" onKeyPress={this.postOnEnter.bind(this)} />
                     </div>
                 </div>
                 { this.state.showCommunity ?
