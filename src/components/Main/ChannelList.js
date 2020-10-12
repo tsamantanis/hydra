@@ -21,7 +21,9 @@ class ChannelList extends Component {
             url: '/groups/5f83e890d1bf28e13820a756/channels'
         })
         .then(function (response) {
-            console.log(response)
+            for (const channel in response) {
+                this.state.channels.push(channel)
+            }
         })
         .catch(function (error) {
             console.log(error)
