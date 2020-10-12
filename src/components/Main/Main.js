@@ -78,7 +78,6 @@ class Main extends Component {
     }
 
     render () {
-        console.log(localStorage.getItem('token'));
         let posts = ["Post", "Post", "Post"]
         return (
             <div className='Main'>

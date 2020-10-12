@@ -3,7 +3,7 @@ from os import path
 
 from bson.json_util import dumps
 from bson.objectid import ObjectId
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, send_from_directory
 from hydra import app, db
 
 assignments = Blueprint("assignments", __name__)
@@ -149,7 +149,7 @@ def assignmentCreate(groupId):
 
 
 
-@assignments.route("/<assignmentId>/pdfs/<pdfId>", methods=["DELETE", "PATCH"])
+@assignments.route("/<assignmentId>/pdfs/<pdfId>", methods=["DELETE", "PATCH", "GET"])
 # @jwt_required
 def pdfId(groupId, assignmentId, pdfId):
     if request.method == "DELETE":
@@ -161,7 +161,7 @@ def pdfId(groupId, assignmentId, pdfId):
         if request.json.get('tempFileId') != None:
             contentFile = request.files.get(request.json.get('tempFileId'))
             jsonSet["url"] = path.join(
-                path,
+                app.config["PDF_PATH"],
                 "{0}.{1}".format(
                     {pdf["_id"]},
                     contentFile.filename.split(".")[-1],
@@ -175,9 +175,9 @@ def pdfId(groupId, assignmentId, pdfId):
         db.Pdf.update(
             {"_id":  ObjectId(pdfId)}, {"$set": jsonSet}
         )
-    return "Patch Made", 200
-
-
+        return "Patch Made", 200
+    if request.method == "GET":
+        return send_from_directory(app.config["PDF_PATH"], "{0}.pdf".format(pdfId))
 
 @assignments.route("/<assignmentId>/pdfs/add", methods=["POST"])
 # @jwt_required
@@ -194,7 +194,7 @@ def pdfAdd(groupId, assignmentId):
     elif postFiles.get(request.json.get("tempFileId")) is not None:
         contentFile = postFiles.get(request.json.get("tempFileId"))
         jsonSet["url"] = path.join(
-            path,
+            app.config["PDF_PATH"],
             "{0}.{1}".format(
                 {pdf["_id"]},
                 contentFile.filename.split(".")[-1],

@@ -58,7 +58,7 @@ class Discover extends Component {
                 return searchable.toLowerCase().includes(term);
             })
         })
-console.log(this.state.groups);
+
         return (
             <div className="container discover" style={{backgroundImage: 'url('+ellipse+')', backgroundSize: "cover"}}>
                 <div className="row">
