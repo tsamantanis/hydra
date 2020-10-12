@@ -20,7 +20,7 @@
 }
 
 .ChannelSection .ChannelTitle a {
-    color: var(--light);
+    color: var(--darkAccent);
     font-weight: bold;
     font-size: 20px;
     text-decoration: none;
@@ -46,7 +46,7 @@
 
 .ChannelSection .ChannelItem:hover,
 .ChannelSection>.activeChannel {
-    background-color: var(--accent);
+    background-color: var(--accent-desat);
     border-radius: 5px;
     cursor: pointer;
     min-height: 30px;
