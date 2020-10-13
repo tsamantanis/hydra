@@ -9,7 +9,7 @@ import os
 
 groups = Blueprint("groups", __name__)
 
-
+stripe.api_key = "sk_test_51AQPwCHlrGbOVNVCu63XWCFDErvBRpBjUzQP825hGTcPvye0Eg0Lf4kOJW4mvEaHw7lSVxIpCOQRh887RGB74RRB00y5XZrF75"
 @groups.route("", methods=["GET"])
 def allGroups():
     """Show all groups to users, enable search on client."""
@@ -172,21 +172,21 @@ def groupIdJoin(groupId):
     ):
         return jsonify({"msg": "Already Enrolled"}), 200
     postData = request.json
-    group = db.Group.find({"_id": ObjectId(groupId)})
+    group = db.Group.find_one({"_id": ObjectId(groupId)})
     if group is None:
         return jsonify({"msg": "Group Not Found"}), 404
-    priceSubscriptionObject = stripe.Subscription.create(
-        customer=current_user.stripeId,
-        items=[
-            {"price": group["stripePriceId"]},
-        ],
-        defaultPaymentMethod=postData.paymentMethodId,
-    )
-    if priceSubscriptionObject.get("status") == "active":
-        group.enrolledId.append(current_user.id)
-        current_user.enrolledGroups.append(group["_id"])
-        return jsonify({"msg": "Group Joined"}), 200
-    return jsonify({"msg": "Error"}), 200
+    # priceSubscriptionObject = stripe.Subscription.create(
+    #     customer=current_user.stripeId,
+    #     items=[
+    #         {"price": group["stripePriceId"]},
+    #     ],
+    #     defaultPaymentMethod=postData.paymentMethodId,
+    # )
+    # if priceSubscriptionObject.get("status") == "active":
+    group['enrolledIds'].append(current_user.id)
+    current_user.enrolledGroups.append(group["_id"])
+    return jsonify({"msg": "Group Joined"}), 200
+    # return jsonify({"msg": "Error"}), 200
 
 
 @groups.route("/<groupId>/leave", methods=["POST"])
@@ -198,18 +198,18 @@ def groupIdLeave(groupId):
         or groupId not in current_user.ownedGroups
     ):
         return jsonify({"msg": "Not Enrolled"}), 200
-    group = db.Group.find({"_id": ObjectId(groupId)})
+    group = db.Group.find_one({"_id": ObjectId(groupId)})
     if group is None:
         return jsonify({"msg": "Group Not Found"}), 404
-    UserSectionData = {}
-    for group in current_user.enrolledGroups:
-        if group.get(groupId) == group["_id"]:
-            UserSectionData = group
-    priceSubscriptionObject = stripe.Subscription.delete(
-        UserSectionData.get("stripeSubscriptionId")
-    )
-    if priceSubscriptionObject.get("status") == "canceled":
-        group.enrolledId.remove(current_user.id)
-        current_user.enrolledGroups.remove(group["_id"])
-        return jsonify({"msg": "Group Left"}), 200
-    return jsonify({"msg": "Error"}), 200
+    # UserSectionData = {}
+    # for group in current_user.enrolledGroups:
+    #     if group.get(groupId) == group["_id"]:
+    #         UserSectionData = group
+    # priceSubscriptionObject = stripe.Subscription.delete(
+    #     UserSectionData.get("stripeSubscriptionId")
+    # )
+    # if priceSubscriptionObject.get("status") == "canceled":
+    group['enrolledIds'].remove(current_user.id)
+    current_user.enrolledGroups.remove(group["_id"])
+    return jsonify({"msg": "Group Left"}), 200
+    # return jsonify({"msg": "Error"}), 200
