@@ -52,20 +52,20 @@ def UserSections():
             "enrolledIds": [
                 {str(index): enrolledId}
                 for index, enrolledId in enumerate(group["enrolledIds"])
-            ],
+            ] or None,
             "contentIds": [
                 {str(index): contentId}
                 for index, contentId in enumerate(group["contentIds"])
-            ],
+            ] or None,
             "assignmentIds": [
                 {str(index): assignmentId}
                 for index, assignmentId in enumerate(group["assignmentIds"])
-            ],
+            ] or None,
             "dis": group["dis"],
             "keywords": [
                 {str(index): keyword}
                 for index, keyword in enumerate(group["keywords"])
-            ],
+            ] or None,
         }
         for group in groups
     ]
@@ -146,7 +146,7 @@ def groupIdJoin(groupId):
     group = db.Group.find_one({"_id": ObjectId(groupId)})
     user = db.users.find_one({"_id": ObjectId(current_user.id)})
     if group is not None:
-        if group['enrolledIds'] is None:
+        if not group['enrolledIds']:
             updatedGroup = db.Group.update_one({'_id': group['_id']}, {"$set": {
                 "enrolledIds": [user['_id']]
             }})
@@ -154,14 +154,14 @@ def groupIdJoin(groupId):
             updatedGroup = db.Group.update_one({'_id': group['_id']}, {"$set": {
                 "enrolledIds": group['enrolledIds'].append(user['_id'])
             }})
-        if user['enrolledGroups'] is None:
+        if not user['enrolledGroups']:
             updatedUser = db.users.update_one({'_id': user['_id']}, {
                 "$set": {
                     "enrolledGroups": [group['_id']]
                 }
             })
         else:
-            updatedGroup = db.users.update_one({'_id': group['_id']}, {
+            updatedUser = db.users.update_one({'_id': group['_id']}, {
                 "$set": {
                     "enrolledIds": user['enrolledGroups'].append(group['_id'])
                     }
