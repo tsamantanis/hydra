@@ -132,7 +132,7 @@ def assignmentCreate(groupId):
             "maxGrade": postData.get("maxGrade"),
             "dueDate": postData.get("dueDate"),
             "startDate": postData.get("startDate"),
-            "pdfs": [],
+            "text": postData.get("startDate"),
         }
     )
     db.channels.insert_one(
@@ -147,65 +147,11 @@ def assignmentCreate(groupId):
     assignment = db.Assignment.find_one({"_id": ObjectId(getId)})
     print(f"Assignment {assignment}")
 
-    if postData.get("pdfs"):
-        for pdfData in postData.get("pdfs"):
-            print(f"pdfs {postData.get('pdfs')}")
-            jsonSet = {}
-            if pdfData["dis"] is not None:
-                jsonSet["dis"] = pdfData["dis"]
-            if pdfData["url"] is not None:
-                jsonSet["url"] = pdfData["url"]
-            elif postFiles.get(pdfData["tempFileId"]) is not None:
-                pdfFile = postFiles.get(pdfData["tempFileId"])
-                jsonSet["url"] = path.join(
-                    app.config["PDF_PATH"],
-                    "{0}.{1}".format(
-                        {pdfData["_id"]}, pdfFile.filename.split(".")[-1]
-                    ),
-                )
-                pdfFile.save(jsonSet["url"])
-                print("Pdf saved")
-            else:
-                createdPdf = db.Pdf.insert(jsonSet)
-                print(f"Created PDF {createdPdf}")
-                assignment["pdfIds"].append(createdPdf["_id"])
     group = db.Group.find_one({"_id": ObjectId(groupId)})
     print(f"Group from EOF: {group}")
     group["assignmentIds"].append(assignment["_id"])
     print(f"Group assignmentIds after append: {group['assignmentIds']}")
     return jsonify({"msg": "Your assignment has been created."}), 200
-
-
-@assignments.route(
-    "/<assignmentId>/<channelId>/pdfs/<pdfId>", methods=["DELETE", "PATCH", "GET"]
-)
-def pdfId(groupId, assignmentId, channelId, pdfId):
-    if request.method == "DELETE":
-        db.Pdf.deleteOne({"_id": ObjectId(pdfId)})
-        return "PDF Deleted", 204
-    if request.method == "PATCH":
-        jsonSet = {}
-        pdf = db.Pdf.find({"_id": ObjectId(pdfId)})
-        if request.json.get("tempFileId") != None:
-            contentFile = request.files.get(request.json.get("tempFileId"))
-            jsonSet["url"] = path.join(
-                app.config["PDF_PATH"],
-                "{0}.{1}".format(
-                    {pdf["_id"]},
-                    contentFile.filename.split(".")[-1],
-                ),
-            )
-            contentFile.save(jsonSet["url"])
-        elif request.json.get("url") != None:
-            jsonSet["url"] = request.json.get("url")
-        if request.json.get("dis") != None:
-            jsonSet["dis"] = request.json.get("dis")
-        db.Pdf.update({"_id": ObjectId(pdfId)}, {"$set": jsonSet})
-        return "Patch Made", 200
-    if request.method == "GET":
-        return send_from_directory(
-            app.config["PDF_PATH"], "{0}.pdf".format(pdfId)
-        )
 
 
 @assignments.route("/<assignmentId>/<channelId>/pdfs/add", methods=["POST"])
