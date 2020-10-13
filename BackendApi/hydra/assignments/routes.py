@@ -68,7 +68,7 @@ def contentId(groupId, assignmentId, channelId):
     elif request.method == "PATCH":
         patchData = request.json
         patchFiles = request.files
-        
+
         return jsonify(
             {"msg": "No files associated with this assignment."}
         )
@@ -79,6 +79,14 @@ def assignmentCreate(groupId):
     """Create assignment and add to database. Return success message."""
     postData = request.json
     postFiles = request.files
+    new_channel = db.channels.insert_one(
+            {
+                "name": postData.get("name"),
+                "dis": postData.get("dis"),
+                "category": "assignments",
+                "groupId": groupId,
+            }
+        )
     insertAssignment = db.Assignment.insert_one(
         {
             "name": postData.get("name"),
@@ -86,17 +94,11 @@ def assignmentCreate(groupId):
             "maxGrade": postData.get("maxGrade"),
             "dueDate": postData.get("dueDate"),
             "startDate": postData.get("startDate"),
-            "text": postData.get("text"),
+            "url": postData.get("url"),
+            "channelId": str(new_channel.inserted_id)
         }
     )
-    db.channels.insert_one(
-        {
-            "name": postData.get("name"),
-            "dis": postData.get("dis"),
-            "category": "Assignments",
-            "groupId": groupId,
-        }
-    )
+
     getId = insertAssignment.inserted_id
     assignment = db.Assignment.find_one({"_id": ObjectId(getId)})
     print(f"Assignment {assignment}")
