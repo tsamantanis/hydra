@@ -57,6 +57,7 @@ def UserSections():
         }
         for group in groups
     ]
+    print(dumps(data))
     return dumps(data), 200
 
 
