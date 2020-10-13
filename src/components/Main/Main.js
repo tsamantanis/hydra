@@ -68,13 +68,17 @@ class Main extends Component {
     }
 
     getAllUsersGroups = () => {
-        // This will get all the groups of the current user so they can be displayed as NavItems
+        const _this = this
         api({
             method: 'GET',
             url: '/groups/yourgroups'
         })
         .then(function (response) {
             console.log(response.data)
+            for (const group in response.data) {
+                console.log(group)
+                // this.setState({groups: [this.state.groups, group]})
+            }
         })
         .catch(function (error) {
             console.log(error)
