@@ -16,9 +16,7 @@ def allGroups():
     """Show all groups to users, enable search on client."""
     groups = db.Group.find({})
     groupData = []
-    print(f"Getting data: {groups}")
     for group in groups:
-        print(group)
         groupData.append(
             {
                 "_id": str(group["_id"]),
@@ -39,11 +37,8 @@ def UserSections():
     """Show all groups to current user's enrolled groups."""
     groups = []
     user = db.users.find_one({"_id": ObjectId(current_user.id)})
-    print(f"user {user}")
-    print(user["enrolledGroups"])
     for groups in user["enrolledGroups"]:
         groups = db.Group.find({})
-    print(groups)
     data = [
         {
             "name": group["name"],
@@ -103,7 +98,6 @@ def groupSearch():
     for word in params:
         groups.append(db.Group.find_one_or_404({"$text": {"$search": word}}))
     groups
-    print(groups)
     data = [
         {
             "name": group["_id"],
