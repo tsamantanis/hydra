@@ -164,9 +164,10 @@ def groupIdJoin(groupId):
     group = db.Group.find_one({"_id": ObjectId(groupId)})
     user = db.users.find_one({"_id": ObjectId(current_user.id)})
     if group is not None:
-        updatedGroup = db.Group.update_one({'_id': group['_id']}, {"$set": {
-            "enrolledIds": group['enrolledIds'].append(user['_id'])
-        }})
+        # updatedGroup = db.Group.update_one({'_id': group['_id']}, {"$set": {
+        #     "enrolledIds": group['enrolledIds'].append(user['_id'])
+        # }})
+        print(user['enrolledgroups'])
         updatedUser = db.users.update_one({'_id': user['_id']}, {
             "$set": {
                 "enrolledGroups": user['enrolledGroups'].append(group['_id'])
@@ -189,18 +190,18 @@ def groupIdLeave(groupId):
         or groupId not in current_user.ownedGroups
     ):
         return jsonify({"msg": "Not Enrolled"}), 200
-    group = db.Group.find({"_id": ObjectId(groupId)})
+    group = db.Group.find_one({"_id": ObjectId(groupId)})
     if group is None:
         return jsonify({"msg": "Group Not Found"}), 404
-    UserSectionData = {}
-    for group in current_user.enrolledGroups:
-        if group.get(groupId) == group["_id"]:
-            UserSectionData = group
-    priceSubscriptionObject = stripe.Subscription.delete(
-        UserSectionData.get("stripeSubscriptionId")
-    )
-    if priceSubscriptionObject.get("status") == "canceled":
-        group.enrolledId.remove(current_user.id)
-        current_user.enrolledGroups.remove(group["_id"])
-        return jsonify({"msg": "Group Left"}), 200
-    return jsonify({"msg": "Error"}), 200
+    # UserSectionData = {}
+    # for group in current_user.enrolledGroups:
+    #     if group.get(groupId) == group["_id"]:
+    #         UserSectionData = group
+    # priceSubscriptionObject = stripe.Subscription.delete(
+    #     UserSectionData.get("stripeSubscriptionId")
+    # )
+    # if priceSubscriptionObject.get("status") == "canceled":
+    group['enrolledIds'].remove(current_user.id)
+    current_user.enrolledGroups.remove(group["_id"])
+    return jsonify({"msg": "Group Left"}), 200
+    # return jsonify({"msg": "Error"}), 200

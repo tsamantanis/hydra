@@ -12,10 +12,10 @@ from bson.objectid import ObjectId
 
 contents = Blueprint("contents", __name__)
 
-# base path /groups/<groupId>/channels/<channelId>/contents
+# base path /groups/<groupId>/channels/contents
 
 
-@contents.route("", methods=["GET"])
+@contents.route("/<channelId>", methods=["GET"])
 def contentAll(groupId, channelId):
     """Show contents for group id. Return as data to front end."""
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
@@ -31,9 +31,13 @@ def contentAll(groupId, channelId):
             "channelId": content["channelId"],
             "name": content["name"],
             "dis": content["dis"],
+<<<<<<< HEAD
+            "ownerName" : ["{0} {1}".format(owner['firstname'], owner['lastname']) if owner is not None else ""]
+=======
             "text" : content["text"],
             "url" : content["url"],
             "ownerName" : ["{0} {1}".format(owner['firstname'], owner['lastname']) if owner != None else ""]
+>>>>>>> cd1804d22834ebc5efd8bbbef04e582f20c96dba
         }
         for content in contents
     ]
@@ -41,8 +45,8 @@ def contentAll(groupId, channelId):
     return dumps(data), 200
 
 
-@contents.route("/<contentId>", methods=["GET", "PATCH", "DELETE"])
-def contentId(groupId, channelId, contentId):
+@contents.route("/<contentId>/<channelId>", methods=["GET", "PATCH", "DELETE"])
+def contentId(groupId, contentId, channelId):
     """
     Access content by id.
 
@@ -76,7 +80,7 @@ def contentId(groupId, channelId, contentId):
 
 
 @contents.route("/create", methods=["POST"])
-def contentCreate(groupId, channelId):
+def contentCreate(groupId):
     """
     Create content and store video or pdf url.
 
@@ -168,7 +172,7 @@ def contentCreate(groupId, channelId):
         return jsonify({"msg": "Unable to upload files"}), 200
 
 
-@contents.route("/<contentId>/text/add", methods=["POST"])
+@contents.route("/<contentId>/<channelId>/text/add", methods=["POST"])
 def videoAdd(groupId, contentId):
     """Add singular video to channel content."""
     jsonSet = {}
@@ -179,7 +183,7 @@ def videoAdd(groupId, contentId):
     return jsonify({"msg": "Your text has been added!"}), 200
 
 
-@contents.route("/<contentId>/url/add", methods=["POST"])
+@contents.route("/<contentId>/<channelId>/url/add", methods=["POST"])
 def pdfAdd(groupId, contentId):
     """Add single pdf document to channel content."""
     jsonSet = {}

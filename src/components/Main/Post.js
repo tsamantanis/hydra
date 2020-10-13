@@ -15,16 +15,16 @@ class Post extends Component {
                     <div className='UserIcon' />
                     <div className='User m-l-10'>
                         <div className='UserName m-t-20'>
-                            <h4>{item.name}</h4>
+                            <h4>{this.props.post.ownerName}</h4>
                         </div>
                         <div className='UserStatus'>
-                            <p>{item.status}</p>
+                            <p>5 min ago</p>
                         </div>
                     </div>
                 </div>
                 <div className='PostContent'>
                     <div className='PostMessage m-b-10'>
-                        <p className="small">{item.message}</p>
+                        <p>{this.props.post.dis}</p>
                     </div>
                     <div className='PostImage m-b-20' />
                 </div>
@@ -33,7 +33,7 @@ class Post extends Component {
                     <div className='UserItem'>
                         <div className='UserIcon' />
                         <div className="UserComment">
-                            <p>{item.message}</p>
+                            <p>{this.props.post.dis}</p>
                         </div>
                     </div>
                 </div>

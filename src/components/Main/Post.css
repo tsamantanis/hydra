@@ -70,7 +70,7 @@
 
 .Post .PostContent {
     margin: 5px;
-    align-items: center;
+    align-items: flex-start;
     display: flex;
     flex-direction: column;
 }
@@ -83,10 +83,13 @@
 .Post .PostContent .PostMessage {
     min-height: 30px;
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .Post .PostContent .PostMessage p {
     height: auto;
+    align-self: flex-start;
 }
 
 .Post .PostContent .PostImage {

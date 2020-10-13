@@ -38,11 +38,11 @@ app.register_blueprint(users, url_prefix="/users")
 app.register_blueprint(groups, url_prefix="/groups")
 app.register_blueprint(channels, url_prefix="/groups/<groupId>/channels")
 app.register_blueprint(
-    contents, url_prefix="/groups/<groupId>/channels/<channelId>/contents"
+    contents, url_prefix="/groups/<groupId>/channels/contents"
 )
 app.register_blueprint(
     assignments,
-    url_prefix="/groups/<groupId>/channels/<channelId>/assignments",
+    url_prefix="/groups/<groupId>/channels/assignments",
 )
 app.register_blueprint(
     submissions,

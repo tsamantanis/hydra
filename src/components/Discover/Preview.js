@@ -43,16 +43,11 @@ class Preview extends Component {
             }
         })
         .then((response) => {
-            console.log(response)
+            window.location.href = '/'
         })
         .catch((error) => {
             console.log(error)
         })
-    }
-
-    goToPayment = () => {
-        this.enrollUserInGroup()
-        window.location.href = '/'
     }
 
     render () {
@@ -77,7 +72,7 @@ class Preview extends Component {
                                 <h4>{'$' + this.state.group.price + '/month'}</h4>
                             </div>
                             <div className='buttonGradientContainerAlt'>
-                                <button type='button' className='alt' onClick={this.goToPayment}>Start Learning</button>
+                                <button type='button' className='alt' onClick={this.enrollUserInGroup}>Start Learning</button>
                             </div>
                         </div>
                     </>
