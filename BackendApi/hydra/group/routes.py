@@ -48,7 +48,7 @@ def UserSections():
     print(groups)
     data = [
         {
-            "name": group["_id"],
+            "name": group["name"],
             "groupId": group["_id"],
             "ownerId": group["ownerId"],
             "enrolledIds": [

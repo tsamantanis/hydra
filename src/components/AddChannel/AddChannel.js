@@ -32,7 +32,7 @@ class AddChannel extends Component {
         const _this = this
         const name = document.querySelector('input[name=channelName]').value
         const dis = document.querySelector('input[name=description]').value
-        const category = document.querySelector('input[name=channelLabel]').value
+        const category = document.querySelector('input[name=channelLabel]').value.toLowerCase()
         if (name && dis) {
             api({
                 method: 'POST',
