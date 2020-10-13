@@ -39,7 +39,7 @@ def contentAll(groupId, assignmentId):
         {
             "submissionId": submission["_id"],
             "userId": submission["userId"],
-            "pdfUrl": submission["pdfUrl"],
+            "url": submission["url"],
             "scoredGrade": submission["scoredGrade"],
             "timestamp": submission["timestamp"],
         }
@@ -73,45 +73,15 @@ def contentId(groupId, assignmentId, submissionId):
         patchData = request.json
         patchFiles = request.files
         jsonSet = {}
-        if patchFiles.get(patchData["tempFileId"]) is not None:
-            pdfFile = patchFiles.get(patchData["tempFileId"])
-            jsonSet.pdfUrl = path.join(
-                app.config["PDF_PATH"],
-                "{0}.{1}".format(
-                    {patchData["tempFileId"]}, pdfFile.filename.split(".")[-1]
-                ),
-            )
-            pdfFile.save(jsonSet["pdfUrl"])
-        if pdfFile["scoredGrade"] is not None:
-            jsonSet["scoredGrade"] = pdfFile["scoredGrade"]
-        if pdfFile["pdfId"] is True:
-            db.Pdf.update({"_id": pdfFile["pdfId"]}, {"$set": jsonSet})
-        else:
-            createdPdf = db.Pdf.insert(jsonSet)
-            assignment.pdfIds.append(createdPdf["_id"])
-        httpCode = 204
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     assignment = db.Assignment.find_one_or_404(
         {"_id": ObjectId(assignmentId)}
     )
-    pdfs = [
-        db.Pdf.find({"_id": ObjectId(pdfId)})
-        for pdfId in assignment["pdfIds"]
-    ]
     data = {
         "name": assignment["name"],
         "dis": assignment["dis"],
         "assignmentId": assignment["_id"],
-        "pdfs": [
-            {
-                str(index): {
-                    "pdfId": pdf["_id"],
-                    "url": pdf["url"],
-                    "dis": pdf["dis"],
-                }
-            }
-            for index, pdf in enumerate(pdfs)
-        ],
+        "url" : assignment["url"],
     }
     return dumps(data), httpCode
 
@@ -126,38 +96,9 @@ def submissionCreate(groupId):
         {
             "name": postData.get("name"),
             "dis": postData.get("dis"),
-            "pdfs": [],
+            "url": postData.get("url"),
         }
     )
-
-    for pdfData in postData.get("pdfs"):
-        jsonSet = {}
-        if pdfData["dis"] is not None:
-            jsonSet["dis"] = pdfData["dis"]
-        if pdfData["url"] is not None:
-            jsonSet["url"] = pdfData["url"]
-        elif postFiles.get(pdfData["tempFileId"]) is not None:
-            pdfFile = postFiles.get(pdfData["tempFileId"])
-            jsonSet["url"] = path.join(
-                app.config["PDF_PATH"],
-                "{0}.{1}".format(
-                    {pdfData["_id"]}, pdfFile.filename.split(".")[-1]
-                ),
-            )
-            pdfFile.save(jsonSet["url"])
-        else:
-            createdPdf = db.Pdf.insert(jsonSet)
-            assignment.pdfIds.append(createdPdf.inserted_id)
     group = db.Group.find({"_id": ObjectId(groupId)})
     group.assignmentIds.append(assignment.inserted_id)
     return "", 200
-
-
-@submissions.route("/pdfs/<pdfId>", methods=["DELETE"])
-@login_required
-def pdfRemove(groupId, assignmentId, pdfId):
-    """Delete pdf submission file."""
-    assignment = db.Assignment.find({"_id": ObjectId(assignmentId)})
-    assignment.pdfIds.remove(pdfId)
-    db.Pdf.deleteOne({"_id": ObjectId(pdfId)})
-    return jsonify({"msg": "Assignment Deleted"}), 204
