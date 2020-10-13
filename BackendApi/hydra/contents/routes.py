@@ -31,6 +31,8 @@ def contentAll(groupId, channelId):
             "channelId": content["channelId"],
             "name": content["name"],
             "dis": content["dis"],
+            "text" : content["text"],
+            "url" : content["url"],
             "ownerName" : ["{0} {1}".format(owner['firstname'], owner['lastname']) if owner != None else ""]
         }
         for content in contents
@@ -66,6 +68,8 @@ def contentId(groupId, channelId, contentId):
         "name": content["name"],
         "dis": content["dis"],
         "contentId": content["_id"],
+        "text": content["text"],
+        "url": content["url"],
         "channelId": content["channelId"],
     }
     return dumps(data), 200
