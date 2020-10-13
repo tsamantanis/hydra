@@ -36,7 +36,7 @@ class AddAssignment extends Component {
         const maxGrade = document.getElementById('totalPoints').value
         const dueDate = document.getElementById('dueDate').value
         const startDate = document.getElementById('startDate').value
-        const attachments = document.getElementById('attachments').value
+        const url = document.getElementById('videoUrl').value
         if (name && dis && maxGrade && dueDate && startDate) {
             api({
                 method: 'POST',
@@ -47,7 +47,10 @@ class AddAssignment extends Component {
                     "maxGrade": maxGrade,
                     "dueDate": dueDate,
                     "startDate": startDate,
-                    "pdfs": attachments
+                    "videos": [{
+                        "url": url,
+                        "dis": url
+                    }]
                 },
             })
             .then(function (response) {
@@ -109,8 +112,8 @@ class AddAssignment extends Component {
                                     <input type='text' id='name' name='name' placeholder='Homework 1' required/>
                                 </div>
                                 <div className='userInput'>
-                                    <label htmlFor='attachments'>Attachments</label>
-                                    <input type='file' accept="application/pdf" id='attachments' name='attachments' placeholder='Upload Files' required/>
+                                    <label htmlFor='videoUrl'>Video URL</label>
+                                    <input type='url' pattern="https://.*" id='videoUrl' name='videoUrl' placeholder='https://youtube.com/video' required/>
                                 </div>
                                 <div className='userInput'>
                                     <label htmlFor='startDate'>Start Date</label>

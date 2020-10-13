@@ -33,13 +33,6 @@ class AddTopic extends Component {
         const name = document.querySelector('input[name=channelName]').value
         const dis = document.querySelector('input[name=description]').value
         const url = document.querySelector('input[name=videoUrl]').value
-        // const file = document.querySelector('input[name=attachments]').value
-        // let fileDis = null
-        // let formData = null
-        // if (file) {
-        //     formData = new FormData(file)
-        //     fileDis = file.split(/(\\|\/)/g).pop().replace(/\.[^/.]+$/, "")
-        // }
         if (name && dis) {
             api({
                 method: 'POST',
@@ -94,10 +87,6 @@ class AddTopic extends Component {
                             <label htmlFor='description'>Description</label>
                             <input type='text' id='description' name='description' placeholder='What is this channel about?' required />
                         </div>
-                        {/*<div className='userInput'>
-                            <label htmlFor='attachments'>Attachments</label>
-                            <input type='file' id='attachments' name='attachments' placeholder='Upload pdfs and video here' />
-                        </div>*/}
                         <div className='userInput'>
                             <label htmlFor='videoUrl'>Video URL</label>
                             <input type='url' pattern="https://.*" id='videoUrl' name='videoUrl' placeholder='https://youtube.com/video' />
