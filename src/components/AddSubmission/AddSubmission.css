@@ -1,0 +1,81 @@
+.AddSubmissionModal {
+    background-color: var(--light) !important;
+    height: 480px !important;
+}
+
+/* Modal Header */
+
+.AddSubmissionModal .modal-header {
+    border: none;
+    padding: 0;
+}
+
+.AddSubmissionModal .modal-header button {
+    width: 28px;
+    position: absolute;
+    top: 15px;
+    right: 22px;
+    padding: 5px;
+}
+
+.AddSubmissionModal .modal-header button span {
+    margin: auto;
+    color: var(--darkAccent);
+    font-family: 'Jaldi', sans-serif;
+}
+
+.AddSubmissionModal .modal-header button span:hover {
+    color: var(--dark);
+}
+
+/* Modal Body */
+
+.AddSubmissionModal .modal-body {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 30px;
+    width: 100%;
+}
+
+.AddSubmissionModal .modal-body p {
+    text-transform: none;
+}
+
+.AddSubmissionModal .modal-body .userInput {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.AddSubmissionModal .modal-body .userInput label {
+    color: var(--darkAccent);
+    font-family: 'Jaldi', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    height: 16px;
+}
+
+.AddSubmissionModal .modal-body input {
+    width: 100%;
+}
+
+.AddSubmissionModal .buttonGradientContainerAlt,
+.AddSubmissionModal .buttonGradientContainerAlt button {
+    align-self: flex-end;
+    border-radius: 7px;
+    font-size: 20px;
+    height: 35px;
+    width: 100px;
+}
+
+.AddSubmissionModal .buttonGradientContainerAlt button {
+    background-color: var(--accent);
+}
+
+.AddSubmissionModal .buttonGradientContainerAlt button:hover {
+    background-color: transparent;
+}
