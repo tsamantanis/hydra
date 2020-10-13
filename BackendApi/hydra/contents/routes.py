@@ -31,13 +31,9 @@ def contentAll(groupId, channelId):
             "channelId": content["channelId"],
             "name": content["name"],
             "dis": content["dis"],
-<<<<<<< HEAD
-            "ownerName" : ["{0} {1}".format(owner['firstname'], owner['lastname']) if owner is not None else ""]
-=======
-            "text" : content["text"],
-            "url" : content["url"],
-            "ownerName" : ["{0} {1}".format(owner['firstname'], owner['lastname']) if owner != None else ""]
->>>>>>> cd1804d22834ebc5efd8bbbef04e582f20c96dba
+            "ownerName": ["{0} {1}".format(owner['firstname'], owner['lastname']) if owner is not None else ""],
+            "text": content["text"],
+            "url": content["url"],
         }
         for content in contents
     ]

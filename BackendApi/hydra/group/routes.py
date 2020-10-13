@@ -74,9 +74,6 @@ def UserSections():
     return dumps(data), 200
 
 
-# TODO: roles required for certain access
-
-
 @groups.route("/create", methods=["POST"])
 @login_required
 def groupCreate():
