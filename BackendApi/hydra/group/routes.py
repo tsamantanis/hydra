@@ -164,9 +164,10 @@ def groupIdJoin(groupId):
     group = db.Group.find_one({"_id": ObjectId(groupId)})
     user = db.users.find_one({"_id": ObjectId(current_user.id)})
     if group is not None:
-        updatedGroup = db.Group.update_one({'_id': group['_id']}, {"$set": {
-            "enrolledIds": group['enrolledIds'].append(user['_id'])
-        }})
+        # updatedGroup = db.Group.update_one({'_id': group['_id']}, {"$set": {
+        #     "enrolledIds": group['enrolledIds'].append(user['_id'])
+        # }})
+        print(user['enrolledgroups'])
         updatedUser = db.users.update_one({'_id': user['_id']}, {
             "$set": {
                 "enrolledGroups": user['enrolledGroups'].append(group['_id'])

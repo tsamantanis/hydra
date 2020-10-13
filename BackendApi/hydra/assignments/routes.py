@@ -9,10 +9,10 @@ from hydra.users.utils import loadUserToken
 
 assignments = Blueprint("assignments", __name__)
 
-# base path /groups/<groupId>/channels/<channelId>/assignments
+# base path /groups/<groupId>/channels/assignments
 
 
-@assignments.route("", methods=["GET"])
+@assignments.route("/<channelId>", methods=["GET"])
 def contentAll(groupId, channelId):
     """Show all assignments for particular group."""
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
@@ -38,8 +38,8 @@ def contentAll(groupId, channelId):
 # TODO: More testing on this when we can upload files to FE
 
 
-@assignments.route("/<assignmentId>", methods=["GET", "PATCH", "DELETE"])
-def contentId(groupId, channelId, assignmentId):
+@assignments.route("/<assignmentId>/<channelId>", methods=["GET", "PATCH", "DELETE"])
+def contentId(groupId, assignmentId, channelId):
     """Access assignment details, patch and delete."""
     httpCode = 200
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
@@ -121,7 +121,7 @@ def contentId(groupId, channelId, assignmentId):
 
 
 @assignments.route("/create", methods=["POST"])
-def assignmentCreate(groupId, channelId):
+def assignmentCreate(groupId):
     """Create assignment and add to database. Return success message."""
     postData = request.json
     postFiles = request.files
@@ -177,9 +177,9 @@ def assignmentCreate(groupId, channelId):
 
 
 @assignments.route(
-    "/<assignmentId>/pdfs/<pdfId>", methods=["DELETE", "PATCH", "GET"]
+    "/<assignmentId>/<channelId>/pdfs/<pdfId>", methods=["DELETE", "PATCH", "GET"]
 )
-def pdfId(groupId, channelId, assignmentId, pdfId):
+def pdfId(groupId, assignmentId, channelId, pdfId):
     if request.method == "DELETE":
         db.Pdf.deleteOne({"_id": ObjectId(pdfId)})
         return "PDF Deleted", 204
@@ -208,9 +208,9 @@ def pdfId(groupId, channelId, assignmentId, pdfId):
         )
 
 
-@assignments.route("/<assignmentId>/pdfs/add", methods=["POST"])
+@assignments.route("/<assignmentId>/<channelId>/pdfs/add", methods=["POST"])
 @login_required
-def pdfAdd(groupId, channelId, assignmentId):
+def pdfAdd(groupId, assignmentId, channelId):
     """Add pdfs to existing assignment."""
     jsonSet = {}
     assignment = db.Assignment.find_one_or_404(
