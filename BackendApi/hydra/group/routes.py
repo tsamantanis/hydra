@@ -44,18 +44,9 @@ def UserSections():
             "name": group["name"],
             "groupId": group["_id"],
             "ownerId": group["ownerId"],
-            "enrolledIds": [
-                {str(index): enrolledId}
-                for index, enrolledId in enumerate(group["enrolledIds"])
-            ] or None,
-            "contentIds": [
-                {str(index): contentId}
-                for index, contentId in enumerate(group["contentIds"])
-            ] or None,
-            "assignmentIds": [
-                {str(index): assignmentId}
-                for index, assignmentId in enumerate(group["assignmentIds"])
-            ] or None,
+            "enrolledIds": [group["enrolledIds"]] or None,
+            "contentIds": [group["contentIds"]] or None,
+            "assignmentIds": [group["assignmentIds"]] or None,
             "dis": group["dis"],
             "keywords": [
                 {str(index): keyword}

@@ -50,17 +50,17 @@ def contentId(groupId, contentId, channelId):
     For each different method, return JSON data
     corresponding to action taken.
     """
-    group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
-    if group is None:
+    group = db.Group.find_one({"_id": ObjectId(groupId)})
+    if not group:
         return jsonify({"msg": "Group Not Found"}), 404
-    content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
-    if content is None:
+    content = db.Content.find_one({"_id": ObjectId(contentId)})
+    if not content:
         return jsonify({"msg": "Content Not Found"}), 404
     if request.method == "DELETE":
         db.Content.deleteOne({"_id": ObjectId(content["_id"])})
         return jsonify({"msg": "Content Deleted"}), 204
-    group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
-    content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
+    group = db.Group.find_one({"_id": ObjectId(groupId)})
+    content = db.Content.find_one({"_id": ObjectId(contentId)})
 
     data = {
         "name": content["name"],
