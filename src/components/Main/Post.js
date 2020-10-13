@@ -29,7 +29,7 @@ class Post extends Component {
                     </div>
                     {this.props.post.url !== '' && <a href={this.props.post.url} type="_blank"><button className="PostLink">View URL</button></a>}
                 </div>
-                <hr />
+                {/*<hr />
                 <div className='PostComments m-t-20 m-b-20'>
                     <div className='UserItem'>
                         <div className='UserIcon' />
@@ -37,7 +37,7 @@ class Post extends Component {
                             <p>{this.props.post.dis}</p>
                         </div>
                     </div>
-                </div>
+                </div>*/}
                 <hr />
                 <div className="AddComment m-t-20">
                     <div className='UserItem'>
