@@ -24,12 +24,14 @@ def contentAll(groupId, channelId):
     if group is None or contents is None:
         return jsonify({"msg": "Invalid id provided, please try again."})
     print(f"Contents: {contents}")
+    owner = db.users.find_one_or_404({"_id": ObjectId(group['ownerId'])})
     data = [
         {
             "contentId": content["_id"],
             "channelId": content["channelId"],
             "name": content["name"],
             "dis": content["dis"],
+            "ownerName" : ["{0} {1}".format(owner['firstname'], owner['lastname']) if owner != None else ""]
         }
         for content in contents
     ]
