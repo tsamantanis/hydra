@@ -32,7 +32,7 @@ class ChannelList extends Component {
                 }
             })
             this.setState({topics, assignments, discussions})
-            // console.log(this.state);
+            console.log(this.state)
         })
         .catch((error) => {
             console.log(error)
@@ -44,7 +44,7 @@ class ChannelList extends Component {
             <>
                 <ChannelSection
                     channelLabel='Topics'
-                    channels={this.state.channels}
+                    channels={this.state.topics}
                     getChannels={this.getChannels}
                     loadPosts={this.props.loadPosts}
                 />
