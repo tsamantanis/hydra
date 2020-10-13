@@ -35,12 +35,24 @@ class Preview extends Component {
         })
     }
 
-    addGroupToUser() {
-        // This method should add the clicked on group to the user's groups
+    enrollUserInGroup() {
+        api({
+            method: 'POST',
+            url: '/groups/' + this.props.match.params.id + '/join',
+            data: {
+                "paymentMethodId": true,
+            }
+        })
+        .then((response) => {
+            console.log(response)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     }
 
     goToPayment() {
-        this.addGroupToUser()
+        this.enrollUserInGroup()
         window.location.href = '/'
     }
 
