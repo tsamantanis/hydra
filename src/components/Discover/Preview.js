@@ -28,7 +28,6 @@ class Preview extends Component {
         })
         .then((response) => {
             this.setState({group: response.data})
-            console.log(this.state.group)
         })
         .catch((error) => {
             console.log(error)
