@@ -68,56 +68,10 @@ def contentId(groupId, channelId, assignmentId):
     elif request.method == "PATCH":
         patchData = request.json
         patchFiles = request.files
-        if patchData.get("pdfs"):
-            for pdfData in patchData.get("pdfs"):
-                jsonSet = {}
-                if pdfData["dis"]:
-                    jsonSet["dis"] = pdfData["dis"]
-                if pdfData["url"]:
-                    jsonSet["url"] = pdfData["url"]
-                elif patchFiles.get(pdfData["_id"]) is not None:
-                    pdfFile = patchFiles.get(pdfData["_id"])
-                    jsonSet["url"] = path.join(
-                        app.config["PDF_PATH"],
-                        "{0}.{1}".format(
-                            {pdfData["_id"]}, pdfFile.filename.split(".")[-1]
-                        ),
-                    )
-                    pdfFile.save(jsonSet["url"])
-                if pdfData["pdfId"]:
-                    db.Pdf.update({"_id": pdfData.pdfId}, {"$set": jsonSet})
-                else:
-                    createdPdf = db.Pdf.insert(jsonSet)
-                    assignment["pdfIds"].append(createdPdf["_id"])
-                httpCode = 204
-            group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
-            assignment = db.Assignment.find_one_or_404(
-                {"_id": ObjectId(assignmentId)}
-            )
-            pdfs = [
-                db.Pdf.find_one_or_404({"_id": ObjectId(pdfId)})
-                for pdfId in assignment["pdfIds"]
-            ]
-            data = {
-                "name": assignment["name"],
-                "dis": assignment["dis"],
-                "assignmentId": assignment["_id"],
-                "pdfs": [
-                    {
-                        str(index): {
-                            "pdfId": pdf["_id"],
-                            "url": pdf["url"],
-                            "dis": pdf["dis"],
-                        }
-                    }
-                    for index, pdf in enumerate(pdfs)
-                ],
-            }
-            return dumps(data), httpCode
-        else:
-            return jsonify(
-                {"msg": "No files associated with this assignment."}
-            )
+        
+        return jsonify(
+            {"msg": "No files associated with this assignment."}
+        )
 
 
 @assignments.route("/create", methods=["POST"])
