@@ -86,25 +86,45 @@
     overflow-y: scroll;
 }
 
-.Main .Channels h1 {
+.Main .Channels .classNameHeader {
+    position: fixed;
+    background-color: #EDF5FB;
+    height: 74px;
+    width: 16%;
+    z-index: 9;
+}
+
+.Main .Channels-lg .classNameHeader {
+    width: 21%;
+}
+
+.Main .Channels .classNameHeader h1 {
     font-size: 36px;
     height: 36px;
     padding: 18px;
+    z-index: 10;
 }
 
 .Main .Channels hr {
+    position: fixed;
     border: 1px solid var(--accent-desat);
     height: 0;
+    margin-top: 74px;
     width: 100%;
 }
 
-.Main .Channels .ChannelSection h5 {
+.Main .Channels .channelList {
+    margin-top: 80px;
+    width: 100%;
+}
+
+.Main .Channels .channelList .ChannelSection  h5 {
     font-size: 23px;
     font-weight: bold;
     height: 23px;
 }
 
-.Main .Channels .ChannelSection h6 {
+.Main .Channels .channelList .ChannelSection h6 {
     font-size: 20px;
     font-weight: bold;
 }

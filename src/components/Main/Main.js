@@ -122,11 +122,15 @@ class Main extends Component {
                     <Settings />
                 </div>
                 <div className={this.state.showCommunity ? 'Channels' : 'Channels Channels-lg'}>
-                    <h1>Class Name</h1>
+                    <div className="classNameHeader">
+                        <h1>Class Name</h1>
+                    </div>
                     <hr className='m-t-30' />
-                    <ChannelList
-                        loadPosts={this.loadPosts}
-                    />
+                    <div className='channelList'>
+                        <ChannelList
+                            loadPosts={this.loadPosts}
+                            />
+                    </div>
                 </div>
                 <div className={this.state.showCommunity ? 'Feed' : 'Feed Feed-lg'}>
                     <div className='HeaderToolbar'>
