@@ -37,3 +37,22 @@
     opacity: 0;
     transition: 0.4s ease;
 }
+
+.discover>.alt {
+    border-radius: 100%;
+    cursor: pointer;
+    height: 50px;
+    left: 25px;
+    padding: 10px 8px 10px 13px;
+    position: absolute;
+    top: 25px;
+    width: 50px;
+}
+
+.discover>.alt:hover,
+.discover>.alt:focus {
+    background-image: -webkit-linear-gradient(#5EFC8D 0%, #0CBCD3 50%, #1CA0DE 100%);
+    background-image: -o-linear-gradient(#5EFC8D 0%, #0CBCD3 50%, #1CA0DE 100%);
+    background-image: linear-gradient(135deg, #5EFC8D 0%, #0CBCD3 50%, #1CA0DE 100%);
+    transition: 0.4s ease-in ease-out;
+}
