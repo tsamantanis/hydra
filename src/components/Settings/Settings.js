@@ -139,17 +139,17 @@ class Settings extends Component {
                                 <div className='left m-r-10'>
                                     <div className='userInput'>
                                         <label htmlFor='firstName'>First Name</label>
-                                        <input type='text' name='firstName' id='firstName' value='Jimi' required />
+                                        <input type='text' name='firstName' id='firstName' required />
                                     </div>
                                     <div className='userInput'>
                                         <label htmlFor='email'>Email Address</label>
-                                        <input type='email' name='email' id='email' value='name@address.com' pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" required />
+                                        <input type='email' name='email' id='email' placeholder='name@address.com' pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" required />
                                     </div>
                                 </div>
                                 <div className='right m-l-10'>
                                     <div className='userInput'>
                                         <label htmlFor='lastName'>Last Name</label>
-                                        <input type='text' name='lastName' id='lastName' value='Hendrix' required />
+                                        <input type='text' name='lastName' id='lastName' required />
                                     </div>
                                     <div className='userInput'>
                                         <label htmlFor='password'>Password</label>
