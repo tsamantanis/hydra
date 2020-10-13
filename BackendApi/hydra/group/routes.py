@@ -39,7 +39,7 @@ def UserSections():
     """Show all groups to current user's enrolled groups."""
     groups = []
     user = db.users.find_one({"_id": ObjectId(current_user.id)})
-    while groups in user['enrolledGroups']:
+    for groups in user['enrolledGroups']:
         groups = db.Group.find({"enrolledIds": user['_id']})
     data = [
         {
