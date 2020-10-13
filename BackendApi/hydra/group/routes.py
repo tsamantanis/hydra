@@ -123,19 +123,10 @@ def groupId(groupId):
         "name": group["name"],
         "groupId": str(group["_id"]),
         "ownerId": group["ownerId"],
-        "enrolledIds": [
-            {str(index): enrolledId}
-            for index, enrolledId in enumerate(group["enrolledIds"])
-        ],
-        "contentIds": [
-            {str(index): contentId}
-            for index, contentId in enumerate(group["contentIds"])
-        ],
+        "enrolledIds": [group["enrolledIds"]] or None,
+        "contentIds": [group["contentIds"]] or None,
         "dis": group["dis"],
-        "keywords": [
-            {str(index): keyword}
-            for index, keyword in enumerate(group["keywords"])
-        ],
+        "keywords": [group["keywords"]],
     }
     return dumps(data), 200
 

@@ -59,10 +59,9 @@ def contentId(groupId, contentId, channelId):
         return jsonify({"msg": "Content Not Found"}), 404
     if request.method == "DELETE":
         db.Content.deleteOne({"_id": ObjectId(content["_id"])})
-        httpCode = 204
-        return jsonify({"msg": "Content Deleted"}), httpCode
-        group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
-        content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
+        return jsonify({"msg": "Content Deleted"}), 204
+    group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
+    content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
 
     data = {
         "name": content["name"],
