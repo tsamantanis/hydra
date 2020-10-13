@@ -27,6 +27,7 @@ def allGroups():
                 "ownerId": group["ownerId"],
                 "contentIds": group["contentIds"],
                 "keywords": group["keywords"],
+                "price": group['price']
             }
         )
     return dumps(groupData), 200
