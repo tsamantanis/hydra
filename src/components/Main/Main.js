@@ -5,6 +5,8 @@ import api from '../../api'
 import '../../App.css'
 import './Main.css'
 
+import empty_channel from '../../assets/empty_page 1.svg'
+
 import ChannelList from './ChannelList'
 import UserSection from './UserSection'
 import SearchBar from './SearchBar'
@@ -21,6 +23,7 @@ class Main extends Component {
             posts: [],
             groups: [],
             loadingPosts: false,
+            emptyChannel: false,
             // To determine which group is currently active on screen
             currentGroup: null,
         };
@@ -86,11 +89,11 @@ class Main extends Component {
         .then((response) => {
             console.log(response.data);
             if (response.data.error) {
-                console.log("This channel has no posts");
+                this.setState({loadingPosts: false, emptyChannel: true})
             } else {
                 let posts = []
                 posts.push(response.data)
-                this.setState({posts, loadingPosts: false})
+                this.setState({posts, loadingPosts: false, emptyChannel: false})
             }
         })
         .catch((error) => {
@@ -100,7 +103,7 @@ class Main extends Component {
 
     loadPosts = (channel_id) => {
         // This will get all the posts for the selected channel_id
-        this.setState({loadingPosts: true}, () => {
+        this.setState({loadingPosts: true, emptyChannel: false}, () => {
             this.getPosts(channel_id)
         })
     }
@@ -153,6 +156,11 @@ class Main extends Component {
                                 )
                             })
                         }
+                        { this.state.emptyChannel ?
+                            <div>
+                                <h3 className="emptyChannelText">This channel is empty!</h3>
+                                <img src={empty_channel} className="emptyChannel" alt="Empty Channel" />
+                            </div> : null}
                     </div>
                     <div className='CreatePost m-0'>
                         <svg onClick={this.createPost} className="sendIcon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
