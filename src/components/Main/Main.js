@@ -40,7 +40,7 @@ class Main extends Component {
         if (message) {
             api({
                 method: 'POST',
-                url: '/groups/5f83e890d1bf28e13820a756/channels/5f83fe24fc59206ae4188e03/contents/create',
+                url: '/groups/5f848e95c86be6cef283dfee/channels/5f83fe24fc59206ae4188e03/contents/create',
                 data: {
                     "name": "New Post",
                     "dis": message
@@ -81,7 +81,7 @@ class Main extends Component {
     getPosts = (channel_id) => {
         api({
             method: 'GET',
-            url: '/groups/5f83e890d1bf28e13820a756/channels/' + channel_id
+            url: '/groups/5f848e95c86be6cef283dfee/channels/' + channel_id
         })
         .then((response) => {
             let posts = []

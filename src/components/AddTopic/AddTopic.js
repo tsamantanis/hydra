@@ -36,7 +36,7 @@ class AddTopic extends Component {
         if (name && dis) {
             api({
                 method: 'POST',
-                url: '/groups/5f83e890d1bf28e13820a756/channels/5f83fe24fc59206ae4188e03/contents/create',
+                url: '/groups/5f848e95c86be6cef283dfee/channels/5f83fe24fc59206ae4188e03/contents/create',
                 data: {
                     "name": name,
                     "dis": dis,
