@@ -1,6 +1,6 @@
 .SearchBar {
     align-items: center;
-    background-color: white;
+    /* background-color: var(--accent-light-desat); */
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -10,7 +10,7 @@
 
 .Feed-lg .SearchBar {
     align-items: center;
-    background-color: white;
+    /* background-color: var(--accent-light-desat); */
     display: flex;
     flex-direction: column;
     height: auto;

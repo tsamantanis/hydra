@@ -68,7 +68,7 @@
 
 .Main .Channels {
     align-items: flex-start;
-    background-color: white;
+    background-color: var(--accent-light-desat);
     color: var(--darkAccent);
     flex-basis: 17%;
     border: 2px solid var(--accent-desat);
@@ -76,7 +76,7 @@
 
 .Main .Channels-lg {
     align-items: flex-start;
-    background-color: white;
+    background-color: var(--accent-light-desat);
     color: var(--darkAccent);
     flex-basis: 23% !important;
     border: 2px solid var(--accent-desat);
@@ -108,7 +108,7 @@
 /* Header Toolbar */
 
 .Main .HeaderToolbar {
-    background-color: white;
+    background-color: var(--accent-light-desat);
     border-bottom: 2px solid var(--accent-desat);
     align-items: flex-start;
     flex-direction: row;
@@ -157,7 +157,7 @@
 /* Header Feed Toolbar */
 
 .Main .Feed .HeaderToolbar {
-    background-color: white;
+    background-color: var(--accent-light-desat);
     border-bottom: 2px solid var(--accent-desat);
     align-items: flex-start;
     flex-direction: row;
@@ -253,7 +253,7 @@
 
 .Main .Users {
     align-items: flex-start;
-    background-color: white;
+    background-color: var(--accent-light-desat);
     color: var(--darkAccent);
     flex-basis: 20%;
     border: 2px solid var(--accent-desat);
@@ -280,7 +280,7 @@
 }
 
 .Main .Users .UsersTitle a {
-    color: var(--light);
+    color: var(--darkAccent);
     font-weight: bold;
     font-size: 10px;
     text-decoration: none;
@@ -344,7 +344,7 @@
     height: 16px;
 }
 
-.Main .CreatePost svg {
+.Main .Feed .CreatePost svg {
     margin-top: -15px;
     bottom: -90px;
     right: -330px;
@@ -352,7 +352,20 @@
     color: var(--accent);
 }
 
-.Main .CreatePost svg:hover {
+.Main .Feed .CreatePost svg:hover {
+    cursor: pointer;
+    bottom: -89px;
+}
+
+.Main .Feed-lg .CreatePost svg {
+    margin-top: -15px;
+    bottom: -90px;
+    right: -430px;
+    position: relative;
+    color: var(--accent);
+}
+
+.Main .Feed-lg .CreatePost svg:hover {
     cursor: pointer;
     bottom: -89px;
 }
