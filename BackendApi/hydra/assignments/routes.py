@@ -132,7 +132,7 @@ def assignmentCreate(groupId, channelId):
             "maxGrade": postData.get("maxGrade"),
             "dueDate": postData.get("dueDate"),
             "startDate": postData.get("startDate"),
-            "text": postData.get("startDate"),
+            "text": postData.get("text"),
         }
     )
     db.channels.insert_one(
@@ -146,7 +146,7 @@ def assignmentCreate(groupId, channelId):
     getId = insertAssignment.inserted_id
     assignment = db.Assignment.find_one({"_id": ObjectId(getId)})
     print(f"Assignment {assignment}")
-    
+
     group = db.Group.find_one({"_id": ObjectId(groupId)})
     print(f"Group from EOF: {group}")
     group["assignmentIds"].append(assignment["_id"])
