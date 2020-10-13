@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
-import logo from './logo.svg'
+import logo from './assets/ellipse.svg'
 import './App.css'
 
 import Main from './components/Main/Main'

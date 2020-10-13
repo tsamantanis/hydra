@@ -132,7 +132,7 @@ def assignmentCreate(groupId):
             "maxGrade": postData.get("maxGrade"),
             "dueDate": postData.get("dueDate"),
             "startDate": postData.get("startDate"),
-            "text": postData.get("startDate"),
+            "text": postData.get("text"),
         }
     )
     db.channels.insert_one(

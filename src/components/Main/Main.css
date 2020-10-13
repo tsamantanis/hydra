@@ -372,3 +372,19 @@
     cursor: pointer;
     bottom: -89px;
 }
+
+.Main .emptyChannelText {
+    color: var(--accent);
+    margin-left: 20%;
+    margin-top: 6%;
+    position:fixed;
+}
+
+.Main .emptyChannel {
+    bottom: 140px;
+    left: 35%;
+    position:fixed;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
