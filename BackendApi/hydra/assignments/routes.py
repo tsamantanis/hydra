@@ -29,6 +29,7 @@ def contentAll(groupId, channelId):
             "startDate": assignment["startDate"],
             "dueDate": assignment["dueDate"],
             "type": assignment["type"],
+            "url" : assignment["url"],
         }
         for assignment in assignments
     ]
@@ -58,6 +59,7 @@ def contentId(groupId, assignmentId, channelId):
             "maxGrade": assignment["maxGrade"],
             "startDate": assignment["startDate"],
             "dueDate": assignment["dueDate"],
+            "url" : assignment["url"],
         }
         return dumps(data), 200
     if request.method == "DELETE":
