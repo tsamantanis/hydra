@@ -21,6 +21,8 @@ class Main extends Component {
             posts: [],
             groups: [],
             loadingPosts: false,
+            // To determine which group is currently active on screen
+            currentGroup: null,
         };
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     }
@@ -70,7 +72,6 @@ class Main extends Component {
         })
         .then(function (response) {
             console.log(response.data)
-            console.log(response)
         })
         .catch(function (error) {
             console.log(error)
