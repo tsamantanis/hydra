@@ -68,3 +68,35 @@ def getChannel(groupId, channelId):
         "category": channel["category"],
     }
     return dumps(channelData)
+
+# @channels.route("/<channelId>/posts")
+# @login_required
+# def getChannelPosts(groupId, channelId):
+#     """
+#     For channels in specified group, return channel information.
+#
+#     channel.id, channel.name, channel.description, channel.category
+#     """
+#
+#     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
+#     channel = db.channels.find_one_or_404({"_id": ObjectId(channelId)})
+#     print(channel)
+#     post = None
+#     if channel['category'] == 'content':
+#         post = db.Content.find_one({"channelId": channelId})
+#     elif channel['category'] == 'assignments':
+#         print("true")
+#         post = db.Assignment.find_one({"channelId": channelId})
+#     elif channel['category'] == 'discussions':
+#         post = db.Discussion.find_one({"channelId": channelId})
+#     if group is None or post is None:
+#         return jsonify({"msg": "Invalid id provided, please try again."})
+#     owner = db.users.find_one_or_404({"_id": ObjectId(group['ownerId'])})
+#     data = {
+#         "postId": str(post["_id"]),
+#         "channelId": post["channelId"],
+#         "name": post["name"],
+#         "dis": post["dis"],
+#         "ownerName" : "{0} {1}".format(owner['firstName'], owner['lastName']) if owner != None else ""
+#     }
+#     return dumps(data), 200
