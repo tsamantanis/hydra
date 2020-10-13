@@ -54,6 +54,7 @@ def signUp():
                 "firstName": authorizedUser[1].firstName,
                 "lastName": authorizedUser[1].lastName,
                 "email": authorizedUser[1].email,
+                "enrolledGroups": authorizedUser[1].enrolledGroups,
             }
         ),
         200,
