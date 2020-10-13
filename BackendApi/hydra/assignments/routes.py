@@ -12,8 +12,8 @@ assignments = Blueprint("assignments", __name__)
 # base path /groups/<groupId>/channels/assignments
 
 
-@assignments.route("/<channelId>", methods=["GET"])
-def contentAll(groupId, channelId):
+@assignments.route("", methods=["GET"])
+def contentAll(groupId):
     """Show all assignments for particular group."""
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     assignments = [
@@ -29,6 +29,7 @@ def contentAll(groupId, channelId):
             "startDate": assignment["startDate"],
             "dueDate": assignment["dueDate"],
             "type": assignment["type"],
+            "url" : assignment["url"],
         }
         for assignment in assignments
     ]
@@ -58,6 +59,7 @@ def contentId(groupId, assignmentId, channelId):
             "maxGrade": assignment["maxGrade"],
             "startDate": assignment["startDate"],
             "dueDate": assignment["dueDate"],
+            "url" : assignment["url"],
         }
         return dumps(data), 200
     if request.method == "DELETE":
@@ -86,7 +88,7 @@ def assignmentCreate(groupId):
             "maxGrade": postData.get("maxGrade"),
             "dueDate": postData.get("dueDate"),
             "startDate": postData.get("startDate"),
-            "text": postData.get("text"),
+            "url": postData.get("url"),
         }
     )
     db.channels.insert_one(
