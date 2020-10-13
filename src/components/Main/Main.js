@@ -81,12 +81,17 @@ class Main extends Component {
     getPosts = (channel_id) => {
         api({
             method: 'GET',
-            url: '/groups/5f848e95c86be6cef283dfee/channels/' + channel_id
+            url: '/groups/5f848e95c86be6cef283dfee/channels/' + channel_id + '/posts'
         })
         .then((response) => {
-            let posts = []
-            posts.push(response.data)
-            this.setState({posts, loadingPosts: false})
+            console.log(response.data);
+            if (response.data.error) {
+                console.log("This channel has no posts");
+            } else {
+                let posts = []
+                posts.push(response.data)
+                this.setState({posts, loadingPosts: false})
+            }
         })
         .catch((error) => {
             console.log(error)
@@ -142,7 +147,8 @@ class Main extends Component {
                             this.state.posts.map((post) => {
                                 return(
                                     <Post
-
+                                        key={post.postId}
+                                        post={post}
                                     />
                                 )
                             })
