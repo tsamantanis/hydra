@@ -40,8 +40,12 @@ def allGroups():
 def UserSections():
     """Show all groups to current user's enrolled groups."""
     groups = []
-    for groups in current_user.enrolledGroups:
+    user = db.users.find_one({"_id": ObjectId(current_user.id)})
+    print(f"user {user}")
+    print(user["enrolledGroups"])
+    for groups in user["enrolledGroups"]:
         groups = db.Group.find({})
+    print(groups)
     data = [
         {
             "name": group["_id"],
@@ -57,7 +61,7 @@ def UserSections():
             ],
             "assignmentIds": [
                 {str(index): assignmentId}
-                for index, assignmentId in enumerate(group.assignmentIds)
+                for index, assignmentId in enumerate(group["assignmentIds"])
             ],
             "dis": group["dis"],
             "keywords": [
@@ -67,7 +71,7 @@ def UserSections():
         }
         for group in groups
     ]
-    return jsonify({"group": [group for group in groups]}), 200
+    return dumps(data), 200
 
 
 # TODO: roles required for certain access
@@ -78,13 +82,7 @@ def UserSections():
 def groupCreate():
     """Create new group."""
     postData = request.json
-
-    priceStripeObject = stripe.Price.create(
-        unit_amount=postData["price"],
-        currency="usd",
-        recurring={"interval": "month"},
-        product="prod_IAvvfq4TnCuNDG",
-    )
+    priceStripeObject = {"name": "fake", "id": "123"}
     db.Group.insert_one(
         {
             "ownerId": postData["ownerId"],
@@ -154,10 +152,7 @@ def groupId(groupId):
     return jsonify(data), 200
 
 
-# TODO: more testing on these routes with frontend
-
-
-@groups.route("/<groupId>/join", methods=["POST"])
+@groups.route("/<groupId>/join", methods=["GET", "POST"])
 @login_required
 def groupIdJoin(groupId):
     """
@@ -166,27 +161,23 @@ def groupIdJoin(groupId):
     Add group id to user's enrolledGroups and create
     stripe subscription object.
     """
-    if (
-        groupId in current_user.enrolledGroups
-        or groupId in current_user.ownedGroups
-    ):
-        return jsonify({"msg": "Already Enrolled"}), 200
-    postData = request.json
-    group = db.Group.find({"_id": ObjectId(groupId)})
-    if group is None:
+    group = db.Group.find_one({"_id": ObjectId(groupId)})
+    user = db.users.find_one({"_id": ObjectId(current_user.id)})
+    if group is not None:
+        updatedGroup = db.Group.update_one({'_id': group['_id']}, {"$set": {
+            "enrolledIds": group['enrolledIds'].append(user['_id'])
+        }})
+        updatedUser = db.users.update_one({'_id': user['_id']}, {
+            "$set": {
+                "enrolledGroups": user['enrolledGroups'].append(group['_id'])
+            }
+        })
+        print(f"User name {user['firstName']}")
+        print(f" User enrolled groups: {user['enrolledGroups']}")
+        return jsonify({"msg": "Group successfully joined!"}), 200
+    elif group is None:
         return jsonify({"msg": "Group Not Found"}), 404
-    priceSubscriptionObject = stripe.Subscription.create(
-        customer=current_user.stripeId,
-        items=[
-            {"price": group["stripePriceId"]},
-        ],
-        defaultPaymentMethod=postData.paymentMethodId,
-    )
-    if priceSubscriptionObject.get("status") == "active":
-        group.enrolledId.append(current_user.id)
-        current_user.enrolledGroups.append(group["_id"])
-        return jsonify({"msg": "Group Joined"}), 200
-    return jsonify({"msg": "Error"}), 200
+    return jsonify({"msg": "something went wrong"})
 
 
 @groups.route("/<groupId>/leave", methods=["POST"])
