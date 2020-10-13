@@ -74,7 +74,7 @@ def UserSections():
 
 
 @groups.route("/create", methods=["POST"])
-# @login_required
+@login_required
 def groupCreate():
     """Create new group."""
     postData = request.json

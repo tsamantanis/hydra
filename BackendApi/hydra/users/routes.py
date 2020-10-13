@@ -42,6 +42,7 @@ def signUp():
             "email": email,
             "password": passHash,
             "authToken": None,
+            "enrolledGroups": [],
         }
     )
     authorizedUser = createToken(email, password)
