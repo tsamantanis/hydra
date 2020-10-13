@@ -9,7 +9,7 @@ import os
 
 groups = Blueprint("groups", __name__)
 
-stripe.api_key = "sk_test_51AQPwCHlrGbOVNVCu63XWCFDErvBRpBjUzQP825hGTcPvye0Eg0Lf4kOJW4mvEaHw7lSVxIpCOQRh887RGB74RRB00y5XZrF75"
+
 @groups.route("", methods=["GET"])
 def allGroups():
     """Show all groups to users, enable search on client."""
