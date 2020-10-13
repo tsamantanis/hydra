@@ -46,7 +46,7 @@ def contentId(groupId, contentId, channelId):
     """
     Access content by id.
 
-    Allow for deletion, updating, and adding new content.
+    Allow for deletion, adding new content.
     For each different method, return JSON data
     corresponding to action taken.
     """
@@ -97,77 +97,16 @@ def contentCreate(groupId):
                 "name": postData.get("name"),
                 "dis": postData.get("dis"),
                 "text": [],
-                "url": [],
+                "url": [postData.get('url')],
                 "channelId": insertedChannel.inserted_id,
             }
         )
-        print(f"Inserted content: {content}")
-        # for videoData in postData.get("videos"):
-        #     jsonSet = {}
-        #     if videoData["dis"] is not None:
-        #         jsonSet["dis"] = videoData["dis"]
-        #     if videoData["url"] is not None:
-        #         jsonSet["url"] = videoData["url"]
-        #     elif postFiles.get(videoData["tempFileId"]) is not None:
-        #         videoFile = postFiles.get(videoData["tempFileId"])
-        #         path = app.config["VIDEO_PATH"]
-        #         jsonSet["url"] = path.join(
-        #             path,
-        #             "{0}.{1}".format(
-        #                 {videoData["_id"]},
-        #                 videoFile.filename.split(".")[-1],
-        #             ),
-        #         )
-        #         videoFile.save(jsonSet["url"])
-            # else:
-            #     createdContent = db.Video.insert(jsonSet)
-            #     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
-            #     group["contentIds"].append(createdContent["_id"])
-            #     return (
-            #         jsonify({"msg": "Your files have been added!"}),
-            #         200,
-            #     )  # TODO: What do we want to return here?
-
-        # for pdfData in postData.get("pdfs"):
-        #     jsonSet = {}
-        #     if pdfData["dis"] is not None:
-        #         jsonSet["dis"] = pdfData["dis"]
-        #     if pdfData["url"] is not None:
-        #         jsonSet["url"] = pdfData["url"]
-        #     elif postFiles.get(pdfData["tempFileId"]) is not None:
-        #         path = app.config["PDF_PATH"]
-        #         pdfFile = postFiles.get(pdfData["tempFileId"])
-        #         jsonSet["url"] = path.join(
-        #             path,
-        #             "{0}.{1}".format(
-        #                 {pdfData["_id"]},
-        #                 pdfFile.filename.split(".")[-1],
-        #             ),
-        #         )
-        #         pdfFile.save(jsonSet["url"])
-        #     else:
-        #         createdContent = db.Pdf.insert(jsonSet)
-        #         group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
-        #         group["contentIds"].append(createdContent["_id"])
-        #         return (
-        #             jsonify({"msg": "Your files have been added!"}),
-        #             200,
-        #         )  # TODO: What do we want to return here?
         createdContent = db.Content.find_one_or_404(
             {"name": postData.get("name")}
         )
         group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
         group["contentIds"].append(createdContent["_id"])
-        data = {
-            {
-                "name": postData.get("name"),
-                "dis": postData.get("dis"),
-                "text": [],
-                "url": [],
-                "channelId": insertedChannel.inserted_id,
-            }
-        }
-        return dumps(data)
+        return dumps(createdContent)
     except Exception as e:
         print(e)
         return jsonify({"msg": "Unable to upload files"}), 200
