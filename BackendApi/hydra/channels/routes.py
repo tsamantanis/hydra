@@ -95,6 +95,7 @@ def getChannelPosts(groupId, channelId):
         "channelId": post["channelId"],
         "name": post["name"],
         "dis": post["dis"],
+        "url": post["url"] if post["url"] != None else "",
         "ownerName" : "{0} {1}".format(owner['firstName'], owner['lastName']) if owner != None else ""
     }
     return dumps(data), 200

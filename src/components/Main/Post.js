@@ -9,6 +9,7 @@ class Post extends Component {
             photo: ""
 
         }
+        console.log(this.props.post);
         return (
             <div className='Post'>
                 <div className='UserItem m-b-20'>
@@ -26,7 +27,7 @@ class Post extends Component {
                     <div className='PostMessage m-b-10'>
                         <p>{this.props.post.dis}</p>
                     </div>
-                    <div className='PostImage m-b-20' />
+                    {this.props.post.url !== '' && <a href={this.props.post.url} type="_blank"><button className="PostLink">View URL</button></a>}
                 </div>
                 <hr />
                 <div className='PostComments m-t-20 m-b-20'>

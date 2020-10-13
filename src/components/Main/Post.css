@@ -92,11 +92,12 @@
     align-self: flex-start;
 }
 
-.Post .PostContent .PostImage {
-    height: 234px;
-    width: 100%;
+.Post .PostContent .PostLink {
+    height: 40px;
+    width: 100px;
     border-radius: 10px;
     background: var(--accent-desat);
+    color: var(--accent);
 }
 
 .Post .AddComment .UserItem input[type="text"] {
