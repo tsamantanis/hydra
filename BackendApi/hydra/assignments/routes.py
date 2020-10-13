@@ -96,7 +96,7 @@ def assignmentCreate(groupId):
             "dueDate": postData.get("dueDate"),
             "startDate": postData.get("startDate"),
             "url": postData.get("url"),
-            "channelId": str(new_channel.inserted_id)
+            "channelId": new_channel.inserted_id
         }
     )
 

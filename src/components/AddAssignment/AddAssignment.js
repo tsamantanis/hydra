@@ -40,7 +40,7 @@ class AddAssignment extends Component {
         if (name && dis && maxGrade && dueDate && startDate) {
             api({
                 method: 'POST',
-                url: '/groups/5f848e95c86be6cef283dfee/channels/assignments/create',
+                url: '/groups/5f851b320305d23b48751521/channels/assignments/create',
                 data: {
                     "name": name,
                     "dis": dis,

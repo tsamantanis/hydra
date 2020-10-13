@@ -70,7 +70,7 @@ class Discover extends Component {
                 <div className="row">
                     <form className='search col-12'>
                         <label htmlFor='discoverClasses'><h4 className='m-0'>Discover Classes</h4></label>
-                        <input type='text' className='discoverClasses' name='discoverClasses' id='discoverClasses' placeholder='Search from a list of thousands of classes' value={this.state.searchTerm} onChange={this.updateSearch} />
+                        <input type='text' className='discoverClasses' name='discoverClasses' id='discoverClasses' placeholder='Try searching for CS1.1' value={this.state.searchTerm} onChange={this.updateSearch} />
                     </form>
                 </div>
                 {filteredGroups ?

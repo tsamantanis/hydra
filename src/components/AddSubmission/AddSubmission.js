@@ -30,7 +30,7 @@ class AddSubmission extends Component {
         if (url) {
             api({
                 method: 'POST',
-                url: '/groups/5f848e95c86be6cef283dfee/assignments/5f84e4a8b1b1e1bc745474c7/submissions/create',
+                url: '/groups/5f851b320305d23b48751521/assignments/5f84e4a8b1b1e1bc745474c7/submissions/create',
                 data: {
                     "tempFieldId": url,
                     "userId": 100,
