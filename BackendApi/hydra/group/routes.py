@@ -152,19 +152,26 @@ def groupIdJoin(groupId):
     group = db.Group.find_one({"_id": ObjectId(groupId)})
     user = db.users.find_one({"_id": ObjectId(current_user.id)})
     if group is not None:
-        # if group['enrolledIds'] is None:
-        #
-        # updatedGroup = db.Group.update_one({'_id': group['_id']}, {"$set": {
-        #     "enrolledIds": group['enrolledIds'].append(user['_id'])
-        # }})
-        # print(user['enrolledGroups'])
-        # updatedUser = db.users.update_one({'_id': user['_id']}, {
-        #     "$set": {
-        #         "enrolledGroups": user['enrolledGroups'].append(group['_id'])
-        #     }
-        # })
-        print(f"User name {user['firstName']}")
-        print(f" User enrolled groups: {user['enrolledGroups']}")
+        if group['enrolledIds'] is None:
+            updatedGroup = db.Group.update_one({'_id': group['_id']}, {"$set": {
+                "enrolledIds": [user['_id']]
+            }})
+        else:
+            updatedGroup = db.Group.update_one({'_id': group['_id']}, {"$set": {
+                "enrolledIds": group['enrolledIds'].append(user['_id'])
+            }})
+        if user['enrolledGroups'] is None:
+            updatedUser = db.users.update_one({'_id': user['_id']}, {
+                "$set": {
+                    "enrolledGroups": [group['_id']]
+                }
+            })
+        else:
+            updatedGroup = db.users.update_one({'_id': group['_id']}, {
+                "$set": {
+                    "enrolledIds": user['enrolledGroups'].append(group['_id'])
+                    }
+            })
         return jsonify({"msg": "Group successfully joined!"}), 200
     elif group is None:
         return jsonify({"msg": "Group Not Found"}), 404
