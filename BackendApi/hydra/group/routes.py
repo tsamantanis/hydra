@@ -134,7 +134,7 @@ def groupId(groupId):
     )
     data = {
         "name": group["name"],
-        "groupId": group["_id"],
+        "groupId": str(group["_id"]),
         "ownerId": group["ownerId"],
         "enrolledIds": [
             {str(index): enrolledId}
@@ -151,7 +151,7 @@ def groupId(groupId):
         ],
         "price": priceStripeObject.get("unit_amount"),
     }
-    return dumps(data), 200
+    return jsonify(data), 200
 
 
 # TODO: more testing on these routes with frontend
