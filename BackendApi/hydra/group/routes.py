@@ -30,6 +30,8 @@ def allGroups():
         )
     return dumps(groupData), 200
 
+# TODO: if time permits, come up with better solution for filtering groups
+
 
 @groups.route("/yourgroups", methods=["GET"])
 @login_required
@@ -37,7 +39,8 @@ def UserSections():
     """Show all groups to current user's enrolled groups."""
     groups = []
     user = db.users.find_one({"_id": ObjectId(current_user.id)})
-    groups = db.Group.find({"enrolledIds": user['_id']})
+    while groups in user['enrolledGroups']:
+        groups = db.Group.find({"enrolledIds": user['_id']})
     data = [
         {
             "name": group["name"],
