@@ -102,24 +102,24 @@ def groupCreate():
     return jsonify({"msg": "Your group has been created"}), 200
 
 
-# @groups.route("/search", methods=["GET"])
-# @login_required
-# def groupSearch():
-#     """Search for groups to join (user)."""
-#     params = request.args.get("params")
-#     groups = list()
-#     for word in params:
-#         groups.append(db.Group.find_one_or_404({"$text": {"$search": word}}))
-#     groups
-#     print(groups)
-#     data = [
-#         {
-#             "name": group["_id"],
-#             "groupId": group["_id"],
-#         }
-#         for group in groups
-#     ]
-#     return dumps(data), 200
+@groups.route("/search", methods=["GET"])
+@login_required
+def groupSearch():
+    """Search for groups to join (user)."""
+    params = request.args.get("params")
+    groups = list()
+    for word in params:
+        groups.append(db.Group.find_one_or_404({"$text": {"$search": word}}))
+    groups
+    print(groups)
+    data = [
+        {
+            "name": group["_id"],
+            "groupId": group["_id"],
+        }
+        for group in groups
+    ]
+    return dumps(data), 200
 
 
 @groups.route("/<groupId>", methods=["GET"])
@@ -175,21 +175,17 @@ def groupIdJoin(groupId):
     group = db.Group.find({"_id": ObjectId(groupId)})
     if group is None:
         return jsonify({"msg": "Group Not Found"}), 404
-    if postData["paymentMethodId"]:
+    priceSubscriptionObject = stripe.Subscription.create(
+        customer=current_user.stripeId,
+        items=[
+            {"price": group["stripePriceId"]},
+        ],
+        defaultPaymentMethod=postData.paymentMethodId,
+    )
+    if priceSubscriptionObject.get("status") == "active":
+        group.enrolledId.append(current_user.id)
         current_user.enrolledGroups.append(group["_id"])
-        group.enrolledId.append(current_user["_id"])
         return jsonify({"msg": "Group Joined"}), 200
-    # priceSubscriptionObject = stripe.Subscription.create(
-    #     customer=current_user.stripeId,
-    #     items=[
-    #         {"price": group["stripePriceId"]},
-    #     ],
-    #     defaultPaymentMethod=postData.paymentMethodId,
-    # )
-    # if priceSubscriptionObject.get("status") == "active":
-    #     group.enrolledId.append(current_user.id)
-    #     current_user.enrolledGroups.append(group["_id"])
-    #     return jsonify({"msg": "Group Joined"}), 200
     return jsonify({"msg": "Error"}), 200
 
 

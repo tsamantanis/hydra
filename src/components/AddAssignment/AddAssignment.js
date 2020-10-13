@@ -36,6 +36,7 @@ class AddAssignment extends Component {
         const maxGrade = document.getElementById('totalPoints').value
         const dueDate = document.getElementById('dueDate').value
         const startDate = document.getElementById('startDate').value
+        const attachments = document.getElementById('attachments').value
         if (name && dis && maxGrade && dueDate && startDate) {
             api({
                 method: 'POST',
@@ -45,7 +46,8 @@ class AddAssignment extends Component {
                     "dis": dis,
                     "maxGrade": maxGrade,
                     "dueDate": dueDate,
-                    "startDate": startDate
+                    "startDate": startDate,
+                    "pdfs": attachments
                 },
             })
             .then(function (response) {
