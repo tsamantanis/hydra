@@ -27,7 +27,7 @@ def loadUserToken(request):
     s = Serializer(os.getenv("SECRET_KEY"))
     token = request.headers.get("Authorization")
     if token is None:
-        return jsonify({"msg": "Missing authoriation token."}), 405
+        return None
 
     elif token is not None:
         credential = token
@@ -72,7 +72,7 @@ def createToken(email, password):
                     }
                 ),
                 user,
-                token,
+                token
             )
     return jsonify({"msg": "No user found, check your credentials."})
 
