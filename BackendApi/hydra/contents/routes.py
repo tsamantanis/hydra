@@ -56,59 +56,17 @@ def contentId(groupId, channelId, contentId):
     if content is None:
         return jsonify({"msg": "Content Not Found"}), 404
     if request.method == "DELETE":
-        for videoId in content["videoIds"]:
-            db.Video.deleteOne({"_id": ObjectId(videoId)})
-        for pdfId in content["pdfIds"]:
-            db.Pdf.deleteOne({"_id": ObjectId(pdfId)})
         db.Content.deleteOne({"_id": ObjectId(content["_id"])})
         httpCode = 204
         return jsonify({"msg": "Content Deleted"}), httpCode
-    if request.method == "PATCH":
-        patchData = request.json
-        patchFiles = request.files
-        if patchData.get("pdfs"):
-            pdf = patchData.get("pdfs")
-            path = app.config["PDF_PATH"]
-            patchContent(pdf, patchData, patchFiles, path)
-        elif patchData.get("videos"):
-            video = patchData.get("videos")
-            path = app.config["VIDEO_PATH"]
-            patchContent(video, patchData, patchFiles, path)
         group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
         content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
-    videos = [
-        db.Video.find_one_or_404({"_id": ObjectId(videoId)})
-        for videoId in content["videoIds"]
-    ]
-    pdfs = [
-        db.Pdf.find_one_or_404({"_id": ObjectId(pdfId)})
-        for pdfId in content["pdfIds"]
-    ]
+
     data = {
         "name": content["name"],
         "dis": content["dis"],
         "contentId": content["_id"],
         "channelId": content["channelId"],
-        "videos": [
-            {
-                str(index): {
-                    "videoId": video["_id"],
-                    "url": video["url"],
-                    "dis": video["dis"],
-                }
-            }
-            for index, video in enumerate(videos)
-        ],
-        "pdfs": [
-            {
-                str(index): {
-                    "pdfId": pdf["_id"],
-                    "url": pdf["url"],
-                    "dis": pdf["dis"],
-                }
-            }
-            for index, pdf in enumerate(pdfs)
-        ],
     }
     return dumps(data), 200
 
@@ -270,53 +228,21 @@ def videoId(groupId, contentId, videoId):
 # TODO: Test more when file upload is supported on the front end
 
 
-@contents.route("/<contentId>/videos/add", methods=["POST"])
+@contents.route("/<contentId>/text/add", methods=["POST"])
 def videoAdd(groupId, contentId):
     """Add singular video to channel content."""
     jsonSet = {}
     content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
-    postFiles = request.files
-    if request.json.get("dis") is not None:
-        jsonSet["dis"] = request.json.get("dis")
-    video = db.Video.insert_one(jsonSet)
-    content["videos"].append(video.inserted_id)
-    if request.json.get("url") is not None:
-        jsonSet["url"] = request.json.get("url")
-    elif postFiles.get(request.json.get("tempFileId")) is not None:
-        videoFile = postFiles.get(request.json.get("tempFileId"))
-        jsonSet["url"] = path.join(
-            app.config["VIDEO_PATH"],
-            "{0}.{1}".format(
-                {video["_id"]},
-                videoFile.filename.split(".")[-1],
-            ),
-        )
-        videoFile.save(jsonSet["url"])
+
     db.Video.update({"_id": ObjectId(video["_id"])}, {"$set": jsonSet})
     return jsonify({"msg": "Your video has been added!"}), 200
 
 
-@contents.route("/<contentId>/pdfs/add", methods=["POST"])
+@contents.route("/<contentId>/url/add", methods=["POST"])
 def pdfAdd(groupId, contentId):
     """Add single pdf document to channel content."""
     jsonSet = {}
     content = db.Content.find_one_or_404({"_id": ObjectId(contentId)})
-    postFiles = request.files
-    if request.json.get("dis") is not None:
-        jsonSet["dis"] = request.json.get("dis")
-    pdf = db.Pdf.insert_one(jsonSet)
-    content["pdfs"].append(pdf.inserted_id)
-    if request.json.get("url") is not None:
-        jsonSet["url"] = request.json.get("url")
-    elif postFiles.get(request.json.get("tempFileId")) is not None:
-        videoFile = postFiles.get(request.json.get("tempFileId"))
-        jsonSet["url"] = path.join(
-            app.config["VIDEO_PATH"],
-            "{0}.{1}".format(
-                {pdf["_id"]},
-                videoFile.filename.split(".")[-1],
-            ),
-        )
-        videoFile.save(jsonSet["url"])
+    
     db.Pdf.update({"_id": ObjectId(pdf["_id"])}, {"$set": jsonSet})
     return jsonify({"msg": "Your document has been added!"}), 200
