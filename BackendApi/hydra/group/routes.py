@@ -87,6 +87,7 @@ def groupCreate():
             "keywords": postData["keywords"],
             "name": postData["name"],
             "userIoc": [],
+            "price": 30
         }
     )
     return jsonify({"msg": "Your group has been created"}), 200
@@ -123,10 +124,11 @@ def groupId(groupId):
         "name": group["name"],
         "groupId": str(group["_id"]),
         "ownerId": group["ownerId"],
-        "enrolledIds": [group["enrolledIds"]] or None,
-        "contentIds": [group["contentIds"]] or None,
+        "enrolledIds": group["enrolledIds"] or None,
+        "contentIds": group["contentIds"] or None,
         "dis": group["dis"],
-        "keywords": [group["keywords"]],
+        "keywords": group["keywords"],
+        "price": group['price'] or None
     }
     return dumps(data), 200
 

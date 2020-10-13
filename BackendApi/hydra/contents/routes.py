@@ -50,7 +50,6 @@ def contentId(groupId, contentId, channelId):
     For each different method, return JSON data
     corresponding to action taken.
     """
-    httpCode = 200
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     if group is None:
         return jsonify({"msg": "Group Not Found"}), 404
