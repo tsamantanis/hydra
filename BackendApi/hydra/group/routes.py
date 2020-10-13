@@ -137,7 +137,7 @@ def groupId(groupId):
             for index, keyword in enumerate(group["keywords"])
         ],
     }
-    return jsonify(data), 200
+    return dumps(data), 200
 
 
 @groups.route("/<groupId>/join", methods=["GET", "POST"])
