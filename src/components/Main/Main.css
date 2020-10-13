@@ -72,6 +72,7 @@
     color: var(--darkAccent);
     flex-basis: 17%;
     border: 2px solid var(--accent-desat);
+    border-top: none;
 }
 
 .Main .Channels-lg {
@@ -80,6 +81,7 @@
     color: var(--darkAccent);
     flex-basis: 23% !important;
     border: 2px solid var(--accent-desat);
+    border-top: none;
 }
 
 .Main .Channels h1 {
@@ -257,6 +259,7 @@
     color: var(--darkAccent);
     flex-basis: 20%;
     border: 2px solid var(--accent-desat);
+    border-top: none;
 }
 
 .Main .Users h1 {
