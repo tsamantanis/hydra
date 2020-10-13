@@ -36,21 +36,18 @@ class AddAssignment extends Component {
         const maxGrade = document.getElementById('totalPoints').value
         const dueDate = document.getElementById('dueDate').value
         const startDate = document.getElementById('startDate').value
-        const url = document.getElementById('videoUrl').value
+        const url = document.getElementById('projectUrl').value
         if (name && dis && maxGrade && dueDate && startDate) {
             api({
                 method: 'POST',
-                url: '/groups/5f848e95c86be6cef283dfee/assignments/create',
+                url: '/groups/5f848e95c86be6cef283dfee/channels/assignments/create',
                 data: {
                     "name": name,
                     "dis": dis,
                     "maxGrade": maxGrade,
                     "dueDate": dueDate,
                     "startDate": startDate,
-                    "videos": [{
-                        "url": url,
-                        "dis": url
-                    }]
+                    "url": url
                 },
             })
             .then(function (response) {
@@ -112,8 +109,8 @@ class AddAssignment extends Component {
                                     <input type='text' id='name' name='name' placeholder='Homework 1' required/>
                                 </div>
                                 <div className='userInput'>
-                                    <label htmlFor='videoUrl'>Video URL</label>
-                                    <input type='url' pattern="https://.*" id='videoUrl' name='videoUrl' placeholder='https://youtube.com/video' required/>
+                                    <label htmlFor='projectUrl'>Starter code URL</label>
+                                    <input type='url' pattern="https://.*" id='projectUrl' name='projectUrl' placeholder='https://github.com/repo' required/>
                                 </div>
                                 <div className='userInput'>
                                     <label htmlFor='startDate'>Start Date</label>

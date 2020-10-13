@@ -32,7 +32,7 @@ class AddTopic extends Component {
         const _this = this
         const name = document.querySelector('input[name=channelName]').value
         const dis = document.querySelector('input[name=description]').value
-        const url = document.querySelector('input[name=videoUrl]').value
+        const url = document.querySelector('input[name=projectUrl]').value
         if (name && dis) {
             api({
                 method: 'POST',
@@ -40,10 +40,7 @@ class AddTopic extends Component {
                 data: {
                     "name": name,
                     "dis": dis,
-                    "videos": [{
-                        "url": url,
-                        "dis": url
-                    }]
+                    "url": url
                 },
             })
             .then(function (response) {
@@ -88,8 +85,8 @@ class AddTopic extends Component {
                             <input type='text' id='description' name='description' placeholder='What is this channel about?' required />
                         </div>
                         <div className='userInput'>
-                            <label htmlFor='videoUrl'>Video URL</label>
-                            <input type='url' pattern="https://.*" id='videoUrl' name='videoUrl' placeholder='https://youtube.com/video' />
+                            <label htmlFor='projectUrl'>Video URL</label>
+                            <input type='url' pattern="https://.*" id='projectUrl' name='projectUrl' placeholder='https://youtube.com/video' />
                         </div>
                         <div className='buttonGradientContainerAlt m-b-40'>
                             <button onClick={this.createTopic}>Add</button>

@@ -11,6 +11,7 @@ groups = Blueprint("groups", __name__)
 
 
 @groups.route("", methods=["GET"])
+@login_required
 def allGroups():
     """Show all groups to users, enable search on client."""
     groups = db.Group.find({})
@@ -18,9 +19,6 @@ def allGroups():
     print(f"Getting data: {groups}")
     for group in groups:
         print(group)
-        priceStripeObject = stripe.Price.retrieve(
-            group["stripePriceId"],
-        )
         groupData.append(
             {
                 "_id": str(group["_id"]),
@@ -28,7 +26,6 @@ def allGroups():
                 "dis": group["dis"],
                 "ownerId": group["ownerId"],
                 "contentIds": group["contentIds"],
-                "stripePriceId": priceStripeObject.get("unit_amount"),
                 "keywords": group["keywords"],
             }
         )
@@ -79,7 +76,6 @@ def UserSections():
 def groupCreate():
     """Create new group."""
     postData = request.json
-    priceStripeObject = {"name": "fake", "id": "123"}
     db.Group.insert_one(
         {
             "ownerId": postData["ownerId"],
@@ -90,7 +86,6 @@ def groupCreate():
             "channelsIds": [],
             "keywords": postData["keywords"],
             "name": postData["name"],
-            "stripePriceId": priceStripeObject.get("id"),
             "userIoc": [],
         }
     )
@@ -124,9 +119,6 @@ def groupId(groupId):
     group = db.Group.find_one({"_id": ObjectId(groupId)})
     if group is None:
         return "Group Not Found", 404
-    priceStripeObject = stripe.Price.retrieve(
-        group["stripePriceId"],
-    )
     data = {
         "name": group["name"],
         "groupId": str(group["_id"]),
@@ -144,7 +136,6 @@ def groupId(groupId):
             {str(index): keyword}
             for index, keyword in enumerate(group["keywords"])
         ],
-        "price": priceStripeObject.get("unit_amount"),
     }
     return jsonify(data), 200
 
@@ -161,15 +152,17 @@ def groupIdJoin(groupId):
     group = db.Group.find_one({"_id": ObjectId(groupId)})
     user = db.users.find_one({"_id": ObjectId(current_user.id)})
     if group is not None:
+        # if group['enrolledIds'] is None:
+        #
         # updatedGroup = db.Group.update_one({'_id': group['_id']}, {"$set": {
         #     "enrolledIds": group['enrolledIds'].append(user['_id'])
         # }})
-        print(user['enrolledgroups'])
-        updatedUser = db.users.update_one({'_id': user['_id']}, {
-            "$set": {
-                "enrolledGroups": user['enrolledGroups'].append(group['_id'])
-            }
-        })
+        # print(user['enrolledGroups'])
+        # updatedUser = db.users.update_one({'_id': user['_id']}, {
+        #     "$set": {
+        #         "enrolledGroups": user['enrolledGroups'].append(group['_id'])
+        #     }
+        # })
         print(f"User name {user['firstName']}")
         print(f" User enrolled groups: {user['enrolledGroups']}")
         return jsonify({"msg": "Group successfully joined!"}), 200
@@ -190,15 +183,6 @@ def groupIdLeave(groupId):
     group = db.Group.find_one({"_id": ObjectId(groupId)})
     if group is None:
         return jsonify({"msg": "Group Not Found"}), 404
-    # UserSectionData = {}
-    # for group in current_user.enrolledGroups:
-    #     if group.get(groupId) == group["_id"]:
-    #         UserSectionData = group
-    # priceSubscriptionObject = stripe.Subscription.delete(
-    #     UserSectionData.get("stripeSubscriptionId")
-    # )
-    # if priceSubscriptionObject.get("status") == "canceled":
     group['enrolledIds'].remove(current_user.id)
     current_user.enrolledGroups.remove(group["_id"])
     return jsonify({"msg": "Group Left"}), 200
-    # return jsonify({"msg": "Error"}), 200

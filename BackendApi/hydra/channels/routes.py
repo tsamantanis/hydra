@@ -82,11 +82,11 @@ def getChannelPosts(groupId, channelId):
     channel = db.channels.find_one_or_404({"_id": ObjectId(channelId)})
     post = None
     if channel['category'] == 'content':
-        post = db.Content.find_one({"channelId": channelId})
+        post = db.Content.find_one({"channelId": ObjectId(channelId)})
     elif channel['category'] == 'assignments':
-        post = db.Assignment.find_one({"channelId": channelId})
+        post = db.Assignment.find_one({"channelId": ObjectId(channelId)})
     elif channel['category'] == 'discussions':
-        post = db.Discussion.find_one({"channelId": channelId})
+        post = db.Discussion.find_one({"channelId": ObjectId(channelId)})
     if group is None or post is None:
         return jsonify({"error": "Invalid id provided, please try again."})
     owner = db.users.find_one_or_404({"_id": ObjectId(group['ownerId'])})
