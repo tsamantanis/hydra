@@ -12,8 +12,8 @@ assignments = Blueprint("assignments", __name__)
 # base path /groups/<groupId>/channels/assignments
 
 
-@assignments.route("", methods=["GET"])
-def contentAll(groupId):
+@assignments.route("/<channelId>", methods=["GET"])
+def contentAll(groupId, channelId):
     """Show all assignments for particular group."""
     group = db.Group.find_one_or_404({"_id": ObjectId(groupId)})
     assignments = [
