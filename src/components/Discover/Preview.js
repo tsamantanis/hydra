@@ -35,7 +35,7 @@ class Preview extends Component {
         })
     }
 
-    enrollUserInGroup() {
+    enrollUserInGroup = () => {
         api({
             method: 'POST',
             url: '/groups/' + this.props.match.params.id + '/join',
@@ -51,7 +51,7 @@ class Preview extends Component {
         })
     }
 
-    goToPayment() {
+    goToPayment = () => {
         this.enrollUserInGroup()
         window.location.href = '/'
     }
