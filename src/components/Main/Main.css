@@ -73,6 +73,7 @@
     flex-basis: 17%;
     border: 2px solid var(--accent-desat);
     border-top: none;
+    overflow-y: scroll;
 }
 
 .Main .Channels-lg {
@@ -82,6 +83,7 @@
     flex-basis: 23% !important;
     border: 2px solid var(--accent-desat);
     border-top: none;
+    overflow-y: scroll;
 }
 
 .Main .Channels h1 {

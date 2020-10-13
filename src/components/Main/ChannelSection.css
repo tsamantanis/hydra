@@ -1,7 +1,7 @@
 .ChannelSection {
     width: 100%;
     padding: 0px 20px 20px 20px;
-    overflow-y: scroll;
+    overflow-y: visible;
     border-bottom: 2px solid var(--accent-desat);
 }
 
